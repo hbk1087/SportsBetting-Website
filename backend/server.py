@@ -14,8 +14,8 @@ def get_time():
  
     # Returning an api for showing in  reactjs
     return {
-        'Name':"geek", 
-        "Age":"22",
+        'Name':"sportsmodel", 
+        "Age":"2023",
         "Date":x, 
         "programming":"python"
         }
