@@ -1,36 +1,37 @@
 # Import flask and datetime module for showing date and time
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
-from pymongo.errors import PyMongoError
+from models.GameModel import Game
 
 import os
 from dotenv import load_dotenv
 
 import datetime
  
-x = datetime.datetime.now()
- 
+load_dotenv()
+
 # Initializing flask app
 app = Flask(__name__)
+mongo_uri = os.getenv('MONGO_URI')
 
-# MongoDB Atlas connection string
-mongo_username = os.getenv('MONGO_USERNAME')
-mongo_password = os.getenv('MONGO_PASSWORD')
-mongo_uri = f"mongodb+srv://{mongo_username}:{mongo_password}@sportsbet.ah9rvyf.mongodb.net/?retryWrites=true&w=majority"
 
 try:
     # Connect to MongoDB
     client = MongoClient(mongo_uri)
+    db = client.games_db
+    #collection = db['data']
 
-    # Access database
-    db = client.sportsbet
 
-except PyMongoError as e:
-    print("Could not connect to MongoDB - please check authentication details and try again.")
- 
+except Exception as e:
+    # Todo: implement better exception handling
+    print(f"Could not connect to MongoDB - please check authentication details and try again.\nError details: {e}")
+
+# variables
+x = datetime.datetime.now()
+
 # Route for main page
 @app.route('/')
-def connect():
+def index():
     return {
         'mssg' : "u made it in"
     }
@@ -47,6 +48,26 @@ def get_time():
         "programming":"python"
         }
  
+@app.route('/create_game', methods=['POST'])
+def create_game():
+    data = request.json
+    print(data)
+    away_team = data.get('away_team')
+    home_team = data.get('home_team')
+    over = data.get('over')
+    under = data.get('under')
+    best_bet = data.get('best_bet')
+
+    try:
+        game = Game(away_team, home_team, over, under, best_bet)
+        client.db.games_db.insert_one(game.__dict__)
+        print("hello")
+        return jsonify({
+            'message': 'Game created successfully.'
+        }, 201)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}, 500)
      
 # Running app
 if __name__ == '__main__':
