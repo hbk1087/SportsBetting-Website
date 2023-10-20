@@ -2,31 +2,28 @@ import requests
 from dotenv import load_dotenv
 import os
 import json
+from models.NFLModel import NFLModel
 
-load_dotenv()
+# load_dotenv()
 
-secret_key = os.getenv('API_KEY')
-# Replace this URL with the actual API URL you want to call
-api_url = f"https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey={secret_key}&regions=us&markets=h2h,spreads,totals&oddsFormat=american&bookmakers=fanduel"
-print(api_url)
-# Send a GET request to the API
-response = requests.get(api_url)
+# secret_key = os.getenv('API_KEY')
+# # Replace this URL with the actual API URL you want to call
+# api_url = f"https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey={secret_key}&regions=us&markets=h2h,spreads,totals&oddsFormat=decimal&bookmakers=fanduel"
+# print(api_url)
+# # Send a GET request to the API
+# response = requests.get(api_url)
 
-json_object = json.loads(response.text)
+# json_object = json.loads(response.text)
 
-json_formatted_str = json.dumps(json_object, indent=2)
+# json_formatted_str = json.dumps(json_object, indent=2)
 
-print(json_formatted_str)
+nfl = NFLModel()
 
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Print the response data as text
-    print("Response data:")
-    f = open('data.txt', 'w')
-    f.write(json_formatted_str)
-    f.close()
 
-    #print(response.text)
-else:
-    print(f"Request failed with status code {response.status_code}")
+res = nfl.apiPredict()
+
+
+print(res)
+
+
     #print(response.text)
