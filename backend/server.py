@@ -55,8 +55,8 @@ def create_game():
 
     try:
         #game = Game(away_team, home_team, over, under, best_bet, timestamp)
-        connection = connect('users')
-        connection.insert_one(data)
+        user_db = connect('users')
+        user_db.insert_one(data)
         print("hello")
         return jsonify({
             'message': 'Game created successfully.'

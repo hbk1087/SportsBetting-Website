@@ -3,8 +3,8 @@ from Account import Account
 
 class UserBet():
 
-    def __init__(self, account, gameModel, bet_type, wager, payout):
-        self.account = account # Account object here
+    def __init__(self, account_id, gameModel, bet_type, wager, payout):
+        self.account_id = account_id # Account object here
         self.gameModel = gameModel #GameModel object will go here
         self.bet_type = bet_type
         self.wager = wager

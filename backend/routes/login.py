@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify
 from models.Account import Account
 import bcrypt
 from db import connect
@@ -17,7 +17,7 @@ def login():
     # password = data.get('password')
 
     try:
-        connection = connect('users')
+        user_db = connect('users')
         # error = None
 
         # if not username:
