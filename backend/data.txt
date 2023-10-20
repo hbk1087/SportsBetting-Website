@@ -10,51 +10,51 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:00Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Jacksonville Jaguars",
-                "price": -113
+                "price": 1.25
               },
               {
                 "name": "New Orleans Saints",
-                "price": -113
+                "price": 3.85
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Jacksonville Jaguars",
-                "price": -128,
-                "point": 1.5
+                "price": 1.87,
+                "point": -5.5
               },
               {
                 "name": "New Orleans Saints",
-                "price": -102,
-                "point": -1.5
+                "price": 1.88,
+                "point": 5.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -114,
-                "point": 44.5
+                "price": 1.82,
+                "point": 40.5
               },
               {
                 "name": "Under",
-                "price": -114,
-                "point": 44.5
+                "price": 1.94,
+                "point": 40.5
               }
             ]
           }
@@ -73,50 +73,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Atlanta Falcons",
-                "price": 120
+                "price": 2.2
               },
               {
                 "name": "Tampa Bay Buccaneers",
-                "price": -142
+                "price": 1.7
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Atlanta Falcons",
-                "price": -110,
+                "price": 1.91,
                 "point": 2.5
               },
               {
                 "name": "Tampa Bay Buccaneers",
-                "price": -110,
+                "price": 1.91,
                 "point": -2.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 37.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 37.5
               }
             ]
@@ -136,50 +136,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Chicago Bears",
-                "price": 120
+                "price": 2.2
               },
               {
                 "name": "Las Vegas Raiders",
-                "price": -142
+                "price": 1.7
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Chicago Bears",
-                "price": -104,
+                "price": 1.96,
                 "point": 2.5
               },
               {
                 "name": "Las Vegas Raiders",
-                "price": -118,
+                "price": 1.85,
                 "point": -2.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 37.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 37.5
               }
             ]
@@ -199,50 +199,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Cleveland Browns",
-                "price": -166
+                "price": 1.6
               },
               {
                 "name": "Indianapolis Colts",
-                "price": 140
+                "price": 2.4
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Cleveland Browns",
-                "price": -110,
+                "price": 1.91,
                 "point": -3.0
               },
               {
                 "name": "Indianapolis Colts",
-                "price": -110,
+                "price": 1.91,
                 "point": 3.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -115,
+                "price": 1.87,
                 "point": 40.5
               },
               {
                 "name": "Under",
-                "price": -105,
+                "price": 1.95,
                 "point": 40.5
               }
             ]
@@ -262,50 +262,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Baltimore Ravens",
-                "price": -148
+                "price": 1.68
               },
               {
                 "name": "Detroit Lions",
-                "price": 126
+                "price": 2.26
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Baltimore Ravens",
-                "price": -105,
+                "price": 1.95,
                 "point": -3.0
               },
               {
                 "name": "Detroit Lions",
-                "price": -115,
+                "price": 1.87,
                 "point": 3.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 43.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 43.5
               }
             ]
@@ -325,50 +325,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Buffalo Bills",
-                "price": -460
+                "price": 1.22
               },
               {
                 "name": "New England Patriots",
-                "price": 360
+                "price": 4.6
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Buffalo Bills",
-                "price": -115,
+                "price": 1.87,
                 "point": -8.5
               },
               {
                 "name": "New England Patriots",
-                "price": -105,
+                "price": 1.95,
                 "point": 8.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 40.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 40.5
               }
             ]
@@ -388,50 +388,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "New York Giants",
-                "price": 124
+                "price": 2.24
               },
               {
                 "name": "Washington Commanders",
-                "price": -146
+                "price": 1.68
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "New York Giants",
-                "price": -115,
+                "price": 1.87,
                 "point": 3.0
               },
               {
                 "name": "Washington Commanders",
-                "price": -105,
+                "price": 1.95,
                 "point": -3.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 37.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 37.5
               }
             ]
@@ -451,50 +451,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Arizona Cardinals",
-                "price": 310
+                "price": 4.1
               },
               {
                 "name": "Seattle Seahawks",
-                "price": -390
+                "price": 1.26
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Arizona Cardinals",
-                "price": -105,
+                "price": 1.95,
                 "point": 7.5
               },
               {
                 "name": "Seattle Seahawks",
-                "price": -115,
+                "price": 1.87,
                 "point": -7.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 44.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 44.5
               }
             ]
@@ -514,50 +514,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Los Angeles Rams",
-                "price": -172
+                "price": 1.58
               },
               {
                 "name": "Pittsburgh Steelers",
-                "price": 144
+                "price": 2.44
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Los Angeles Rams",
-                "price": -120,
+                "price": 1.83,
                 "point": -3.0
               },
               {
                 "name": "Pittsburgh Steelers",
-                "price": -102,
+                "price": 1.98,
                 "point": 3.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -115,
+                "price": 1.87,
                 "point": 43.5
               },
               {
                 "name": "Under",
-                "price": -105,
+                "price": 1.95,
                 "point": 43.5
               }
             ]
@@ -577,50 +577,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Denver Broncos",
-                "price": 100
+                "price": 2.0
               },
               {
                 "name": "Green Bay Packers",
-                "price": -118
+                "price": 1.85
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Denver Broncos",
-                "price": -114,
+                "price": 1.88,
                 "point": 1.5
               },
               {
                 "name": "Green Bay Packers",
-                "price": -106,
+                "price": 1.94,
                 "point": -1.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 45.0
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 45.0
               }
             ]
@@ -640,50 +640,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Kansas City Chiefs",
-                "price": -230
+                "price": 1.43
               },
               {
                 "name": "Los Angeles Chargers",
-                "price": 194
+                "price": 2.94
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Kansas City Chiefs",
-                "price": -110,
+                "price": 1.91,
                 "point": -5.5
               },
               {
                 "name": "Los Angeles Chargers",
-                "price": -110,
+                "price": 1.91,
                 "point": 5.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -115,
+                "price": 1.87,
                 "point": 47.5
               },
               {
                 "name": "Under",
-                "price": -105,
+                "price": 1.95,
                 "point": 47.5
               }
             ]
@@ -703,50 +703,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Miami Dolphins",
-                "price": 120
+                "price": 2.22
               },
               {
                 "name": "Philadelphia Eagles",
-                "price": -142
+                "price": 1.69
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Miami Dolphins",
-                "price": -104,
+                "price": 1.96,
                 "point": 2.5
               },
               {
                 "name": "Philadelphia Eagles",
-                "price": -118,
+                "price": 1.85,
                 "point": -2.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.91,
                 "point": 51.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.91,
                 "point": 51.5
               }
             ]
@@ -766,50 +766,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Minnesota Vikings",
-                "price": 250
+                "price": 3.5
               },
               {
                 "name": "San Francisco 49ers",
-                "price": -310
+                "price": 1.32
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Minnesota Vikings",
-                "price": -118,
+                "price": 1.85,
                 "point": 7.0
               },
               {
                 "name": "San Francisco 49ers",
-                "price": -104,
+                "price": 1.96,
                 "point": -7.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 44.0
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 44.0
               }
             ]
@@ -829,50 +829,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Buffalo Bills",
-                "price": -430
+                "price": 1.23
               },
               {
                 "name": "Tampa Bay Buccaneers",
-                "price": 340
+                "price": 4.4
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Buffalo Bills",
-                "price": -110,
+                "price": 1.91,
                 "point": -8.5
               },
               {
                 "name": "Tampa Bay Buccaneers",
-                "price": -110,
+                "price": 1.91,
                 "point": 8.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -115,
+                "price": 1.87,
                 "point": 42.5
               },
               {
                 "name": "Under",
-                "price": -105,
+                "price": 1.95,
                 "point": 42.5
               }
             ]
@@ -892,50 +892,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Atlanta Falcons",
-                "price": -110
+                "price": 1.91
               },
               {
                 "name": "Tennessee Titans",
-                "price": -106
+                "price": 1.94
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Atlanta Falcons",
-                "price": -102,
+                "price": 1.98,
                 "point": -1.5
               },
               {
                 "name": "Tennessee Titans",
-                "price": -120,
+                "price": 1.83,
                 "point": 1.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 38.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 38.5
               }
             ]
@@ -955,50 +955,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Carolina Panthers",
-                "price": 130
+                "price": 2.3
               },
               {
                 "name": "Houston Texans",
-                "price": -154
+                "price": 1.65
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Carolina Panthers",
-                "price": -118,
+                "price": 1.85,
                 "point": 3.0
               },
               {
                 "name": "Houston Texans",
-                "price": -104,
+                "price": 1.96,
                 "point": -3.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 41.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 41.5
               }
             ]
@@ -1018,50 +1018,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Dallas Cowboys",
-                "price": -260
+                "price": 1.38
               },
               {
                 "name": "Los Angeles Rams",
-                "price": 215
+                "price": 3.15
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Dallas Cowboys",
-                "price": -110,
+                "price": 1.91,
                 "point": -6.0
               },
               {
                 "name": "Los Angeles Rams",
-                "price": -110,
+                "price": 1.91,
                 "point": 6.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -115,
+                "price": 1.87,
                 "point": 45.5
               },
               {
                 "name": "Under",
-                "price": -105,
+                "price": 1.95,
                 "point": 45.5
               }
             ]
@@ -1081,50 +1081,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Green Bay Packers",
-                "price": -122
+                "price": 1.82
               },
               {
                 "name": "Minnesota Vikings",
-                "price": 104
+                "price": 2.04
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Green Bay Packers",
-                "price": -110,
+                "price": 1.91,
                 "point": -1.5
               },
               {
                 "name": "Minnesota Vikings",
-                "price": -110,
+                "price": 1.91,
                 "point": 1.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 43.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 43.5
               }
             ]
@@ -1144,50 +1144,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Indianapolis Colts",
-                "price": 108
+                "price": 2.08
               },
               {
                 "name": "New Orleans Saints",
-                "price": -126
+                "price": 1.79
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Indianapolis Colts",
-                "price": -115,
+                "price": 1.87,
                 "point": 2.5
               },
               {
                 "name": "New Orleans Saints",
-                "price": -105,
+                "price": 1.95,
                 "point": -2.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 40.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 40.5
               }
             ]
@@ -1207,50 +1207,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Miami Dolphins",
-                "price": -700
+                "price": 1.14
               },
               {
                 "name": "New England Patriots",
-                "price": 500
+                "price": 6.0
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Miami Dolphins",
-                "price": -110,
+                "price": 1.91,
                 "point": -12.5
               },
               {
                 "name": "New England Patriots",
-                "price": -110,
+                "price": 1.91,
                 "point": 12.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 47.0
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 47.0
               }
             ]
@@ -1270,50 +1270,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "New York Giants",
-                "price": 136
+                "price": 2.36
               },
               {
                 "name": "New York Jets",
-                "price": -162
+                "price": 1.62
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "New York Giants",
-                "price": -105,
+                "price": 1.95,
                 "point": 3.0
               },
               {
                 "name": "New York Jets",
-                "price": -115,
+                "price": 1.87,
                 "point": -3.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 36.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 36.5
               }
             ]
@@ -1333,50 +1333,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Philadelphia Eagles",
-                "price": -260
+                "price": 1.38
               },
               {
                 "name": "Washington Commanders",
-                "price": 215
+                "price": 3.15
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Philadelphia Eagles",
-                "price": -110,
+                "price": 1.91,
                 "point": -6.0
               },
               {
                 "name": "Washington Commanders",
-                "price": -110,
+                "price": 1.91,
                 "point": 6.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 45.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 45.5
               }
             ]
@@ -1396,50 +1396,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Cleveland Browns",
-                "price": 106
+                "price": 2.06
               },
               {
                 "name": "Seattle Seahawks",
-                "price": -124
+                "price": 1.81
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Cleveland Browns",
-                "price": -110,
+                "price": 1.91,
                 "point": 1.5
               },
               {
                 "name": "Seattle Seahawks",
-                "price": -110,
+                "price": 1.91,
                 "point": -1.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 41.0
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 41.0
               }
             ]
@@ -1459,50 +1459,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Arizona Cardinals",
-                "price": 275
+                "price": 3.75
               },
               {
                 "name": "Baltimore Ravens",
-                "price": -340
+                "price": 1.29
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Arizona Cardinals",
-                "price": -110,
+                "price": 1.91,
                 "point": 7.0
               },
               {
                 "name": "Baltimore Ravens",
-                "price": -110,
+                "price": 1.91,
                 "point": -7.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 43.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 43.5
               }
             ]
@@ -1522,50 +1522,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Cincinnati Bengals",
-                "price": 210
+                "price": 3.1
               },
               {
                 "name": "San Francisco 49ers",
-                "price": -255
+                "price": 1.39
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Cincinnati Bengals",
-                "price": -110,
+                "price": 1.91,
                 "point": 6.0
               },
               {
                 "name": "San Francisco 49ers",
-                "price": -110,
+                "price": 1.91,
                 "point": -6.0
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -110,
+                "price": 1.91,
                 "point": 45.5
               },
               {
                 "name": "Under",
-                "price": -110,
+                "price": 1.91,
                 "point": 45.5
               }
             ]
@@ -1585,50 +1585,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Denver Broncos",
-                "price": 350
+                "price": 4.5
               },
               {
                 "name": "Kansas City Chiefs",
-                "price": -450
+                "price": 1.22
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Denver Broncos",
-                "price": -105,
+                "price": 1.95,
                 "point": 8.5
               },
               {
                 "name": "Kansas City Chiefs",
-                "price": -115,
+                "price": 1.87,
                 "point": -8.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 46.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 46.5
               }
             ]
@@ -1648,50 +1648,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Chicago Bears",
-                "price": 440
+                "price": 5.4
               },
               {
                 "name": "Los Angeles Chargers",
-                "price": -590
+                "price": 1.17
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Chicago Bears",
-                "price": -112,
+                "price": 1.89,
                 "point": 10.5
               },
               {
                 "name": "Los Angeles Chargers",
-                "price": -108,
+                "price": 1.93,
                 "point": -10.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -105,
+                "price": 1.95,
                 "point": 45.5
               },
               {
                 "name": "Under",
-                "price": -115,
+                "price": 1.87,
                 "point": 45.5
               }
             ]
@@ -1711,50 +1711,50 @@
       {
         "key": "fanduel",
         "title": "FanDuel",
-        "last_update": "2023-10-20T00:44:01Z",
+        "last_update": "2023-10-20T02:15:34Z",
         "markets": [
           {
             "key": "h2h",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Detroit Lions",
-                "price": -360
+                "price": 1.28
               },
               {
                 "name": "Las Vegas Raiders",
-                "price": 290
+                "price": 3.9
               }
             ]
           },
           {
             "key": "spreads",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Detroit Lions",
-                "price": -110,
+                "price": 1.91,
                 "point": -7.5
               },
               {
                 "name": "Las Vegas Raiders",
-                "price": -110,
+                "price": 1.91,
                 "point": 7.5
               }
             ]
           },
           {
             "key": "totals",
-            "last_update": "2023-10-20T00:44:00Z",
+            "last_update": "2023-10-20T02:15:34Z",
             "outcomes": [
               {
                 "name": "Over",
-                "price": -115,
+                "price": 1.87,
                 "point": 44.5
               },
               {
                 "name": "Under",
-                "price": -105,
+                "price": 1.95,
                 "point": 44.5
               }
             ]
