@@ -21,7 +21,7 @@ app = Flask(__name__)
 x = datetime.datetime.now()
 
 # Route for main page to see all nfl games
-app.register_blueprint(nfl_blueprint, url_prefix='/')
+app.register_blueprint(nfl_blueprint, url_prefix='/nfl')
 
 # Route for signup page to see all nfl games
 app.register_blueprint(signup_blueprint, url_prefix='/')
