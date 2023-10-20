@@ -51,7 +51,7 @@ def signup():
             except Exception as e:
                 return jsonify({'error': str(e)}, 500)
     
-    return app.send_static_file('index.html')
+    return app.send_static_file('index.html') # Re-render back to home or some static page
 
 
     

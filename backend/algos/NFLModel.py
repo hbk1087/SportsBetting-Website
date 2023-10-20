@@ -15,6 +15,7 @@ from sklearn.pipeline import make_pipeline
 from models.GameModel import GameModel
 from datetime import datetime
 import pytz
+from db import connect
 
 class NFLModel:
 
@@ -301,3 +302,9 @@ class NFLModel:
     def makeAllPretty(self):
         self.all_pretty = [self.makePretty(x) for x in self.json_list]
         return self.all_pretty
+    
+    def populateDB(self):
+        connection = connect('games')
+        for element in self.makeAllPretty():
+            if len(list(connection.find({'game_id': element["game_id"]}))) <= 0:
+                connection.insert_one(element)
