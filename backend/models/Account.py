@@ -14,7 +14,8 @@ class Account():
         self.unhashed_password = password
         self.data_dict = self.getAccount()
         self.bets = []
-        self.balance = 0
+        self.lifetime_winnings = 0
+        self.current_balance = 0
 
     def getAccount(self):
         data_dict = {
