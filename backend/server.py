@@ -1,10 +1,13 @@
 # Import flask and datetime module for showing date and time
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
-from models.GameModel import Game
-
 import os
 from dotenv import load_dotenv
+from models.GameModel import GameModel
+from routes.showNFL import nfl_blueprint
+from routes.signUp import signup_blueprint
+from routes.login import login_blueprint
+from db import connect
 
 import datetime
  
@@ -12,29 +15,19 @@ load_dotenv()
 
 # Initializing flask app
 app = Flask(__name__)
-mongo_uri = os.getenv('MONGO_URI')
 
-
-try:
-    # Connect to MongoDB
-    client = MongoClient(mongo_uri)
-    db = client.games_db
-    #collection = db['data']
-
-
-except Exception as e:
-    # Todo: implement better exception handling
-    print(f"Could not connect to MongoDB - please check authentication details and try again.\nError details: {e}")
 
 # variables
 x = datetime.datetime.now()
 
-# Route for main page
-@app.route('/')
-def index():
-    return {
-        'mssg' : "u made it in"
-    }
+# Route for main page to see all nfl games
+app.register_blueprint(nfl_blueprint, url_prefix='/')
+
+# Route for signup page to see all nfl games
+app.register_blueprint(signup_blueprint, url_prefix='/')
+
+# Route for signup page to see all nfl games
+app.register_blueprint(login_blueprint, url_prefix='/')
 
 # Route for seeing a data
 @app.route('/data')
@@ -57,10 +50,13 @@ def create_game():
     over = data.get('over')
     under = data.get('under')
     best_bet = data.get('best_bet')
+    timestamp = data.get('timestamp')
+    
 
     try:
-        game = Game(away_team, home_team, over, under, best_bet)
-        client.db.games_db.insert_one(game.__dict__)
+        #game = Game(away_team, home_team, over, under, best_bet, timestamp)
+        connection = connect('users')
+        connection.insert_one(data)
         print("hello")
         return jsonify({
             'message': 'Game created successfully.'
