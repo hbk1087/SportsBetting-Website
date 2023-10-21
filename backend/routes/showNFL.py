@@ -25,11 +25,11 @@ def get_games():
         element['_id'] = str(element['_id'])
     
     response = jsonify(data)
-    response = jsonify({"nfl_data": data})
+    # response = jsonify({"nfl_data": data})
 
     response.status_code = 200
     response.headers.add('Access-Control-Allow-Origin', '*')
-    
+
     try:
         return response
 
