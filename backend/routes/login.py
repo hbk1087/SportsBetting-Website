@@ -2,9 +2,9 @@ from flask import Blueprint, request, jsonify
 from models.Account import Account
 import bcrypt
 from db import connect
-from flask_login import LoginManager
+# from flask_login import LoginManager
 
-
+login_blueprint = Blueprint('login_blueprint', __name__)
 
 @login_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -15,10 +15,10 @@ def login():
     # data = request.json
     # username = data.get('username')
     # password = data.get('password')
-    login_manager = LoginManager()
+    # login_manager = LoginManager()
 
-    login_blueprint = Blueprint('login_blueprint', __name__)
-    login_manager.init_app(app)
+    
+    # login_manager.init_app(app)
 
 
     try:

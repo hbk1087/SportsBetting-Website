@@ -1,8 +1,6 @@
 import bcrypt
 
-
 class Account():
-
     def __init__(self, username, first_name, last_name, email, phone_number, address, password):
         self.username = username
         self.first_name = first_name

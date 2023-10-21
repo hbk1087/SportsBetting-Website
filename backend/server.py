@@ -8,7 +8,6 @@ from routes.showNFL import nfl_blueprint
 from routes.signUp import signup_blueprint
 from routes.login import login_blueprint
 from db import connect
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 import datetime
  
@@ -18,45 +17,43 @@ load_dotenv()
 app = Flask(__name__)
 
 # Initialize Flask-Login
-login_manager = LoginManager()
-login_manager.init_app(app)
 
-# Mock user data (in practice, this comes from a database)
-class User(UserMixin):
-    def __init__(self, user_id):
-        self.id = user_id
+# # Mock user data (in practice, this comes from a database)
+# class User(UserMixin):
+#     def __init__(self, user_id):
+#         self.id = user_id
 
-# User loader function to retrieve a user based on their ID
-@login_manager.user_loader
-def load_user(user_id):
-    return User(user_id)
+# # User loader function to retrieve a user based on their ID
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return User(user_id)
 
 # Login route
-@app.route('/login')
-def login():
-    user = User(1)  # In practice, you would validate user credentials here
-    login_user(user)
-    return redirect(url_for('dashboard'))
+# @app.route('/login')
+# def login():
+#     user = User(1)  # In practice, you would validate user credentials here
+#     login_user(user)
+#     return redirect(url_for('dashboard'))
 
-# Dashboard route protected by @login_required
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    return f'Welcome, {current_user.id}!'
+# # Dashboard route protected by @login_required
+# @app.route('/dashboard')
+# @login_required
+# def dashboard():
+#     return f'Welcome, {current_user.id}!'
 
-# Logout route
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return 'Logged out'
+# # Logout route
+# @app.route('/logout')
+# @login_required
+# def logout():
+#     logout_user()
+#     return 'Logged out'
 
 
-# Settings route, need to be logged in
-@app.route("/settings")
-@login_required
-def settings():
-    pass
+# # Settings route, need to be logged in
+# @app.route("/settings")
+# @login_required
+# def settings():
+#     pass
 
 
 
@@ -73,16 +70,16 @@ app.register_blueprint(signup_blueprint, url_prefix='/')
 app.register_blueprint(login_blueprint, url_prefix='/')
 
 # Route for seeing a data
-@app.route('/data')
-def get_time():
+# @app.route('/data')
+# def get_time():
  
-    # Returning an api for showing in  reactjs
-    return {
-        'Name':"sport model", 
-        "Age":"2023",
-        "Date":x, 
-        "programming":"python"
-        }
+#     # Returning an api for showing in  reactjs
+#     return {
+#         'Name':"sport model", 
+#         "Age":"2023",
+#         "Date":x, 
+#         "programming":"python"
+#         }
  
 @app.route('/create_game', methods=['POST'])
 def create_game():

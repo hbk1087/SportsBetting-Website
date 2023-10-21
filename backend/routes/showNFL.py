@@ -23,14 +23,15 @@ def get_games():
     data = list(connection.find({'date': {"$gt": formatted_time}}))
     for element in data:
         element['_id'] = str(element['_id'])
-    print(data)
-    # nfl = NFLModel()
-    # data_json = nfl.all_pretty
-    #nfl.populateDB()
-    print(type(json.dumps(data)))
+    
+    response = jsonify(data)
+    response = jsonify({"nfl_data": data})
 
+    response.status_code = 200
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    
     try:
-        return jsonify(data)
+        return response
 
     except Exception as e:
         return jsonify({'error': str(e)}, 500)
