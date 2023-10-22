@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useGamesContext } from "../hooks/useGameContext"
 
 // components
-// import GameDetails from '../components/GameDetails'
+import GameDetails from '../components/GameDetails'
 // import CarForm from "../components/CarForm"
 
 const Home = () => {
@@ -23,9 +23,8 @@ const Home = () => {
         <div>
             <div>
                 {game.map((gameItem, index) => (
-                    <div key={index}>
-                        <p>Game ID: {gameItem.game_id}</p>
-                        <p>Away Team: {gameItem.away_team}</p>
+                    <div key={gameItem.game_id} className='game-details-container'>
+                        <GameDetails game={gameItem} />
                     </div>
                 ))}
                     

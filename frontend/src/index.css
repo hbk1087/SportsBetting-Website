@@ -7,12 +7,12 @@
   --error: #e7195a;
 }
 body {
-  background: #f1f1f1;
+  background: rgb(10, 10, 10);
   margin: 0;
   font-family: "Poppins";
 }
 header {
-  background: #fff;
+  background: rgb(43,144,255);
 }
 header .container {
   max-width: 1400px;
@@ -38,34 +38,63 @@ header a {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-.game-details {
-  background: #fff;
-  border-radius: 4px;
-  margin: 20px auto;
-  padding: 20px;
-  position: relative;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+
+.gameDetails-container {
+  background-color: rgb(19, 19, 20);
+  border-radius: 10px;
+  padding: 10px;
+  width: 400px; /* Adjust based on your need */
+  font-family: Arial, sans-serif;
 }
-.game-details h2 {
-  margin: 0 0 10px 0;
-  font-size: 1.2em;
-  color: var(--primary);
+
+/* Header */
+.gameDetails-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
-.game-details p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #555;
+
+/* Teams */
+.team {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
-.game-details span {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  background: #f1f1f1;
-  padding: 6px;
+
+.team-name {
+  color: rgb(36, 144, 217)
+}
+
+.team-logo {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  color: #333;
+  margin-right: 10px;
 }
+
+/* Betting details */
+.betting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #303030;
+  border-radius: 5px;
+}
+
+.betting span {
+  margin-right: 5px;
+}
+
+.betting-positive {
+  color: green;
+}
+
+.betting-negative {
+  color: red;
+}
+
+
 
 /* new game form */
 label, input {
