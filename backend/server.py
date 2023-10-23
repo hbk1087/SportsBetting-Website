@@ -75,18 +75,57 @@ def create_token():
 @app.route('/account')
 @jwt_required()
 def my_account():
-    response_body = {
-        "name": "Nagato",
-        "about" :"Hello! I'm a full stack developer that loves python and javascript"
+
+    current_account = get_jwt_identity()
+    connection = connect('users')
+
+    try:
+        account = list(connection.find({'username': current_account}))
+        # Make sure object id is string
+        for element in account:
+            element['_id'] = str(element['_id'])
+            
+        # Return account details
+        return good_response(account)
+    
+    except Exception as e:
+        return bad_response(e)
+
+
+# Update Users
+@app.route('/account_updates', methods=["POST"])
+def update_user():
+
+    username = request.json.get("username")
+
+    data = {
+    "username": username,
+    "password": request.json.get("password"),
+    "first_name": request.json.get("first_name"),
+    "last_name": request.json.get("last_name"),
+    "email": request.json.get("email"),
+    "phone_number": request.json.get("phone_number"),
+    "address": request.json.get("address"),
+    "bets": request.json.get("bets"),
+    "lifetime_winnings": request.json.get("lifetime_winnings"),
+    "current_balance": request.json.get("current_balance")
     }
 
-    return good_response(response_body)
+    try:
+        connection = connect('users')
+        connection.update_one({'username': username}, {'$set': data, '$currentDate': { 'lastUpdated': True }} )
+        return good_response(f"User {username} was updated")
+    except Exception as e:
+        return bad_response(e)
+
+
+
 
 @app.route("/logout", methods=["POST"])
 def logout():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
-    return response
+    return good_response(response)
 
 
 @app.route('/')
