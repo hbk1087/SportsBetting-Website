@@ -14,6 +14,7 @@ class Account():
         self.bets = []
         self.lifetime_winnings = 0
         self.current_balance = 0
+        # self.accountPreference = Preferences()
 
     def getAccount(self):
         data_dict = {
