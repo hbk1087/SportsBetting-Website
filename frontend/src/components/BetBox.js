@@ -1,3 +1,5 @@
+import '../css/BoxGrid.css';
+
 /*        
         self.account_username = account_username # Account object here
         self.game_id = game_id #GameModel object will go here
@@ -37,7 +39,7 @@ function BetBox({
 
   const renderAwaySpreadForm = () => {
     return (
-      <div style={{color: '#ffffff'}}>
+      <div className='form-container'>
         {/* Away odds form components */}
         <div>{away_spread}</div>
         <div>{away_spread_odds}</div>
@@ -48,7 +50,7 @@ function BetBox({
 
   const renderHomeSpreadForm = () => {
     return (
-      <div style={{color: '#ffffff'}}>
+      <div className='form-container'>
         <div>{home_spread}</div>
         <div>{home_spread_odds}</div>
       </div>
@@ -57,7 +59,7 @@ function BetBox({
 
   const renderMoneylineAwayForm = () => {
     return (
-      <div style={{color: '#ffffff'}}>
+      <div className='form-container'>
         {/* Away odds form components */}
         <div>{away_odds}</div>
         {/* Other input fields for this form */}
@@ -67,7 +69,7 @@ function BetBox({
 
   const renderMoneylineHomeForm = () => {
     return (
-      <div style={{color: '#ffffff'}}>
+      <div className='form-container'>
         {/* Home odds form components */}
         <div>{home_odds}</div>
         {/* Other input fields for this form */}
@@ -78,7 +80,7 @@ function BetBox({
 
   const renderTotalOverForm = () => {
     return (
-      <div style={{color: '#ffffff'}}>
+      <div className='form-container'>
         {/* Total form components */}
         <div>O {total}</div>
         <div>{over_odds}</div>
@@ -89,7 +91,7 @@ function BetBox({
 
   const renderTotalUnderForm = () => {
     return (
-      <div style={{color: '#ffffff'}}>
+      <div className='form-container'>
         {/* Total form components */}
         <div>U {total}</div>
         <div>{under_odds}</div>

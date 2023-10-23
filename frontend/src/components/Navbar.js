@@ -44,7 +44,7 @@ const Navbar = () => {
         <AppBar position="static">
         <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
+            <MenuIcon/>
             </IconButton>
 
             <Link to='/' style={{ textDecoration: 'none', color: 'inherit', flexGrow: 1 }}>

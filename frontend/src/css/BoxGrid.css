@@ -1,0 +1,29 @@
+/* General Styles */
+div {
+    font-family: Arial, sans-serif; /* Adjust to your desired font */
+    font-size: 18px; /* Adjust based on your preference */
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Box Styles */
+.form-container {
+    display: inline-block;
+    margin: 8px; /* Spacing between each form */
+    padding: 16px;
+    border: 2px solid #0c8a45; 
+    border-radius: 8px; 
+    width: 120px; /* Adjust based on your preference */
+    height: 80px; /* Adjust based on your preference */
+}
+
+.form-container div {
+    margin: 4px 0; 
+}
+
+/* Grid Styles */
+.grid-container {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;
+}
