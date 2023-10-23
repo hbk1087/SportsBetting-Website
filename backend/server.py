@@ -5,8 +5,8 @@ import os
 from dotenv import load_dotenv
 from routes.showNFL import nfl_blueprint
 from routes.signUp import signup_blueprint
-from routes.login import login_blueprint
 from routes.userBets import user_bets_blueprint
+from routes.account_updates import account_updates_blueprint
 from db import connect
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 from bson.objectid import ObjectId
@@ -14,6 +14,7 @@ import json
 from datetime import datetime, timedelta, timezone
 import bcrypt
 from routes.responses import good_response, bad_response
+import pytz
 
  
 load_dotenv()
@@ -21,7 +22,7 @@ load_dotenv()
 # Initializing flask app
 app = Flask(__name__, static_folder="static")
 
-# Session management
+### Login Session/Authentication management
 secret_key = os.getenv('SECRET_KEY')
 app.config["JWT_SECRET_KEY"] = secret_key
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
@@ -43,9 +44,8 @@ def refresh_expiring_jwts(response):
     except (RuntimeError, KeyError):
         # Case where there is not a valid JWT. Just return the original respone
         return response
-
-
-
+    
+# Get token to validate user and session
 @app.route('/token', methods=["POST"])
 def create_token():
     username = request.json.get("username", None)
@@ -84,53 +84,41 @@ def my_account():
         # Make sure object id is string
         for element in account:
             element['_id'] = str(element['_id'])
-            
+
         # Return account details
         return good_response(account)
     
     except Exception as e:
         return bad_response(e)
 
-
-# Update Users
-@app.route('/account_updates', methods=["POST"])
-def update_user():
-
-    username = request.json.get("username")
-
-    data = {
-    "username": username,
-    "password": request.json.get("password"),
-    "first_name": request.json.get("first_name"),
-    "last_name": request.json.get("last_name"),
-    "email": request.json.get("email"),
-    "phone_number": request.json.get("phone_number"),
-    "address": request.json.get("address"),
-    "bets": request.json.get("bets"),
-    "lifetime_winnings": request.json.get("lifetime_winnings"),
-    "current_balance": request.json.get("current_balance")
-    }
-
-    try:
-        connection = connect('users')
-        connection.update_one({'username': username}, {'$set': data, '$currentDate': { 'lastUpdated': True }} )
-        return good_response(f"User {username} was updated")
-    except Exception as e:
-        return bad_response(e)
-
-
-
-
 @app.route("/logout", methods=["POST"])
 def logout():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
-    return good_response(response)
+    return response
+
+
 
 
 @app.route('/')
 def index():
-    return app.send_static_file('sb.html')
+
+    connection = connect('games')
+    # Set the time zone to EST
+    est_tz = pytz.timezone('US/Eastern')
+    current_time_est = datetime.now(est_tz)
+    formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
+    print(formatted_time)   
+    data = list(connection.find({"$and": [{'date': {"$gt": formatted_time}}, {"sport": {'$eq': "nfl"}}]}))
+    for element in data:
+        element['_id'] = str(element['_id'])
+
+    try:
+        return good_response(data)
+
+    except Exception as e:
+        return bad_response(e)
+    
 
 
 @app.route('/static/<path:filename>')
@@ -139,56 +127,18 @@ def serve_static(filename):
 
 
 
-# variables
-x = datetime.now()
-
-# Route for main page to see all nfl games
+# Blueprint to see all nfl games
 app.register_blueprint(nfl_blueprint, url_prefix='/nfl')
 
-# Route for signup page to see all nfl games
+# Blueprint for signup page
 app.register_blueprint(signup_blueprint, url_prefix='/signup')
 
-# Route for signup page to see all nfl games
-app.register_blueprint(login_blueprint, url_prefix='/login')
-
-# Route to see user bets and insert new ones
+# Blueprint to see user bets and insert new ones
 app.register_blueprint(user_bets_blueprint, url_prefix='/bets')
 
-# Route for seeing a data
-@app.route('/data')
-def get_time():
- 
-    # Returning an api for showing in  reactjs
-    return {
-        'Name':"sport model", 
-        "Age":"2023",
-        "Date":x, 
-        "programming":"python"
-        }
- 
-@app.route('/create_game', methods=['POST'])
-def create_game():
-    data = request.json
-    print(data)
-    away_team = data.get('away_team')
-    home_team = data.get('home_team')
-    over = data.get('over')
-    under = data.get('under')
-    best_bet = data.get('best_bet')
-    timestamp = data.get('timestamp')
-    
+# API endpoint to update account info
+app.register_blueprint(account_updates_blueprint, url_prefix='/account_updates')
 
-    try:
-        #game = Game(away_team, home_team, over, under, best_bet, timestamp)
-        connection = connect('users')
-        connection.insert_one(data)
-        print("hello")
-        return jsonify({
-            'message': 'Game created successfully.'
-        }, 201)
-
-    except Exception as e:
-        return jsonify({'error': str(e)}, 500)
      
 # Running app
 if __name__ == '__main__':

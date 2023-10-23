@@ -116,16 +116,16 @@ class NFLModel:
         for index, row in df_api.iterrows():
             try:
                 # ML
-                away_ml = row['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
-                home_ml = row['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
-                away_spread = row['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
-                away_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
+                away_ml = row['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
+                home_ml = row['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
+                away_spread = row['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+                away_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
                 
                 
-                home_spread = row['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+                home_spread = row['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
                 
                 
-                home_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
+                home_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
                 
                 
                 
@@ -260,16 +260,16 @@ class NFLModel:
 
     def makePretty(self, j):
         json_string = json.dumps(j)
-        away_ml = j['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
-        home_ml = j['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
-        away_spread = j['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
-        away_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
+        away_ml = j['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
+        home_ml = j['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
+        away_spread = j['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+        away_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
         
         
-        home_spread = j['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+        home_spread = j['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
         
         
-        home_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
+        home_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
         
         
         
