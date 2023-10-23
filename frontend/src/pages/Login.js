@@ -1,24 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// API
 import axios from "axios";
 
-function Login(props) {
+// Redux
+import { useDispatch } from 'react-redux';
+import { setToken, setLoggedIn } from '../slices/authSlice'
 
-    const [loginForm, setloginForm] = useState({
+// MUI
+import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
+
+function Login() {
+
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+
+    const routeChangeHome = () => {
+        let path = `/`;
+        navigate(path);
+    }
+
+    const [formData, setFormData] = useState({
       username: "",
       password: ""
     })
 
-    function logMeIn(event) {
+    useEffect(() => {
+        document.title = "Login"
+    }, [])
+
+    const logMeIn = (event) => {
+        event.preventDefault()
+
       axios({
         method: "POST",
         url:"/token",
         data:{
-          username: loginForm.username,
-          password: loginForm.password
+          username: formData.username,
+          password: formData.password
          }
       })
       .then((response) => {
-        props.setToken(response.data.access_token)
+        if (response.status === 200) {
+            dispatch(setToken(response.data.access_token))
+            dispatch(setLoggedIn(true))
+            console.log("ur logged in uwu")
+            routeChangeHome()
+        }
       }).catch((error) => {
         if (error.response) {
           console.log(error.response)
@@ -26,41 +55,53 @@ function Login(props) {
           console.log(error.response.headers)
           }
       })
-
-      setloginForm(({
-        username: "",
-        password: ""}))
-
-      event.preventDefault()
     }
 
     function handleChange(event) { 
       const {value, name} = event.target
-      setloginForm(prevNote => ({
+      setFormData(prevNote => ({
           ...prevNote, [name]: value})
       )}
 
-    return (
-      <div>
-        <h1>Login</h1>
-          <form className="login">
-            <input onChange={handleChange} 
-                  type="username"
-                  text={loginForm.username} 
-                  name="username" 
-                  placeholder="Username" 
-                  value={loginForm.username} />
-            <input onChange={handleChange} 
-                  type="password"
-                  text={loginForm.password} 
-                  name="password" 
-                  placeholder="Password" 
-                  value={loginForm.password} />
-
-          <button onClick={logMeIn}>Submit</button>
-        </form>
-      </div>
-    );
+      return (
+        <Grid container justify="center" alignItems="center" style={{ height: '50vh' }}>
+          <Paper elevation={3} style={{ padding: '2rem' }}>
+            <Typography variant="h5" gutterBottom>
+              Login
+            </Typography>
+            <form onSubmit={logMeIn}>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Username"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button type="submit" variant="contained" color="primary">
+                    Login
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Paper>
+        </Grid>
+      );
 }
 
 export default Login;
