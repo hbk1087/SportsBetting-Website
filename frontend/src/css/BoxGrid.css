@@ -9,16 +9,25 @@ div {
 /* Box Styles */
 .form-container {
     display: inline-block;
-    margin: 8px; /* Spacing between each form */
-    padding: 16px;
-    border: 2px solid #0c8a45; 
-    border-radius: 8px; 
+    margin: 0px; /* Spacing between each form */
+    border: 2px solid #3f7758; 
+    border-radius: 5px; 
     width: 120px; /* Adjust based on your preference */
     height: 80px; /* Adjust based on your preference */
+    text-align: center;
+    justify-content: center;
+}
+
+.form-container:hover {
+    background-color: rgb(58, 56, 80);
+  }
+
+.form-container:click {
+    background-color: rgb(18, 170, 94);
 }
 
 .form-container div {
-    margin: 4px 0; 
+    margin: 4px 0;
 }
 
 /* Grid Styles */
@@ -26,4 +35,18 @@ div {
     display: flex;
     justify-content: center; 
     flex-wrap: wrap;
+    border: '1px solid #E0E0E0';
+}
+
+.parentDiv {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+.game-details-container {
+    margin: 4px 0;
+    display: flex;
+    width: 900px;
+    padding: 10px;
 }

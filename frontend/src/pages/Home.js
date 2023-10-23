@@ -24,14 +24,12 @@ const Home = () => {
 
     // TODO: Display "no games today" if there are no games today
     return (
-        <div>
-            <div>
+        <div className='parentDiv'>
                 {game.map((gameItem, index) => (
                     <div key={gameItem.game_id} className='game-details-container'>
                         <GameDetails game={gameItem} />
                     </div>
                 ))}
-            </div>
         </div>
     )
 }
