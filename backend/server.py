@@ -1,6 +1,7 @@
 # Import flask and datetime module for showing date and time
 from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory
 from pymongo import MongoClient, DESCENDING, ASCENDING
+from flask_cors import CORS, cross_origin
 import os
 from dotenv import load_dotenv
 from routes.showNFL import nfl_blueprint
@@ -26,6 +27,8 @@ app = Flask(__name__, static_folder="static")
 
 ### Login Session/Authentication management
 secret_key = os.getenv('SECRET_KEY')
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config["JWT_SECRET_KEY"] = secret_key
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
