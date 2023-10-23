@@ -23,11 +23,16 @@
   .bet-box {
     width: 100px; /* Adjust as needed */
     height: 50px; /* Adjust as needed */
-    border: 2px solid #fff; /* You can adjust the color as required */
+    border: 2px solid #5087c4; /* You can adjust the color as required */
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 10px; /* Space between each box */
+  }
+
+  .bet-box:hover {
+    border: 4px solid #5087c4; /* You can adjust the color as required */
+    background-color: #2e3130;
   }
   
   /* This can be used to give space between team name and its corresponding betting boxes */

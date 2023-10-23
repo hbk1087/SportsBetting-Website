@@ -4,6 +4,8 @@ import { Box, Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setToken, removeToken, initializeToken, setLoggedIn } from '../slices/authSlice'
 
+import "../css/LogoutButton.css"
+
 function Logout() {
 
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ function Logout() {
     })}
       return (
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button id="LOGOUT" variant="contained" color="primary" onClick={logMeOut}>
+          <Button id="LOGOUT" className="logoutButton" variant="contained" color="primary" onClick={logMeOut}>
             Log out
           </Button>
         </Box>
