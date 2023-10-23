@@ -6,6 +6,15 @@ div {
     text-align: center;
 }
 
+.signupForm {
+    font-family: Arial, sans-serif; /* Adjust to your desired font */
+    font-size: 18px; /* Adjust based on your preference */
+    color: #ffffff;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Box Styles */
 .form-container {
     display: inline-block;
@@ -21,10 +30,6 @@ div {
 .form-container:hover {
     background-color: rgb(58, 56, 80);
   }
-
-.form-container:click {
-    background-color: rgb(18, 170, 94);
-}
 
 .form-container div {
     margin: 4px 0;

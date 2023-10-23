@@ -78,8 +78,9 @@ function Signup() {
       )}
 
       return (
-        <Grid container justify="center" alignItems="center" style={{ height: '50vh' }}>
-          <Paper elevation={3} style={{ padding: '2rem' }}>
+        <div className="signupForm">
+        <Grid container justifyContext="center" alignItems="center" style={{ height: '50vh' }}>
+          <Paper className="signupForm" elevation={3} style={{ padding: '2rem' }}>
             <Typography variant="h5" gutterBottom>
               Signup
             </Typography>
@@ -165,6 +166,7 @@ function Signup() {
             </form>
           </Paper>
         </Grid>
+        </div>
       );
 }
 

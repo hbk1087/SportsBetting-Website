@@ -66,7 +66,8 @@ function Login() {
       )}
 
       return (
-        <Grid container justify="center" alignItems="center" style={{ height: '50vh' }}>
+        <div className="loginForm">
+        <Grid container justifyContent="center" alignItems="center" style={{ height: '50vh' }}>
           <Paper elevation={3} style={{ padding: '2rem' }}>
             <Typography variant="h5" gutterBottom>
               Login
@@ -103,6 +104,7 @@ function Login() {
             </form>
           </Paper>
         </Grid>
+        </div>
       );
 }
 

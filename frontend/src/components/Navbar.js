@@ -3,16 +3,16 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // MUI
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Logout from './Logout';
-import { initializeUser } from '../slices/userSlice';
+import Welcome from './Welcome';
+
 import '../css/Navbar.css';
 
 // Custom styled button for the login
@@ -52,20 +52,20 @@ const Navbar = () => {
             <MenuIcon/>
             </IconButton>
 
-            <Link to='/' style={{ textDecoration: 'none', color: 'inherit', flexGrow: 1 }}>
+            <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Typography variant="h6">
                 Sports Betting
                 </Typography>
             </Link>
 
-            {
+            { 
                     authLoggedIn ?
                     (
                         // When logged in
                         <>
                             <Button color="inherit" component={Link} to='/bets'>Bets</Button>
                             <div style={{ flexGrow: 1 }}></div>
-                            <p className='welcome_user'>Welcome: {username}</p>
+                            <Welcome username={username} />
                             <Logout />
                             <Button color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></Button>
                         </>
@@ -73,6 +73,7 @@ const Navbar = () => {
                     (
                         // When logged out
                         <>
+                            <div style={{ flexGrow: 1 }}></div>
                             <LoginButton color="inherit" component={Link} to='/login'>Login</LoginButton>
                             <SignupButton color="inherit" component={Link} to='/signup'>Signup</SignupButton>
                         </>
