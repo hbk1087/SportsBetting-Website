@@ -1,76 +1,119 @@
 # Import flask and datetime module for showing date and time
-from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-from models.GameModel import GameModel
 from routes.showNFL import nfl_blueprint
 from routes.signUp import signup_blueprint
 from routes.login import login_blueprint
+from routes.userBets import user_bets_blueprint
 from db import connect
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
+from bson.objectid import ObjectId
+import json
+from datetime import datetime, timedelta, timezone
+import bcrypt
+from routes.responses import good_response, bad_response
 
-import datetime
  
 load_dotenv()
 
 # Initializing flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 
-# Initialize Flask-Login
-login_manager = LoginManager()
-login_manager.init_app(app)
+# Session management
+secret_key = os.getenv('SECRET_KEY')
+app.config["JWT_SECRET_KEY"] = secret_key
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+jwt = JWTManager(app)
 
-# Mock user data (in practice, this comes from a database)
-class User(UserMixin):
-    def __init__(self, user_id):
-        self.id = user_id
+@app.after_request
+def refresh_expiring_jwts(response):
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.now(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+            data = response.get_json()
+            if type(data) is dict:
+                data["access_token"] = access_token 
+                response.data = json.dumps(data)
+        return response
+    except (RuntimeError, KeyError):
+        # Case where there is not a valid JWT. Just return the original respone
+        return response
 
-# User loader function to retrieve a user based on their ID
-@login_manager.user_loader
-def load_user(user_id):
-    return User(user_id)
 
-# Login route
-@app.route('/login')
-def login():
-    user = User(1)  # In practice, you would validate user credentials here
-    login_user(user)
-    return redirect(url_for('dashboard'))
 
-# Dashboard route protected by @login_required
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    return f'Welcome, {current_user.id}!'
+@app.route('/token', methods=["POST"])
+def create_token():
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
 
-# Logout route
-@app.route('/logout')
-@login_required
+    #password_check = bcrypt.checkpw(password.encode('utf-8'), duplicate_username[0]['password'])
+
+    connection = connect('users')
+    # Check if user exists
+    duplicate_username = list(connection.find({'username': username}))
+
+    ### Implement to check db for correct db with bcrypt and that username matches
+    try:
+        if len(duplicate_username) > 0:
+            if duplicate_username[0]['username'] != username or bcrypt.checkpw(password.encode('utf-8'), duplicate_username[0]['password'].encode('utf-8')) == False:
+                return {"msg": "Wrong email or password"}, 401
+            # Create token
+            access_token = create_access_token(identity=username)
+            response = {"access_token":access_token}
+            return good_response(response)
+        else:
+            return bad_response('No such User found!')
+        
+    except Exception as e:
+        return bad_response(e)
+
+@app.route('/account')
+@jwt_required()
+def my_profile():
+    response_body = {
+        "name": "Nagato",
+        "about" :"Hello! I'm a full stack developer that loves python and javascript"
+    }
+
+    return good_response(response_body)
+
+@app.route("/logout", methods=["POST"])
 def logout():
-    logout_user()
-    return 'Logged out'
+    response = jsonify({"msg": "logout successful"})
+    unset_jwt_cookies(response)
+    return response
 
 
-# Settings route, need to be logged in
-@app.route("/settings")
-@login_required
-def settings():
-    pass
+@app.route('/')
+def index():
+    return app.send_static_file('sb.html')
+
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return app.send_from_directory('static', filename)
 
 
 
 # variables
-x = datetime.datetime.now()
+x = datetime.now()
 
 # Route for main page to see all nfl games
 app.register_blueprint(nfl_blueprint, url_prefix='/nfl')
 
 # Route for signup page to see all nfl games
-app.register_blueprint(signup_blueprint, url_prefix='/')
+app.register_blueprint(signup_blueprint, url_prefix='/signup')
 
 # Route for signup page to see all nfl games
-app.register_blueprint(login_blueprint, url_prefix='/')
+app.register_blueprint(login_blueprint, url_prefix='/login')
+
+# Route to see user bets and insert new ones
+app.register_blueprint(user_bets_blueprint, url_prefix='/bets')
 
 # Route for seeing a data
 @app.route('/data')

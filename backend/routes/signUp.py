@@ -1,18 +1,18 @@
-from flask import Flask, Blueprint, request, jsonify, redirect, url_for
+from flask import Flask, Blueprint, request, jsonify, redirect, url_for, Response
 from models.Account import Account
 import bcrypt
 from db import connect
+from routes.responses import good_creation_response, bad_response, good_response
 
-# Initializing flask app
-app = Flask(__name__)
 
 signup_blueprint = Blueprint('signup_blueprint', __name__)
 
-@signup_blueprint.route('/signup', methods=['GET', 'POST'])
+@signup_blueprint.route('/', methods=['GET', 'POST'])
 def signup():
 
     if request.method == 'POST':
-        
+
+        # Create variables for account initialization
         username = request.json.get('username')
         first_name = request.json.get('first_name')
         last_name = request.json.get('last_name')
@@ -20,10 +20,14 @@ def signup():
         phone_number = request.json.get('phone_number')
         address = request.json.get('address')
         password = request.json.get('password')
+
+
+
         error = None
-        
+        # Return bad request response that form is not completely filled out
         if not (username and first_name and last_name and email and phone_number and address and password):
-            error = 'Form is not completely filled out'
+            error = 'Signup form is not completely filled out'
+            return bad_response(error)
             
         if error is None:
             print("Its a post")
@@ -35,23 +39,24 @@ def signup():
                 # Check for duplicate
                 duplicate_username = list(connection.find({'username': username}))
                 duplicate_email = list(connection.find({'email': email}))
-                #print(duplicate_email)
-                #print(duplicate_username)
+
+                # return error if duplicate
                 if len(duplicate_username) > 0 or len(duplicate_email) > 0:
                     error = 'Username or email is already registered'
-                    print(error)
+                    return bad_response(error)
 
+                # Correct login
                 else:
+                    # Insert new user and return created success response
                     connection.insert_one(account.data_dict)
-                    print(account.data_dict)
-                    return redirect(url_for('login_blueprint.login'))
+                    return good_creation_response({})
 
-                return account.data_dict, 201
 
             except Exception as e:
-                return jsonify({'error': str(e)}, 500)
-    
-    return app.send_static_file('index.html') # Re-render back to home or some static page
+                return bad_response(e)
+            
+    # On 'GET' Method, what to return
+    return good_response('On Signup Page!') # Re-render back to home or some static page
 
 
     

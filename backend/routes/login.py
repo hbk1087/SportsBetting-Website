@@ -1,13 +1,15 @@
-from flask import Flask, Blueprint, request, jsonify
+from flask import Flask, Blueprint, request, jsonify, Response
 from models.Account import Account
 import bcrypt
 from db import connect
-from flask_login import LoginManager
+#from flask_login import LoginManager
+from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
+login_blueprint = Blueprint('login_blueprint', __name__)
 
-
-@login_blueprint.route('/login', methods=['GET', 'POST'])
+@login_blueprint.route('/', methods=['GET', 'POST'])
 def login():
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -15,10 +17,10 @@ def login():
     # data = request.json
     # username = data.get('username')
     # password = data.get('password')
-    login_manager = LoginManager()
+    # login_manager = LoginManager()
 
-    login_blueprint = Blueprint('login_blueprint', __name__)
-    login_manager.init_app(app)
+    #login_blueprint = Blueprint('login_blueprint', __name__)
+    # login_manager.init_app(app)
 
 
     try:
