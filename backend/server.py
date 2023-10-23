@@ -85,6 +85,7 @@ def create_token():
 def my_account():
 
     current_account = get_jwt_identity()
+    print(current_account)
     connection = connect('users')
 
     try:
@@ -94,7 +95,7 @@ def my_account():
             element['_id'] = str(element['_id'])
 
         # Return account details
-        return good_response(account)
+        return good_response(account[0])
     
     except Exception as e:
         return bad_response(e)
