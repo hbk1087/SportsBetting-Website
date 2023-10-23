@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
+from routes.responses import bad_db_connection
 
 load_dotenv()
 mongo_uri = os.getenv('MONGO_URI')
@@ -26,7 +27,7 @@ def connectUsers():
 
     except Exception as e:
         # Todo: implement better exception handling
-        print(f"Could not connect to MongoDB - please check authentication details and try again.\nError details: {e}")
+        return bad_db_connection(e)
 
 def connectGames():
     try:
@@ -37,7 +38,7 @@ def connectGames():
 
     except Exception as e:
         # Todo: implement better exception handling
-        print(f"Could not connect to MongoDB - please check authentication details and try again.\nError details: {e}")
+        return bad_db_connection(e)
 
 def connectBets():
     try:
@@ -48,4 +49,4 @@ def connectBets():
 
     except Exception as e:
         # Todo: implement better exception handling
-        print(f"Could not connect to MongoDB - please check authentication details and try again.\nError details: {e}")
+        return bad_db_connection(e)
