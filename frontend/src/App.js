@@ -2,8 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 // Redux imports
-import { useSelector, useDispatch, Provider } from 'react-redux'
-import { store } from "./store"
+import { useSelector } from 'react-redux'
 
 // Material UI imports
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -12,12 +11,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Home from './pages/Home'
 import Bets from './pages/Bets'
 import Login from './pages/Login'
-import Signup from './pages/SignUp'
+import Signup from './pages/Signup'
 
 // Components
-import Logout from "./components/Logout"
 import Navbar from "./components/Navbar"
-import Sidebar from "./components/Sidebar"
 import Account from "./components/Account"
 
 // Hooks
@@ -34,9 +31,6 @@ const theme = createTheme({
 });
 
 function App() {
-    // use authSlice to set token
-    const authToken = useSelector((state) => state.auth.token);
-
     return (
           <ThemeProvider theme={theme}>
               <Router>
