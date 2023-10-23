@@ -74,7 +74,7 @@ def create_token():
 
 @app.route('/account')
 @jwt_required()
-def my_profile():
+def my_account():
     response_body = {
         "name": "Nagato",
         "about" :"Hello! I'm a full stack developer that loves python and javascript"
