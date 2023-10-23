@@ -10,7 +10,10 @@ import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Logout from './Logout';
+import { initializeUser } from '../slices/userSlice';
+import '../css/Navbar.css';
 
 // Custom styled button for the login
 const LoginButton = styled(Button)(({ theme }) => ({
@@ -40,8 +43,10 @@ const LogoutButton = styled(Button)(({ theme }) => ({
 const Navbar = () => {
     var authLoggedIn = useSelector((state) => state.auth.loggedIn);
 
+    const username = useSelector((state) => state.user.username)
+
     return (
-        <AppBar position="static">
+        <AppBar position="static" >
         <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
@@ -60,8 +65,9 @@ const Navbar = () => {
                         <>
                             <Button color="inherit" component={Link} to='/bets'>Bets</Button>
                             <div style={{ flexGrow: 1 }}></div>
+                            <p className='welcome_user'>Welcome: {username}</p>
                             <Logout />
-                            <AccountBoxIcon component={Link} to='/account'>Profile</AccountBoxIcon>
+                            <Button color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></Button>
                         </>
                     ) : 
                     (
