@@ -3,9 +3,9 @@ from Account import Account
 
 class UserBet():
 
-    def __init__(self, account, gameModel, bet_type, wager, payout, timestamp):
-        self.account = account # Account object here
-        self.gameModel = gameModel #GameModel object will go here
+    def __init__(self, account_id, gameModel_id, bet_type, wager, payout, timestamp):
+        self.account_id = account_id # Account object here
+        self.gameModel_id = gameModel_id #GameModel object will go here
         self.bet_type = bet_type
         self.wager = wager
         self.payout = payout
@@ -14,8 +14,8 @@ class UserBet():
 
     def getBet(self):
         data_dict = {
-            "account": self.account,
-            "game": self.gameModel,
+            "account_id": self.account_id,
+            "gameModel_id": self.gameModel_id,
             "bet_type": self.bet_type,
             "wager": self.wager,
             "payout": self.payout,

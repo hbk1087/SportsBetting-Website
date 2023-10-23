@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react'
-import { useGamesContext } from "../hooks/useGameContext"
 
 // components
 import GameDetails from '../components/GameDetails'
 // import CarForm from "../components/CarForm"
 
+import axios from 'axios'
+
 const Home = () => {
     const [game, setGame] = useState([{}])
 
     useEffect(() => {
-        const fetchGames = async () => {
-            const response = await fetch("/nfl")
-            const json = await response.json()
-
-            setGame(json)
-        }
-
-        fetchGames()
-    }, [])
+        axios.get("./nfl")
+            .then(response => {
+                console.log(response.data)
+                setGame(response.data)
+            })
+            .catch(error => {
+                console.error("There was some error fetching the data:", error)
+            })
+    }, []) // This should update periodically, setInterval?
     
     return (
         <div>
