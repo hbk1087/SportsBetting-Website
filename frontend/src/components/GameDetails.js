@@ -69,7 +69,7 @@ const GameDetails = ({ game }) => {
       'Seattle Seahawks': NFLLogos.SEA,
       'Tampa Bay Buccaneers': NFLLogos.TB,
       'Tennessee Titans': NFLLogos.TEN,
-      'Washington Football Team': NFLLogos.WAS,
+      'Washington Commanders': NFLLogos.WAS,
     };
     
 

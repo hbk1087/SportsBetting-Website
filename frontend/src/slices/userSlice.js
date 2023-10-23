@@ -5,11 +5,13 @@ export const userSlice = createSlice({
   initialState: {
     username: '',
     balance: 1000,
-    activeBets: []
+    activeBets: [],
+    lifetime_winnings: 0
   },
   reducers: {
     placeBet: (state, action) => {
       state.balance -= action.payload.amount;
+      state.lifetime_winnings -= action.payload.amount;
       state.activeBets.push(action.payload.bet);
     },
     // Add more reducers as needed
