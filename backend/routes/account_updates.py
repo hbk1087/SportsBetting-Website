@@ -1,6 +1,7 @@
 from db import connect
 from flask import Flask, Blueprint, request, jsonify, Response
 from routes.responses import good_response, bad_response
+from flask_cors import CORS, cross_origin
 
 
 
@@ -9,6 +10,7 @@ from routes.responses import good_response, bad_response
 account_updates_blueprint = Blueprint('account_updates_blueprint', __name__)
 
 @account_updates_blueprint.route('/', methods=['POST'])
+@cross_origin()
 def update_user():
 
     username = request.json.get("username")

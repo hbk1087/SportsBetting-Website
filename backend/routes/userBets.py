@@ -8,6 +8,7 @@ from datetime import datetime
 import pytz
 from routes.responses import good_creation_response, bad_response, good_response
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
+from flask_cors import CORS, cross_origin
 
 # Set the time zone to EST
 est_timezone = pytz.timezone('US/Eastern')
@@ -17,6 +18,7 @@ est_timezone = pytz.timezone('US/Eastern')
 user_bets_blueprint = Blueprint('user_bets_blueprint', __name__)
 
 @user_bets_blueprint.route('/', methods=['GET', 'POST', 'OPTIONS'])
+@cross_origin()
 @jwt_required()
 def get_bets():
     # For 'POST' Method, creation of a user bet

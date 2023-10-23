@@ -34,6 +34,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
 
 @app.after_request
+@cross_origin()
 def refresh_expiring_jwts(response):
     try:
         exp_timestamp = get_jwt()["exp"]
@@ -52,6 +53,7 @@ def refresh_expiring_jwts(response):
     
 # Get token to validate user and session
 @app.route('/token', methods=["POST", 'OPTIONS'])
+@cross_origin()
 def create_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
@@ -78,6 +80,7 @@ def create_token():
         return bad_response(e)
 
 @app.route('/account', methods=['GET', 'OPTIONS'])
+@cross_origin()
 @jwt_required()
 def my_account():
 
@@ -97,6 +100,7 @@ def my_account():
         return bad_response(e)
 
 @app.route("/logout", methods=["POST", 'OPTIONS'])
+@cross_origin()
 def logout():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
@@ -106,6 +110,7 @@ def logout():
 
 
 @app.route('/')
+@cross_origin()
 def index():
 
     connection = connect('games')
@@ -127,6 +132,7 @@ def index():
 
 
 @app.route('/static/<path:filename>')
+@cross_origin()
 def serve_static(filename):
     return app.send_from_directory('static', filename)
 

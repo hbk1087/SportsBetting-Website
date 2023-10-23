@@ -3,11 +3,13 @@ from models.Account import Account
 import bcrypt
 from db import connect
 from routes.responses import good_creation_response, bad_response, good_response
+from flask_cors import CORS, cross_origin
 
 
 signup_blueprint = Blueprint('signup_blueprint', __name__)
 
 @signup_blueprint.route('/', methods=['GET', 'POST', 'OPTIONS'])
+@cross_origin()
 def signup():
 
     if request.method == 'POST':

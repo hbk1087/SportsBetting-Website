@@ -9,6 +9,7 @@ import json
 import pandas as pd
 import requests
 import io
+from flask_cors import CORS, cross_origin
 
 
 # Set the time zone to EST
@@ -19,6 +20,7 @@ est_tz = pytz.timezone('US/Eastern')
 nfl_blueprint = Blueprint('nfl_blueprint', __name__)
 
 @nfl_blueprint.route('/', methods=['GET'])
+@cross_origin()
 def get_games():
     # Connect to db
     connection = connect('games')
