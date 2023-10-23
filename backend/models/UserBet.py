@@ -21,4 +21,5 @@ class UserBet():
             "actual_payout": self.actual_payout
         }
         return data_dict
+
         

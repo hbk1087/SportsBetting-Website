@@ -1,47 +1,29 @@
-// Importing modules
-import React, { useState, useEffect } from "react";
-import "./App.css";
- 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { store } from "./store"
+import Home from './pages/Home'
+import Navbar from "./components/Navbar"
+
 function App() {
-    // usestate for setting a javascript
-    // object for storing and using data
-    const [data, setdata] = useState({
-        name: "",
-        age: 0,
-        date: "",
-        programming: "",
-    });
- 
-    // Using useEffect for single rendering
-    useEffect(() => {
-        // Using fetch to fetch the api from 
-        // flask server it will be redirected to proxy
-        fetch("/data").then((res) =>
-            res.json().then((data) => {
-                // Setting a data from api
-                setdata({
-                    name: data.Name,
-                    age: data.Age,
-                    date: data.Date,
-                    programming: data.programming,
-                });
-            })
-        );
-    }, []);
- 
-    return (
+  return (
+    <Provider store={store}>
         <div className="App">
-            <header className="App-header">
-                <h1>React and flask</h1>
-                {/* Calling a data from setdata for showing */}
-                <p>{data.name}</p>
-                <p>{data.age}</p>
-                <p>{data.date}</p>
-                <p>{data.programming}</p>
- 
-            </header>
+            <Router>
+                <Navbar />
+                <div className="pages">
+                <Routes>
+                    <Route
+                    path='/'
+                    element={<Home />}
+                    />
+
+                </Routes>
+                </div>
+            </Router>
         </div>
-    );
+    </Provider>
+    
+  );
 }
- 
-export default App;
+
+export default App
