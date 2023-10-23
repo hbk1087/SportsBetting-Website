@@ -9,8 +9,6 @@ import "../css/LogoutButton.css"
 function Logout() {
 
   const dispatch = useDispatch();
-  const authToken = useSelector((state) => state.auth.token);
-  const authLoggedIn = useSelector((state) => state.auth.loggedIn);
 
   function logMeOut() {
     axios({

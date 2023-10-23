@@ -10,11 +10,20 @@ div {
 .form-container {
     display: inline-block;
     margin: 0px; /* Spacing between each form */
-    padding: px;
     border: 2px solid #3f7758; 
     border-radius: 5px; 
     width: 120px; /* Adjust based on your preference */
     height: 80px; /* Adjust based on your preference */
+    text-align: center;
+    justify-content: center;
+}
+
+.form-container:hover {
+    background-color: rgb(58, 56, 80);
+  }
+
+.form-container:click {
+    background-color: rgb(18, 170, 94);
 }
 
 .form-container div {
@@ -30,15 +39,14 @@ div {
 }
 
 .parentDiv {
-    justify-content: center;
     flex-direction: column;
     display: flex;
-    width: 300px;
+    align-items: center;
 }
 
 .game-details-container {
     margin: 4px 0;
-    border: 2px solid #57075e; 
     display: flex;
-    width: 400px;
+    width: 900px;
+    padding: 10px;
 }

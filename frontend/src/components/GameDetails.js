@@ -127,7 +127,7 @@ const GameDetails = ({ game }) => {
       border: '2px solid #E0E0E0',
       borderRadius: '5px',  // Adjusted to match your image
       width: '50px',
-      height: '40px',
+      height: '80px',
       flexDirection: 'column',  // Stack content vertically
       justifyContent: 'center',
       alignItems: 'center',
@@ -157,7 +157,9 @@ const GameDetails = ({ game }) => {
     const BetOptionsContainer = styled(Grid)({
       display: 'flex',
       flexDirection: 'column',
-      gap: '5px'  // Space between TeamBetContainers
+      gap: '5px',  // Space between TeamBetContainers
+      alignContent: 'center',
+      justifyContent: 'center',
     });
     
     const TeamBetContainer = styled(Grid)({
