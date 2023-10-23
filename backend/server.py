@@ -1,6 +1,6 @@
 # Import flask and datetime module for showing date and time
 from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING, ASCENDING
 import os
 from dotenv import load_dotenv
 from routes.showNFL import nfl_blueprint
@@ -109,7 +109,7 @@ def index():
     current_time_est = datetime.now(est_tz)
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
     print(formatted_time)   
-    data = list(connection.find({"$and": [{'date': {"$gt": formatted_time}}, {"sport": {'$eq': "nfl"}}]}))
+    data = list(connection.find({"$and": [{'date': {"$gt": formatted_time}}, {"sport": {'$eq': "nfl"}}]}).sort('date', ASCENDING))
     for element in data:
         element['_id'] = str(element['_id'])
 
