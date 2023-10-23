@@ -6,6 +6,10 @@ import { styled } from '@mui/system';
 import * as NFLLogos from 'react-nfl-logos';
 import LoadingIndicator from '../util/LoadingIndicator';
 
+import BetBox from "./BetBox"
+
+import "../css/GameDetails.css"
+
 const GameDetails = ({ game }) => {
     // Destructure game properties
     const {
@@ -14,8 +18,8 @@ const GameDetails = ({ game }) => {
         sport,
         away_team,
         home_team,
-        away_ml,
-        home_ml,
+        away_odds,
+        home_odds,
         away_spread,
         away_spread_odds,
         home_spread,
@@ -90,15 +94,6 @@ const GameDetails = ({ game }) => {
       height: '100px',
     })
 
-    const TeamLogo = styled('div')(({ isAway }) => ({
-      // shared styles for team-logo
-      ...(isAway ? {
-        // specific styles for away-logo
-      } : {
-        // specific styles for home-logo
-      })
-    }));
-
     const TimeStyle = styled(Typography)({
       fontWeight: 'bold',
       fontSize: '1.2em',
@@ -111,14 +106,49 @@ const GameDetails = ({ game }) => {
         color: '#ffffff',
     })
     
+    // const BetBox = styled.div`
+    // width: 80px; // adjust as per your design
+    // height: 40px; // adjust as per your design
+    // border: 2px solid white; // adjust color as needed
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 5px;
+    // `;
+
     const getSpreadColor = (spread) => (spread > 0 ? "green" : "red");
     const getMoneyLineColor = (ml) => (ml > 0 ? "green" : "red");
+
+
+    const StyledGridItem = styled(Grid)({
+      border: '1px solid #ffffff', // Adjust the border color as needed
+      width: '150px',
+      borderRadius: '5px', // Rounded corners
+      padding: '10px', 
+      justifyContent: 'center',
+      alignItems: 'center'
+    });
+  
+
+    const StyledBetBox = styled(BetBox)({
+      color: '#ffffff',
+      border: '2px solid #E0E0E0',
+      borderRadius: '50%', // This will make it circular. Adjust the width & height accordingly.
+      width: '150px',
+      height: '80px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '50px',
+      spacing: '10px',
+    });
+  
 
     return (
       <GameDetailsContainer>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={3}>
-              <NflIcon src="https://static.www.nfl.com/image/upload/v1554321393/league/nvfr7ogywskqrfaiu38m.svg" alt="NFL Logo" />
+            <NflIcon src="https://static.www.nfl.com/image/upload/v1554321393/league/nvfr7ogywskqrfaiu38m.svg" alt="NFL Logo" />
           </Grid>
           <Grid item>
             <Typography variant="h6">
@@ -130,47 +160,47 @@ const GameDetails = ({ game }) => {
               {date}
             </TimeStyle>
           </Grid>
-  
+      
           {/* Away team details */}
-          <Grid container item spacing={2} alignItems="center">
+          <Grid container item spacing={5} alignItems="center">
             <Grid item>
               <TeamComponent teamName={away_team} />
             </Grid>
-            <Grid item>
+            <Grid item spacing={15}>
               <TeamName variant="h6">
                 {away_team}
               </TeamName>
             </Grid>
-            <Grid item style={{ color: getSpreadColor(away_spread) }}>
-              {away_spread}
-            </Grid>
-            <Grid item style={{ color: getMoneyLineColor(away_ml) }}>
-              {away_ml}
-            </Grid>
-            <Grid item>
-              O {total} {over_odds}
-            </Grid>
+            <StyledGridItem>
+              <StyledBetBox bet_type={'away_spread'} away_spread={away_spread} away_spread_odds = {away_spread_odds}/>
+            </StyledGridItem>
+            <StyledGridItem>
+              <StyledBetBox bet_type={'moneyline_away'} away_odds={away_odds}/>
+            </StyledGridItem>
+            <StyledGridItem>
+              <StyledBetBox bet_type={'total_over'} total={total} over_odds={over_odds}/>
+            </StyledGridItem>
           </Grid>
-  
+      
           {/* Home team details */}
-          <Grid container item spacing={2} alignItems="center">
+          <Grid container item spacing={5} alignItems="center">
             <Grid item>
-            <TeamComponent teamName={home_team} />
+              <TeamComponent teamName={home_team} />
             </Grid>
             <Grid item>
               <TeamName variant="h6">
                 {home_team}
               </TeamName>
             </Grid>
-            <Grid item style={{ color: getSpreadColor(home_spread) }}>
-              {home_spread}
-            </Grid>
-            <Grid item style={{ color: getMoneyLineColor(home_ml) }}>
-              {home_ml}
-            </Grid>
-            <Grid item>
-              U {total} {under_odds}
-            </Grid>
+            <StyledGridItem>
+              <StyledBetBox bet_type={'home_spread'} home_spread={home_spread} home_spread_odds = {home_spread_odds} color = {getSpreadColor(home_spread)}/>
+            </StyledGridItem>
+            <StyledGridItem>
+              <StyledBetBox bet_type={'moneyline_home'} home_odds={home_odds}/>
+            </StyledGridItem>
+            <StyledGridItem>
+              <StyledBetBox bet_type={'total_under'} total={total} under_odds={under_odds}/>
+            </StyledGridItem>
           </Grid>
         </Grid>
       </GameDetailsContainer>

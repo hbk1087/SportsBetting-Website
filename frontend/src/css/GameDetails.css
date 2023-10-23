@@ -1,0 +1,37 @@
+/* Container for the entire component */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Style for each team section */
+  .team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .team-logo {
+    width: 50px; /* Adjust as needed */
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  /* Betting box styles */
+  .bet-box {
+    width: 100px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    border: 2px solid #fff; /* You can adjust the color as required */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px; /* Space between each box */
+  }
+  
+  /* This can be used to give space between team name and its corresponding betting boxes */
+  .team + .bet-box:first-of-type {
+    margin-left: 20px;
+  }
+  
