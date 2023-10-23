@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
-import sportsReducer from './slices/sportsSlice';
-import matchesReducer from './slices/matchesSlice';
+import authReducer from './slices/authSlice';
+import betReducer from './slices/betSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    sports: sportsReducer,
-    matches: matchesReducer,
+    auth: authReducer,
+    bet: betReducer
   },
 });

@@ -8,3 +8,18 @@
         password = request.json.get('password') 
 */
 
+import { useEffect } from 'react'
+
+const Signup = () => {
+
+    useEffect(() => {
+        document.title = "Signup"
+    }, [])
+
+    return (
+        <h2>Signup</h2>
+    )
+
+}
+
+export default Signup

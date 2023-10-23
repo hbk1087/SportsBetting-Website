@@ -1,0 +1,24 @@
+/* Sidebar */
+.sticky-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0; /* Adjust this value as needed to determine where it will start sticking on the page */
+    height: 100vh;
+    overflow-y: auto; /* For scrollable content if the sidebar content exceeds viewport height */
+    padding: 16px;
+    /* Additional styles, e.g., width, background-color, etc. */
+  }
+  
+  /* Additional styles for sidebar content */
+  .sticky-sidebar h2 {
+    /* style for the header */
+  }
+  
+  .sticky-sidebar ul {
+    /* style for the list */
+  }
+  
+  .sticky-sidebar li {
+    /* style for list items */
+  }
+  

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 // components
 import GameDetails from '../components/GameDetails'
-// import CarForm from "../components/CarForm"
 
 import axios from 'axios'
 
@@ -10,6 +9,8 @@ const Home = () => {
     const [game, setGame] = useState([{}])
 
     useEffect(() => {
+        document.title = "Home"
+
         axios.get("./nfl")
             .then(response => {
                 console.log(response.data)
@@ -20,6 +21,8 @@ const Home = () => {
             })
     }, []) // This should update periodically, setInterval?
     
+
+    // TODO: Display "no games today" if there are no games today
     return (
         <div>
             <div>
@@ -28,7 +31,6 @@ const Home = () => {
                         <GameDetails game={gameItem} />
                     </div>
                 ))}
-                    
             </div>
         </div>
     )

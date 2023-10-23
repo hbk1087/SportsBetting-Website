@@ -1,3 +1,5 @@
+import SportsFootballIcon from '@mui/icons-material/SportsFootball';
+
 const GameDetails = ({ game }) => {
     // Destructure game properties
     const {

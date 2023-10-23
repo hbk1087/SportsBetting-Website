@@ -12,7 +12,7 @@ body {
   font-family: "Poppins";
 }
 header {
-  background: rgb(43,144,255);
+  background: #2b90ff;
 }
 header .container {
   max-width: 1400px;
@@ -40,7 +40,7 @@ header a {
 }
 
 .gameDetails-container {
-  background-color: rgb(19, 19, 20);
+  background-color: rgb(37, 37, 110);
   border-radius: 10px;
   padding: 10px;
   width: 400px; /* Adjust based on your need */
@@ -126,3 +126,5 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+
+/* Login */
