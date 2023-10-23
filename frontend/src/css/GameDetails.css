@@ -1,6 +1,6 @@
 /* Container for the entire component */
 .container {
-    display: flex;
+    display: inline-block;
     align-items: center;
     justify-content: center;
     padding: 20px;
@@ -16,7 +16,7 @@
   .team-logo {
     width: 50px; /* Adjust as needed */
     height: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 00px;
   }
   
   /* Betting box styles */

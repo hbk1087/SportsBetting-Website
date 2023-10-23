@@ -9,16 +9,16 @@ div {
 /* Box Styles */
 .form-container {
     display: inline-block;
-    margin: 8px; /* Spacing between each form */
-    padding: 16px;
-    border: 2px solid #0c8a45; 
-    border-radius: 8px; 
+    margin: 0px; /* Spacing between each form */
+    padding: px;
+    border: 2px solid #3f7758; 
+    border-radius: 5px; 
     width: 120px; /* Adjust based on your preference */
     height: 80px; /* Adjust based on your preference */
 }
 
 .form-container div {
-    margin: 4px 0; 
+    margin: 4px 0;
 }
 
 /* Grid Styles */
@@ -26,4 +26,19 @@ div {
     display: flex;
     justify-content: center; 
     flex-wrap: wrap;
+    border: '1px solid #E0E0E0';
+}
+
+.parentDiv {
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    width: 300px;
+}
+
+.game-details-container {
+    margin: 4px 0;
+    border: 2px solid #57075e; 
+    display: flex;
+    width: 400px;
 }
