@@ -38,7 +38,7 @@ def get_games():
 
 
 # API Call to retrieve historical data and update current games/bets/users to reflect final scores
-@nfl_blueprint.route('/update_games', methods=['GET'])
+@nfl_blueprint.route('/update_games', methods=['GET', 'OPTIONS'])
 def update_games():
     try: 
         db_hard_start = datetime(2023, 10, 16)

@@ -22,6 +22,8 @@ load_dotenv()
 # Initializing flask app
 app = Flask(__name__, static_folder="static")
 
+
+
 ### Login Session/Authentication management
 secret_key = os.getenv('SECRET_KEY')
 app.config["JWT_SECRET_KEY"] = secret_key
@@ -46,7 +48,7 @@ def refresh_expiring_jwts(response):
         return response
     
 # Get token to validate user and session
-@app.route('/token', methods=["POST"])
+@app.route('/token', methods=["POST", 'OPTIONS'])
 def create_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
@@ -72,7 +74,7 @@ def create_token():
     except Exception as e:
         return bad_response(e)
 
-@app.route('/account')
+@app.route('/account', methods=['GET', 'OPTIONS'])
 @jwt_required()
 def my_account():
 
@@ -91,7 +93,7 @@ def my_account():
     except Exception as e:
         return bad_response(e)
 
-@app.route("/logout", methods=["POST"])
+@app.route("/logout", methods=["POST", 'OPTIONS'])
 def logout():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)

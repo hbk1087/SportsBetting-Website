@@ -7,7 +7,7 @@ from routes.responses import good_creation_response, bad_response, good_response
 
 signup_blueprint = Blueprint('signup_blueprint', __name__)
 
-@signup_blueprint.route('/', methods=['GET', 'POST'])
+@signup_blueprint.route('/', methods=['GET', 'POST', 'OPTIONS'])
 def signup():
 
     if request.method == 'POST':
