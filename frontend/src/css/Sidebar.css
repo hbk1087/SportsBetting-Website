@@ -1,7 +1,6 @@
 /* Sidebar */
 .sticky-sidebar {
-    position: -webkit-sticky;
-    position: sticky;
+    position: absolute;
     top: 0; /* Adjust this value as needed to determine where it will start sticking on the page */
     height: 100vh;
     overflow-y: auto; /* For scrollable content if the sidebar content exceeds viewport height */
@@ -22,3 +21,11 @@
     /* style for list items */
   }
   
+  .sticky-sidebar h2.sidebar-title {
+    color: #FFFFFF; /* Set to the color you desire */
+}
+
+/* If you want to change the color of all text within the sidebar */
+.sticky-sidebar * {
+    color: #FFFFFF; /* Set to the color you desire */
+}

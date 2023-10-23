@@ -25,7 +25,13 @@ const GameDetails = ({ game }) => {
     return (
         <div className="gameDetails-container">
           <div className="gameDetails-header">
-            <span>{game.sport} Games</span>
+            <span>
+              {game.sport === "nfl" ? 
+              <> 
+                  <SportsFootballIcon /> NFL
+              </> : 
+              '${game.sport} Games'
+              } </span>
             <div>{game.date}</div>
           </div>
           

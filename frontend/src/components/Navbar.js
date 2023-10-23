@@ -1,11 +1,16 @@
-import React from 'react';
-
-import { useState } from 'react';
-
+// React 
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+
+// MUI
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import Logout from './Logout';
 
 // Custom styled button for the login
 const LoginButton = styled(Button)(({ theme }) => ({
@@ -16,18 +21,24 @@ const LoginButton = styled(Button)(({ theme }) => ({
     }
   }));
   
-  // Custom styled button for the signup/join
-  const JoinButton = styled(Button)(({ theme }) => ({
+// Custom styled button for the signup/join
+const SignupButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#28A745',
     '&:hover': {
-      backgroundColor: '#1f7a33', // a bit darker on hover
+    backgroundColor: '#1f7a33', // a bit darker on hover
     }
-  }));
+}));
+
+const LogoutButton = styled(Button)(({ theme }) => ({
+    backgroundColor: '#dc2839',
+    '&:hover': {
+    backgroundColor: '#b02a37', // a bit darker on hover
+    }
+}));
+
 
 const Navbar = () => {
-    const [isLogged, setIsLogged] = useState(false)
-    const [user, setUser] = useState({})
-
+    var authLoggedIn = useSelector((state) => state.auth.loggedIn);
 
     return (
         <AppBar position="static">
@@ -36,17 +47,31 @@ const Navbar = () => {
             <MenuIcon />
             </IconButton>
 
-            <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to='/' style={{ textDecoration: 'none', color: 'inherit', flexGrow: 1 }}>
                 <Typography variant="h6">
                 Sports Betting
                 </Typography>
             </Link>
-            
-            <Button color="inherit" component={Link} to='/bets'>Bets</Button>
-            <div style={{ flexGrow: 1 }}></div>
-            <LoginButton color="inherit" component={Link} to='/login'>Login</LoginButton>
-            <JoinButton color="inherit" component={Link} to='/signup'>Signup</JoinButton>
 
+            {
+                    authLoggedIn ?
+                    (
+                        // When logged in
+                        <>
+                            <Button color="inherit" component={Link} to='/bets'>Bets</Button>
+                            <div style={{ flexGrow: 1 }}></div>
+                            <Logout />
+                            <AccountBoxIcon component={Link} to='/account'>Profile</AccountBoxIcon>
+                        </>
+                    ) : 
+                    (
+                        // When logged out
+                        <>
+                            <LoginButton color="inherit" component={Link} to='/login'>Login</LoginButton>
+                            <SignupButton color="inherit" component={Link} to='/signup'>Signup</SignupButton>
+                        </>
+                    )
+                }
         </Toolbar>
         </AppBar>
     );

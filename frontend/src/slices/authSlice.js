@@ -1,27 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+// export const fetchAuth = createAsyncThunk(
+
+
+// Initial state for the auth slice
 const initialState = {
-  isLoggedIn: false,
-  user: null
+  token: localStorage.getItem('token') || null,
+  loggedIn : false
 };
 
+// Define the authSlice using createSlice
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state, action) => {
-      state.isLoggedIn = true;
-      state.user = action.payload;
+    setToken: (state, action) => {
+      localStorage.setItem('token', action.payload);
+      state.token = action.payload;
+      state.loggedIn = true;
     },
-    logout: (state) => {
-      state.isLoggedIn = false;
-      state.user = null;
+    removeToken: (state) => {
+      localStorage.removeItem('token');
+      state.token = null;
+      state.loggedIn = false;
+    },
+    initializeToken: (state) => {
+      state.token = localStorage.getItem('token');
+    },
+    setLoggedIn: (state, action) => {
+      state.loggedIn = action.payload;
     }
-  }
+  },
 });
 
-// Export actions for use in components and thunks
-export const { login, logout } = authSlice.actions;
-
-// Default export of the reducer
+// Export action creators and the reducer
+export const { setToken, removeToken, initializeToken, setLoggedIn } = authSlice.actions;
 export default authSlice.reducer;

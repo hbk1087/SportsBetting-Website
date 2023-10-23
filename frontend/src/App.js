@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 // Redux imports
-import { Provider } from 'react-redux'
+import { useSelector, useDispatch, Provider } from 'react-redux'
 import { store } from "./store"
 
 // Material UI imports
@@ -15,13 +15,12 @@ import Login from './pages/Login'
 import Signup from './pages/SignUp'
 
 // Components
+import Logout from "./components/Logout"
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import Account from "./components/Account"
 
 // Hooks
-import { useToken } from './hooks/useToken'
-
 
 const theme = createTheme({
     palette: {
@@ -35,30 +34,25 @@ const theme = createTheme({
 });
 
 function App() {
-  return (
-    <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <div className="App">
-                <Router>
+    // use authSlice to set token
+    const authToken = useSelector((state) => state.auth.token);
+
+    return (
+          <ThemeProvider theme={theme}>
+              <Router>
+                  <div className="App">  
                     <Navbar />
-                    <div className="pages">
-                    <Routes>
-                        <Route path='/' element={<Home />}/>
-                        <Route path='/bets' element={<Bets />}/>
-                        <Route path='/login' element={<Login />}/>
-                        <Route path='/signup' element={<Signup />}/>
-
-                    </Routes>
-                    </div>
-
-                    <Sidebar />
-
-                </Router>
-            </div>
-        </ThemeProvider>
-    </Provider>
-    
-  );
-}
+                        <Routes>
+                            <Route path='/' element={<Home />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/account" element={<Account />} />
+                            <Route path='/bets' element={<Bets />} />
+                            <Route path='/signup' element={<Signup />} />
+                        </Routes>
+                  </div>
+              </Router>
+          </ThemeProvider>
+    );
+  }
 
 export default App
