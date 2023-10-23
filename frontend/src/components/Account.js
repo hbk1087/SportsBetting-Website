@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from "axios";
 
 
@@ -7,27 +7,30 @@ import { setToken, removeToken, initializeToken, setLoggedIn } from '../slices/a
 
 import '../css/Account.css';
 
-function Account(props) {
+function Account() {
 
   const [accountData, setAccountData] = useState(null)
 
-    const dispatch = useDispatch();
-    const authToken = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
+  const authToken = useSelector((state) => state.auth.token);
 
+  useEffect(() => {
+    getData();
+  }, []);
+    
   function getData() {
+    console.log(authToken)
     axios({
       method: "GET",
       url:"/account",
       headers: {
-        Authorization: 'Bearer ' + props.token
+        Authorization: 'Bearer ' + authToken
       }
     })
     .then((response) => {
       const res = response.data
-      res.access_token && dispatch(setToken(res.access_token))
-      setAccountData(({
-        account_name: res.name,
-        about_me: res.about}))
+      console.log(res)
+      setAccountData((res))
     }).catch((error) => {
       if (error.response) {
         console.log(error.response)
@@ -39,10 +42,16 @@ function Account(props) {
   return (
     <div className="account">
 
-        <p>To get your account details: </p><button id="getAccountButton" onClick={getData}>Click me</button>
         {accountData && <div>
-              <p>Account name: {accountData.account_name}</p>
-              <p>About me: {accountData.about_me}</p>
+              <p>Username: {accountData.username}</p>
+              <p>First Name: {accountData.first_name}</p>
+              <p>Last Name: {accountData.last_name}</p>
+              <p>Email: {accountData.email}</p>
+              <p>Address: {accountData.address}</p>
+              <p>Phone Number: {accountData.phone_number}</p>
+              <p>Lifetime Winnings: {accountData.lifetime_winnings}</p>
+              <p>Current Balance: {accountData.current_balance}</p>
+              
             </div>
         }
 

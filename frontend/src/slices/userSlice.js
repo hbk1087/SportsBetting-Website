@@ -13,9 +13,12 @@ export const userSlice = createSlice({
       state.activeBets.push(action.payload.bet);
     },
     // Add more reducers as needed
+    initializeUser: (state, action) => {
+      state.username = action.payload;
+    }
   }
 });
 
-export const { placeBet } = userSlice.actions;
+export const { placeBet, initializeUser } = userSlice.actions;
 
 export default userSlice.reducer;
