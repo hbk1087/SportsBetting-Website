@@ -48,8 +48,9 @@ const Navbar = () => {
     return (
         <AppBar position="static" >
         <Toolbar>
+
             <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon/>
+                <MenuIcon/>
             </IconButton>
 
             <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -78,9 +79,10 @@ const Navbar = () => {
                             <SignupButton color="inherit" component={Link} to='/signup'>Signup</SignupButton>
                         </>
                     )
-                }
-        </Toolbar>
-        </AppBar>
+            }
+            
+            </Toolbar>
+            </AppBar>
     );
 }
 
