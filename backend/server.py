@@ -93,8 +93,14 @@ def my_account():
         # Make sure object id is string
         for element in account:
             element['_id'] = str(element['_id'])
+            account_bets = element['bets']
+            for bet in account_bets:
+                bet['_id'] = str(bet['_id'])
+
+        
 
         # Return account details
+        print(account[0])
         return good_response(account[0])
     
     except Exception as e:
