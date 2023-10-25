@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
 
+import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setToken, removeToken, initializeToken, setLoggedIn } from '../slices/authSlice'
@@ -13,31 +14,46 @@ function Account() {
 
   const dispatch = useDispatch();
   const authToken = useSelector((state) => state.auth.token);
+  var authLoggedIn = useSelector((state) => state.auth.loggedIn);
+
+  const navigate = useNavigate();
+  const routeChangeLogin = () => {
+    const path = `/login`;
+    navigate(path);
+}
 
   useEffect(() => {
     getData();
   }, []);
     
   function getData() {
-    console.log(authToken)
-    axios({
-      method: "GET",
-      url:"/account",
-      headers: {
-        Authorization: 'Bearer ' + authToken
-      }
-    })
-    .then((response) => {
-      const res = response.data
-      console.log(res)
-      setAccountData((res))
-    }).catch((error) => {
-      if (error.response) {
-        console.log(error.response)
-        console.log(error.response.status)
-        console.log(error.response.headers)
+    console.log(authLoggedIn)
+    
+
+    
+    if (authLoggedIn === false) {
+      routeChangeLogin()
+    }
+    else {
+      axios({
+        method: "GET",
+        url:"/account",
+        headers: {
+          Authorization: 'Bearer ' + authToken
         }
-    })}
+      })
+      .then((response) => {
+        const res = response.data
+        console.log(res)
+        setAccountData((res))
+      }).catch((error) => {
+        if (error.response) {
+          console.log(error.response)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+          }
+      })}
+    }
 
   return (
     <div className="account">
