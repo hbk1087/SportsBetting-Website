@@ -42,7 +42,7 @@ const LogoutButton = styled(Button)(({ theme }) => ({
 
 const Navbar = () => {
     var authLoggedIn = useSelector((state) => state.auth.loggedIn);
-
+    console.log(authLoggedIn)
     const username = useSelector((state) => state.user.username)
 
     return (
