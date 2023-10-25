@@ -11,14 +11,26 @@ const Home = () => {
     useEffect(() => {
         document.title = "Home"
 
-        axios.get("./home")
-            .then(response => {
-                console.log(response.data)
-                setGame(response.data)
-            })
-            .catch(error => {
-                console.error("There was some error fetching the data:", error)
-            })
+        async function getNflData() {
+            try {
+                const response = await axios({
+                  method: "GET",
+                  url: "/home",
+                })
+            
+                const res = response.data;
+                console.log(res);
+                setGame(res)
+              } catch (error) {
+                if (error.response) {
+                  console.log(error.response);
+                  console.log(error.response.status);
+                  console.log(error.response.headers);
+                }
+              }
+            }
+
+        getNflData()
     }, []) // This should update periodically, setInterval?
     
 
