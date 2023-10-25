@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
         document.title = "Home"
 
-        axios.get("./nfl")
+        axios.get("./home")
             .then(response => {
                 console.log(response.data)
                 setGame(response.data)

@@ -116,7 +116,7 @@ def logout():
 
 
 
-@app.route('/')
+@app.route('/home')
 @cross_origin()
 def index():
 
@@ -126,7 +126,7 @@ def index():
     current_time_est = datetime.now(est_tz)
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
     print(formatted_time)   
-    data = list(connection.find({"$and": [{'date': {"$gt": formatted_time}}, {"sport": {'$eq': "nfl"}}]}).sort('date', ASCENDING))
+    data = list(connection.find({"$and": [{'date': {"$gt": formatted_time}}]}).sort('date', ASCENDING))
     for element in data:
         element['_id'] = str(element['_id'])
 
