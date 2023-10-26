@@ -2,6 +2,8 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { addBet, removeBet, updateBet } from '../slices/betSlice';
+import axios from 'axios';
+import { useEffect, useState } from 'react'
 
 function Bets() {
     // const bets = useSelector((state) => state.bets.bets);
@@ -19,19 +21,38 @@ function Bets() {
         dispatch(updateBet(bet));
     }
 
+    const [bets, setBet] = useState([{}])
+    const authToken = useSelector((state) => state.auth.token);
+    var authLoggedIn = useSelector((state) => state.auth.loggedIn);
+
+    useEffect(() => {
+        document.title = "Bets"
+
+        axios({
+            method: "GET",
+            url:"/bets",
+            headers: {
+              Authorization: 'Bearer ' + authToken
+            }
+          })
+            .then(response => {
+                console.log(response.data)
+                setBet(response.data)
+            })
+            .catch(error => {
+                console.error("There was some error fetching the data:", error)
+            })
+    }, [])
+
     return (
-        <div>
-            <h2 className='user-bets'>Your Bets</h2>
-            {/* <div className='user-bets'>
-                {bets.map((bet) => (
-                    <div key={bet.id}>
-                        <h3>{bet.title}</h3>
-                        <p>{bet.description}</p>
-                        <p>{bet.amount}</p>
-                        <button onClick={() => handleRemoveBet(bet)}>Remove</button>
+        <div className='parentDiv'>
+                {bets.map((betItem, index) => (
+                    <div key={betItem.game_id} className='bet-details-container'>
+                        <p>{betItem.away_team}</p>
+                        <p>{betItem.home_team}</p>
+                        <p>{betItem.wager}</p>
                     </div>
                 ))}
-            </div> */}
         </div>
     )
 }

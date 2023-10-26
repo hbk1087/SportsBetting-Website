@@ -84,15 +84,19 @@ def update_games():
         # Get the current time in EST
         current_time_est = datetime.now(est_tz)
         formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
-        print(formatted_time)   
-        data = list(connection.find({"$and": [{'date': {"$lt": formatted_time}}, {"sport": {'$eq': "nfl"}}]}))
+        #print(formatted_time)   
+        data = list(connection.find({"$and": [{'date': {"$lt": formatted_time}}, {"sport": {'$eq': "nfl"}}, {"home_score": {'$eq': None}}, {"away_score": {'$eq': None}}]}))
         for element in data:
             element['_id'] = str(element['_id'])
             row = filtered_df[(filtered_df['Date'] == convert_date_format(element['date'])) & (filtered_df['Home Team'] == element['home_team']) & (filtered_df['Away Team'] == element['away_team'])]
+            print(row)
             if len(row.index) > 0:
-                element['home_score'] = row['Home Score']
-                element['away_score'] = row['Away Score']
-                connection.update_one({'_id': element['_id']}, {'$set': element, '$currentDate': { 'lastUpdated': True }} )
+                
+                ### Updating home and away scores
+                element['home_score'] = int(row['Home Score'].values[0])
+                element['away_score'] = int(row['Away Score'].values[0])
+                connection.update_one({'game_id': element['game_id']}, {'$set': {"home_score": element["home_score"]}, '$currentDate': { 'lastUpdated': True }} )
+                connection.update_one({'game_id': element['game_id']}, {'$set': {"away_score": element["away_score"]}, '$currentDate': { 'lastUpdated': True }} )
 
                 connection_to_users = connect('users')
                 connection_to_bets = connect('bets')
@@ -100,67 +104,67 @@ def update_games():
                 #Update bets
                 game_bets = connection_to_bets.find({'game_id': element['game_id']})
                 for bet in game_bets:
-                    payout = 0
+                    if bet['actual_payout'] is None:
+                        payout = 0
+                        # Away ML bet
+                        if bet['bet_type'] == 'Away':
+                            if element['away_score'] > element['home_score']:
+                                payout = bet['potential_payout']
+                            elif element['away_score'] < element['home_score']:
+                                payout = 0
+                            else:
+                                payout = bet['wager']
 
-                    # Away ML bet
-                    if bet['bet_type'] == 'Away':
-                        if element['away_score'] > element['home_score']:
-                            payout = bet['potential_payout']
-                        elif element['away_score'] < element['home_score']:
-                            payout = 0
-                        else:
-                            payout = bet['wager']
+                        # Home ML bet
+                        elif bet['bet_type'] == 'Home':
+                            if element['home_score'] > element['away_score']:
+                                payout = bet['potential_payout']
+                            elif element['home_score'] < element['away_score']:
+                                payout = 0
+                            else:
+                                payout = bet['wager']
 
-                    # Home ML bet
-                    elif bet['bet_type'] == 'Home':
-                        if element['home_score'] > element['away_score']:
-                            payout = bet['potential_payout']
-                        elif element['home_score'] < element['away_score']:
-                            payout = 0
-                        else:
-                            payout = bet['wager']
+                        # Away Spread
+                        elif bet['bet_type'] == 'Away Line':                   
+                            if element['home_score'] - element['away_score'] < element['away_spread_odds']:
+                                payout = bet['potential_payout']
+                            elif element['home_score'] - element['away_score'] > element['away_spread_odds']:
+                                payout = 0
+                            else:
+                                payout = bet['wager']
+                        # Home Spread
+                        elif bet['bet_type'] == 'Home Line':                   
+                            if element['away_score'] - element['home_score'] < element['home_spread_odds']:
+                                payout = bet['potential_payout']
+                            elif element['away_score'] - element['home_score'] > element['home_spread_odds']:
+                                payout = 0
+                            else:
+                                payout = bet['wager']
+                        # Over
+                        elif bet['bet_type'] == 'Over':
+                            if element['away_score'] + element['home_score'] > element['total']:
+                                payout = bet['potential_payout']
+                            elif element['away_score'] + element['home_score'] < element['total']:
+                                payout = 0
+                            else:
+                                payout = bet['wager']
+                        #Under
+                        elif bet['bet_type'] == 'Under':
+                            if element['away_score'] + element['home_score'] < element['total']:
+                                payout = bet['potential_payout']
+                            elif element['away_score'] + element['home_score'] > element['total']:
+                                payout = 0
+                            else:
+                                payout = bet['wager']
+                        # Update Bet actual payout value
+                        connection_to_bets.update_one({'_id': bet['_id']}, {'$set': {"actual_payout": payout}, '$currentDate': { 'lastUpdated': True }} )
 
-                    # Away Spread
-                    elif bet['bet_type'] == 'Away Line':                   
-                        if element['home_score'] - element['away_score'] < element['away_spread_odds']:
-                            payout = bet['potential_payout']
-                        elif element['home_score'] - element['away_score'] > element['away_spread_odds']:
-                            payout = 0
-                        else:
-                            payout = bet['wager']
-                    # Home Spread
-                    elif bet['bet_type'] == 'Home Line':                   
-                        if element['away_score'] - element['home_score'] < element['home_spread_odds']:
-                            payout = bet['potential_payout']
-                        elif element['away_score'] - element['home_score'] > element['home_spread_odds']:
-                            payout = 0
-                        else:
-                            payout = bet['wager']
-                    # Over
-                    elif bet['bet_type'] == 'Over':
-                        if element['away_score'] + element['home_score'] > element['total']:
-                            payout = bet['potential_payout']
-                        elif element['away_score'] + element['home_score'] < element['total']:
-                            payout = 0
-                        else:
-                            payout = bet['wager']
-                    #Under
-                    elif bet['bet_type'] == 'Under':
-                        if element['away_score'] + element['home_score'] < element['total']:
-                            payout = bet['potential_payout']
-                        elif element['away_score'] + element['home_score'] > element['total']:
-                            payout = 0
-                        else:
-                            payout = bet['wager']
-                    # Update Bet actual payout value
-                    connection_to_bets.update_one({'_id': bet['_id']}, {'$set': {"actual_payout": payout}, '$currentDate': { 'lastUpdated': True }} )
-                    
-                    # Update corresponding account balance and lifetime winnings 
-                    bet_account = list(connection_to_users.find({"username":bet['account_username']}))[0]
-                    new_lifetime_winnings = bet_account['lifetime_winnings'] + payout
-                    new_current_balance = bet_account['current_balance'] + payout
-                    connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"lifetime_winnings": new_lifetime_winnings}, '$currentDate': { 'lastUpdated': True }} )
-                    connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"current_balance": new_current_balance}, '$currentDate': { 'lastUpdated': True }} )
+                        # Update corresponding account balance and lifetime winnings 
+                        bet_account = list(connection_to_users.find({"username": bet['account_username']}))[0]
+                        new_lifetime_winnings = bet_account['lifetime_winnings'] + payout
+                        new_current_balance = bet_account['current_balance'] + payout
+                        connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"lifetime_winnings": new_lifetime_winnings}, '$currentDate': { 'lastUpdated': True }} )
+                        connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"current_balance": new_current_balance}, '$currentDate': { 'lastUpdated': True }} )
 
         return good_response("NFL Games were updated")
     

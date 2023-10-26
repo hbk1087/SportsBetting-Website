@@ -43,24 +43,38 @@ def get_bets():
             bet = UserBet(account_username, game_id, bet_type, wager, potential_payout, timestamp)
             try:
                 connection = connect('bets')
-                # Insert new bet and return created success response
-                connection.insert_one(bet.data_dict)
 
-                # Add to account bets array
+                # Make sure account balance - wager is >= 0
                 connection_to_users = connect('users')
                 account = list(connection_to_users.find({'username': account_username}))[0]
-                print(account)
-                print(account['bets'])
-                bets_list = account['bets']
-                bets_list.append(bet.data_dict)
-                print(bets_list)
-                print(bet.data_dict)
+                if account['current_balance'] - bet.wager >= 0:
 
-                # Update user to include new bet 
-                connection_to_users.update_one({'username': account_username}, {'$set': {'bets': bets_list}, '$currentDate': { 'lastUpdated': True }} )
+                    # Insert new bet and return created success response, update user account balance and lifetime winnings
+                    connection.insert_one(bet.data_dict)
+
+                    new_lifetime_winnings = account['lifetime_winnings'] - bet.wager
+                    new_current_balance = account['current_balance'] - bet.wager
+                    connection_to_users.update_one({'username': account_username}, {'$set': {"lifetime_winnings": new_lifetime_winnings}, '$currentDate': { 'lastUpdated': True }} )
+                    connection_to_users.update_one({'username': account_username}, {'$set': {"current_balance": new_current_balance}, '$currentDate': { 'lastUpdated': True }} )
+                    return good_creation_response("Successfully created bet!")
+                else:
+                    return bad_response("Insufficient funds for wager")
+
                 
 
-                return good_creation_response("Successfully created bet!")
+                # # Add to account bets array
+                # connection_to_users = connect('users')
+                # account = list(connection_to_users.find({'username': account_username}))[0]
+                # print(account)
+                # print(account['bets'])
+                # bets_list = account['bets']
+                # bets_list.append(bet.data_dict)
+                # print(bets_list)
+                # print(bet.data_dict)
+
+                # # Update user to include new bet 
+                # connection_to_users.update_one({'username': account_username}, {'$set': {'bets': bets_list}, '$currentDate': { 'lastUpdated': True }} )
+                
 
 
             except Exception as e:
@@ -76,16 +90,15 @@ def get_bets():
 
             account_username = get_jwt_identity()
 
-            account = list(connection_to_users.find({'username': account_username}))
+            account_bets = list(connection_to_bets.find({'account_username': account_username}))
 
 
-            account_bets = account[0]['bets']
             print(account_bets)
 
             all_bets_ready_for_post = []
 
             for element in account_bets:
-                the_bet = list(connection_to_bets.find({'_id': element['_id']}))[0]
+                the_bet = element
                 print(the_bet)
                 the_game_id = the_bet['game_id']
                 the_game = list(connection_to_games.find({'game_id': the_game_id}))[0]
@@ -114,7 +127,9 @@ def get_bets():
                     points = the_game['total']
 
                 pp = odds * the_bet['wager']
-                all_bets_ready_for_post.append({"away_team" : away_team, "home_team" : home_team, "type": bet_type, "odds": odds, "points": points, "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout']})
+                if points == None:
+                    points = 'Money Line'
+                all_bets_ready_for_post.append({"away_team" : away_team, "home_team" : home_team, "type": bet_type, "odds": odds, "points": points, "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp']})
 
 
             return good_response(all_bets_ready_for_post)

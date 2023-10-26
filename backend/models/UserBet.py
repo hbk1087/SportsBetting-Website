@@ -1,8 +1,8 @@
 class UserBet():
 
     def __init__(self, account_username, game_id, bet_type, wager, potential_payout, timestamp, actual_payout=None):
-        self.account_username = account_username # Account object here
-        self.game_id = game_id #GameModel object will go here
+        self.account_username = account_username 
+        self.game_id = game_id 
         self.bet_type = bet_type
         self.wager = wager
         self.potential_payout = potential_payout

@@ -23,7 +23,6 @@ def update_user():
     "email": request.json.get("email"),
     "phone_number": request.json.get("phone_number"),
     "address": request.json.get("address"),
-    "bets": request.json.get("bets"),
     "lifetime_winnings": request.json.get("lifetime_winnings"),
     "current_balance": request.json.get("current_balance")
     }
