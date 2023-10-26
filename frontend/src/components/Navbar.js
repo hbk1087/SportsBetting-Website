@@ -36,7 +36,7 @@ const SignupButton = styled(Button)(({ theme }) => ({
 const Navbar = () => {
     var authLoggedIn = useSelector((state) => state.auth.loggedIn);
     console.log(authLoggedIn)
-    const username = useSelector((state) => state.user.username)
+    var username = useSelector((state) => state.user.username)
 
     return (
         <AppBar position="static" >
