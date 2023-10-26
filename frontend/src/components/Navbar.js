@@ -32,13 +32,6 @@ const SignupButton = styled(Button)(({ theme }) => ({
     }
 }));
 
-const LogoutButton = styled(Button)(({ theme }) => ({
-    backgroundColor: '#dc2839',
-    '&:hover': {
-    backgroundColor: '#b02a37', // a bit darker on hover
-    }
-}));
-
 
 const Navbar = () => {
     var authLoggedIn = useSelector((state) => state.auth.loggedIn);
