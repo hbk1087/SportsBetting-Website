@@ -51,6 +51,7 @@ function Bets() {
                         <p>{betItem.away_team}</p>
                         <p>{betItem.home_team}</p>
                         <p>{betItem.wager}</p>
+                        <p>{betItem.actual_payout}</p>
                     </div>
                 ))}
         </div>
