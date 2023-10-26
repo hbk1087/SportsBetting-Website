@@ -80,8 +80,8 @@ def create_token():
         return bad_response(e)
 
 @app.route('/account', methods=['GET', 'OPTIONS'])
-@cross_origin()
 @jwt_required()
+@cross_origin()
 def my_account():
 
     current_account = get_jwt_identity()
@@ -93,12 +93,7 @@ def my_account():
         # Make sure object id is string
         for element in account:
             element['_id'] = str(element['_id'])
-            account_bets = element['bets']
-            for bet in account_bets:
-                bet['_id'] = str(bet['_id'])
-
-        
-
+            
         # Return account details
         print(account[0])
         return good_response(account[0])
