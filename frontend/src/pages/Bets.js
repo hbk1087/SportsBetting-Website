@@ -2,8 +2,9 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { addBet, removeBet, updateBet } from '../slices/betSlice';
-import axios from 'axios';
 import { useEffect, useState } from 'react'
+
+import axios from 'axios';
 
 function Bets() {
     // const bets = useSelector((state) => state.bets.bets);

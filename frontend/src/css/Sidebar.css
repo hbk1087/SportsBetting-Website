@@ -1,7 +1,6 @@
 /* Sidebar */
 .sticky-sidebar {
     position: absolute;
-    top: 0; /* Adjust this value as needed to determine where it will start sticking on the page */
     height: 100vh;
     overflow-y: auto; /* For scrollable content if the sidebar content exceeds viewport height */
     padding: 16px;
@@ -10,6 +9,7 @@
   
   /* Additional styles for sidebar content */
   .sticky-sidebar h2 {
+    display: flex;
     /* style for the header */
   }
   
@@ -27,5 +27,5 @@
 
 /* If you want to change the color of all text within the sidebar */
 .sticky-sidebar * {
-    color: #FFFFFF; /* Set to the color you desire */
+    color: #e0d1d1; /* Set to the color you desire */
 }

@@ -8,6 +8,9 @@ export const userSlice = createSlice({
     lifetime_winnings: 0
   },
   reducers: {
+    setUsername: (state, action) => {
+      state.username = action.payload;
+    },
     placeBet: (state, action) => {
       state.balance -= action.payload.amount;
       state.lifetime_winnings -= action.payload.amount;
@@ -19,6 +22,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { placeBet, initializeUser } = userSlice.actions;
+export const { setUsername, placeBet, initializeUser } = userSlice.actions;
 
 export default userSlice.reducer;

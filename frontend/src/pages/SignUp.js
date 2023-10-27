@@ -1,13 +1,3 @@
-/*  Page needs to send request to API with these details as JSON.
-        username = request.json.get('username')
-        first_name = request.json.get('first_name')
-        last_name = request.json.get('last_name')
-        email = request.json.get('email')
-        phone_number = request.json.get('phone_number')
-        address = request.json.get('address')
-        password = request.json.get('password') 
-*/
-
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +6,18 @@ import axios from "axios";
 
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
+
+
+import { styled } from '@mui/material/styles';
+
+
+const SignupGrid = styled(Grid)(({ theme }) => ({
+  backgroundColor: '#000000',
+  height: '100vh',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: theme.spacing(10),
+}));
 
 function Signup() {
     let navigate = useNavigate();
@@ -79,7 +81,7 @@ function Signup() {
 
       return (
         <div className="signupForm">
-        <Grid container justifyContext="center" alignItems="center" style={{ height: '50vh' }}>
+        <SignupGrid container justifyContext="center" alignItems="center" style={{ height: '50vh' }}>
           <Paper className="signupForm" elevation={3} style={{ padding: '2rem' }}>
             <Typography variant="h5" gutterBottom>
               Signup
@@ -165,7 +167,7 @@ function Signup() {
               </Grid>
             </form>
           </Paper>
-        </Grid>
+        </SignupGrid>
         </div>
       );
 }

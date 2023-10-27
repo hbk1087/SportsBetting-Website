@@ -1,3 +1,5 @@
+// TODO: Figure out if this is even used now??
+
 import { useState } from 'react';
 
 function useToken() {

@@ -1,8 +1,12 @@
+// React
 import { useEffect, useState } from 'react'
 
 // components
 import GameDetails from '../components/GameDetails'
+import Sidebar from '../components/Sidebar'
+import BetsBar from '../components/BetsBar'
 
+// axios
 import axios from 'axios'
 
 const Home = () => {
@@ -36,12 +40,16 @@ const Home = () => {
 
     // TODO: Display "no games today" if there are no games today
     return (
+        <div>
+        <Sidebar />
         <div className='parentDiv'>
                 {game.map((gameItem, index) => (
                     <div key={gameItem.game_id} className='game-details-container'>
                         <GameDetails game={gameItem} />
                     </div>
                 ))}
+        </div>
+        <BetsBar />
         </div>
     )
 }

@@ -1,16 +1,19 @@
 // React 
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUsername } from '../slices/userSlice'
 
 // MUI
+import { styled } from '@mui/material/styles';
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
-import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Logout from './Logout';
+
+// Components
+import LogoutButton from './buttons/LogoutButton';
 import Welcome from './Welcome';
 
 import '../css/Navbar.css';
@@ -34,9 +37,23 @@ const SignupButton = styled(Button)(({ theme }) => ({
 
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+
+    // user authentication selectors
     var authLoggedIn = useSelector((state) => state.auth.loggedIn);
-    console.log(authLoggedIn)
-    var username = useSelector((state) => state.user.username)
+    var authHasToken = useSelector((state) => state.auth.token);
+
+    // user data selectors
+    const username = useSelector((state) => state.user.username);
+
+    useEffect(() => {
+        dispatch(setUsername(username))
+
+        console.log("Navbar.js: authLoggedIn: " + authLoggedIn)
+        console.log("Navbar.js: authHasToken: " + authHasToken)
+
+        console.log("Rerendering Navbar.js")
+    }, )
 
     return (
         <AppBar position="static" >
@@ -53,14 +70,14 @@ const Navbar = () => {
             </Link>
 
             { 
-                    authLoggedIn ?
+                    authLoggedIn === true && localStorage.getItem('loggedIn')?
                     (
                         // When logged in
                         <>
                             <Button color="inherit" component={Link} to='/bets'>Bets</Button>
                             <div style={{ flexGrow: 1 }}></div>
                             <Welcome username={username} />
-                            <Logout />
+                            <LogoutButton />
                             <Button color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></Button>
                         </>
                     ) : 
