@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // API
@@ -11,6 +11,7 @@ import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 
+
 const SignupGrid = styled(Grid)(({ theme }) => ({
   backgroundColor: '#000000',
   height: '100vh',
@@ -20,6 +21,7 @@ const SignupGrid = styled(Grid)(({ theme }) => ({
 }));
 
 function Signup() {
+    const [selectedAddress, setSelectedAddress] = useState({})
     let navigate = useNavigate();
 
     const routeChangeLogin = () => {
@@ -40,6 +42,25 @@ function Signup() {
     useEffect(() => {
         document.title = "Signup"
     }, [])
+
+
+    const autoCompleteRef = useRef();
+    const inputRef = useRef();
+    const options = {
+      componentRestrictions: { country: "us" }
+    };
+
+    useEffect(() => {
+      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+      inputRef.current,
+      options
+      );
+
+      autoCompleteRef.current.addListener("place_changed", async function () {
+      const place = await autoCompleteRef.current.getPlace();
+      setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
+      });
+    }, []);
 
     const signMeUp = (event) => {
         event.preventDefault()
@@ -77,7 +98,10 @@ function Signup() {
       const {value, name} = event.target
       setFormData(prevNote => ({
           ...prevNote, [name]: value})
-      )}
+      )
+      console.log(formData)
+    }
+
 
       return (
         <div className="signupForm">
@@ -103,6 +127,7 @@ function Signup() {
                     required
                     fullWidth
                     label="First Name"
+                    type="text"
                     name="first_name"
                     value={formData.first_name}
                     onChange={handleChange}
@@ -113,6 +138,7 @@ function Signup() {
                     required
                     fullWidth
                     label="Last Name"
+                    type="text"
                     name="last_name"
                     value={formData.last_name}
                     onChange={handleChange}
@@ -123,6 +149,7 @@ function Signup() {
                     required
                     fullWidth
                     label="Email"
+                    type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
@@ -138,6 +165,7 @@ function Signup() {
                     onChange={handleChange}
                   />
                 </Grid>
+
                 <Grid item>
                   <TextField
                     required
@@ -146,8 +174,10 @@ function Signup() {
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
+                    inputRef={inputRef}
                   />
                 </Grid>
+
                 <Grid item>
                   <TextField
                     required
