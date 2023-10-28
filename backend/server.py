@@ -152,7 +152,11 @@ app.register_blueprint(user_bets_blueprint, url_prefix='/bets')
 # API endpoint to update account info
 app.register_blueprint(account_updates_blueprint, url_prefix='/account_updates')
 
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
+
      
 # Running app
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000)
