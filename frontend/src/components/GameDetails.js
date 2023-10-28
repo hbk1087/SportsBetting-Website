@@ -32,6 +32,39 @@ const GameDetails = ({ game }) => {
         best_bet_edge,
     } = game;
 
+    function formatDate(inputDate) {
+      // Parse the input date string
+      const inputDateObj = new Date(inputDate);
+    
+      // Define an array with month names
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+    
+      // Extract the date components
+      const day = inputDateObj.getDate();
+      const month = monthNames[inputDateObj.getMonth()];
+      const hours = inputDateObj.getHours();
+      const minutes = inputDateObj.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+    
+      // Convert hours from 24-hour format to 12-hour format
+      const displayHours = hours % 12 || 12;
+    
+      // Ensure minutes are displayed with two digits
+      const displayMinutes = minutes.toString().padStart(2, '0');
+    
+      // Determine the time zone (ET for Eastern Time)
+      const timeZone = "ET";
+    
+      // Construct the formatted date string
+      const formattedDate = `${month} ${day}, ${displayHours}:${displayMinutes} ${ampm} ${timeZone}`;
+    
+      return formattedDate;
+    }
+    const new_date = formatDate(date)
+
     const teamToComponent = {
       'San Francisco 49ers': NFLLogos.SF,
       'Arizona Cardinals': NFLLogos.ARI,
@@ -156,6 +189,20 @@ const GameDetails = ({ game }) => {
       alignItems: 'center'
     });
 
+    const DateContainer = styled('div')({
+      display: 'flex',
+      flexDirection: 'row',
+      flexGrow: 1,
+      gap: '0px',
+      justifyContent: 'start',
+      alignItems: 'left',
+      color: '#ffffff',
+      padding: '5px',
+      marginLeft: '1%',
+      fontWeight: '100',
+      fontSize: '0.85em'
+    });
+
     return (
       <StyledGridContainer container spacing={0} alignItems="center" justifyContent="center" style={{borderBottom: '1px solid #869d97'}}>
         <TeamSeparator />
@@ -182,6 +229,7 @@ const GameDetails = ({ game }) => {
             <StyledBetBox bet_type={'total_under'} total={total} under_odds={under_odds} />
           </TeamBetContainer>
         </BetOptionsContainer>
+        <DateContainer>{new_date}</DateContainer>
       </StyledGridContainer>
     )
 }
