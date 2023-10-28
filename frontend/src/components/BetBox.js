@@ -41,7 +41,7 @@ function BetBox({
     return (
       <div className='form-container'>
         <div className='away-spread'>{away_spread < 0 ? away_spread : (away_spread > 0 ? `+${away_spread}` : away_spread)}</div>
-        <div className='away-spread-odds'>{away_spread_odds < 0 ? away_spread_odds : (away_spread_odds > 0 ? `+${away_spread_odds}` : away_spread_odds)}</div>
+        <div className='away-spread-odds'>{away_spread_odds}</div>
       </div>
     );
   };
@@ -50,7 +50,7 @@ function BetBox({
     return (
       <div className='form-container'>
         <div className='home-spread'>{home_spread < 0 ? home_spread : (home_spread > 0 ? `+${home_spread}` : home_spread)}</div>
-        <div className='home-spread-odds'>{home_spread_odds < 0 ? home_spread_odds : (home_spread_odds > 0 ? `+${home_spread_odds}` : home_spread_odds)}</div>
+        <div className='home-spread-odds'>{home_spread_odds}</div>
       </div>
     );
   };
@@ -58,7 +58,7 @@ function BetBox({
   const renderMoneylineAwayForm = () => {
     return (
       <div className='form-container'>
-        <div className='away-odds'>{away_odds < 0 ? away_odds : (away_odds > 0 ? `+${away_odds}` : away_odds)}</div>
+        <div className='away-odds'>{away_odds}</div>
       </div>
     );
   }
@@ -66,7 +66,7 @@ function BetBox({
   const renderMoneylineHomeForm = () => {
     return (
       <div className='form-container'>
-        <div className='home-odds'>{home_odds < 0 ? home_odds : (home_odds > 0 ? `+${home_odds}` : home_odds)}</div>
+        <div className='home-odds'>{home_odds}</div>
       </div>
     );
   }
@@ -76,7 +76,7 @@ function BetBox({
     return (
       <div className='form-container'>
         <div className='total'>O {total}</div>
-        <div className='over-odds'>{over_odds < 0 ? over_odds : (over_odds > 0 ? `+${over_odds}` : over_odds)}</div>
+        <div className='over-odds'>{over_odds}</div>
       </div>
     );
   };
@@ -85,7 +85,7 @@ function BetBox({
     return (
       <div className='form-container'>
         <div className='total'>U {total}</div>
-        <div className='under-odds'>{under_odds < 0 ? under_odds : (under_odds > 0 ? `+${under_odds}` : under_odds)}</div>
+        <div className='under-odds'>{under_odds}</div>
       </div>
     );
   }
