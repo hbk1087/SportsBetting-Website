@@ -17,6 +17,7 @@ import LogoutButton from './buttons/LogoutButton';
 import Welcome from './Welcome';
 
 import '../css/Navbar.css';
+import logo from '../img/textlogo.png';
 
 // Custom styled button for the login
 const LoginButton = styled(Button)(({ theme }) => ({
@@ -62,9 +63,7 @@ const Navbar = () => {
             </IconButton>
 
             <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Typography variant="h6" style={{ marginLeft: '20px'}}>
-                Sports Betting
-                </Typography>
+                <img src={logo} style={{ marginLeft: '10px', height: '60px', width: '150px', padding: '5px'}}></img>
             </Link>
 
             { 

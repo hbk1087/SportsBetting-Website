@@ -7,6 +7,7 @@ import * as NFLLogos from 'react-nfl-logos';
 import LoadingIndicator from '../util/LoadingIndicator';
 
 import BetBox from "./BetBox"
+import TeamSeparator from './TeamSeparator';
 
 import "../css/GameDetails.css"
 
@@ -157,6 +158,7 @@ const GameDetails = ({ game }) => {
 
     return (
       <StyledGridContainer container spacing={0} alignItems="center" justifyContent="center" style={{borderBottom: '1px solid #869d97'}}>
+        <TeamSeparator />
         <LogoContainer>
           <TeamComponent teamName={away_team} />
           <TeamComponent teamName={home_team} />
