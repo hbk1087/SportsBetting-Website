@@ -155,4 +155,4 @@ app.register_blueprint(account_updates_blueprint, url_prefix='/account_updates')
      
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
