@@ -40,15 +40,13 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     // user authentication selectors
-    var authLoggedIn = useSelector((state) => state.auth.loggedIn);
-    var authHasToken = useSelector((state) => state.auth.token);
+    const authLoggedIn = useSelector((state) => state.auth.loggedIn);
+    const authHasToken = useSelector((state) => state.auth.token);
 
     // user data selectors
     const username = useSelector((state) => state.user.username);
 
     useEffect(() => {
-        dispatch(setUsername(username))
-
         console.log("Navbar.js: authLoggedIn: " + authLoggedIn)
         console.log("Navbar.js: authHasToken: " + authHasToken)
 
@@ -64,13 +62,13 @@ const Navbar = () => {
             </IconButton>
 
             <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Typography variant="h6">
+                <Typography variant="h6" style={{ marginLeft: '20px'}}>
                 Sports Betting
                 </Typography>
             </Link>
 
             { 
-                    authLoggedIn === true && localStorage.getItem('loggedIn')?
+                    authLoggedIn === true ?
                     (
                         // When logged in
                         <>

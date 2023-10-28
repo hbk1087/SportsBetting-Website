@@ -8,10 +8,8 @@ import BetsBar from '../components/BetsBar'
 
 // axios
 import axios from 'axios'
-import GameOddsHeader from '../components/GameOddsHeader'
 
-
-const Home = () => {
+const NFLPage = () => {
     const [game, setGame] = useState([{}])
 
     useEffect(() => {
@@ -42,21 +40,18 @@ const Home = () => {
 
     // TODO: Display "no games today" if there are no games today
     return (
-        <div className="page-content">
-            <Sidebar />
-            <div className="game-odds-header">
-            <GameOddsHeader sportName="NFL"/>
-            <div className='nfl-game-container'>
-                    {game.map((gameItem, index) => (
-                        <div key={gameItem.game_id} className='game-details-container'>
-                            <GameDetails game={gameItem} />
-                        </div>
-                    ))}
-            </div>
-            </div>
-            <BetsBar />
+        <div>
+        <Sidebar />
+        <div className='parentDiv'>
+                {game.map((gameItem, index) => (
+                    <div key={gameItem.game_id} className='game-details-container'>
+                        <GameDetails game={gameItem} />
+                    </div>
+                ))}
+        </div>
+        <BetsBar />
         </div>
     )
 }
 
-export default Home;
+export default NFLPage

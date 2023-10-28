@@ -2,22 +2,26 @@ import { Box } from '@mui/system';
 
 import '../css/Welcome.css'
 
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 const Welcome = ({ username }) => {
-    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.auth.loggedIn);
 
+    if (isLoggedIn) {
+        return (
+            <div className="welcome">
+                <h4>Welcome, {username}</h4>
+            </div>
+        )
+    }
 
     return (
-
-
-        
-        <Box className="welcome" variant="contained" color="primary">
-            <h4>Welcome, {username}</h4>
-        </Box>
+        <div className="welcome">
+            <h4>Welcome, Guest!</h4>
+        </div>
     )
 }
+
 
 export  default Welcome;

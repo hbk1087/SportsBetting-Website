@@ -1,46 +1,67 @@
-/* General Styles */
-div {
-    font-family: Arial, sans-serif; /* Adjust to your desired font */
-    font-size: 18px; /* Adjust based on your preference */
-    color: #ffffff;
-    text-align: center;
-}
 
-.signupForm {
-    font-family: Arial, sans-serif; /* Adjust to your desired font */
-    font-size: 18px; /* Adjust based on your preference */
+/* div {
+    font-family: Arial, sans-serif; 
+    font-size: 18px; 
     color: #ffffff;
     text-align: center;
-    justify-content: center;
-    align-items: center;
-}
+}  */
 
 /* Box Styles */
 .form-container {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
     margin: 0px; /* Spacing between each form */
-    border: 2px solid #3f7758; 
+    border: 2px solid #5087c4; 
     border-radius: 5px; 
     width: 120px; /* Adjust based on your preference */
     height: 80px; /* Adjust based on your preference */
-    text-align: center;
+    color: #ffffff;
+}
+
+.form-container .away-spread-odds {
+    color: #2a82d9;
+}
+
+.form-container .away-odds {
+    color: #2a82d9;
+}
+
+.form-container .over-odds {
+    color: #2a82d9;
+}
+
+.form-container .home-spread-odds {
+    color: #2a82d9;
+}
+
+.form-container .home-odds {
+    color: #2a82d9;
+}
+
+.form-container .under-odds {
+    color: #2a82d9;
+}
+
+.form-container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    color: #ffffff;
 }
 
 .form-container:hover {
     background-color: rgb(58, 56, 80);
   }
 
-.form-container div {
-    margin: 4px 0;
-}
 
 /* Grid Styles */
 .grid-container {
     display: flex;
     justify-content: center; 
     flex-wrap: wrap;
-    border: '1px solid #E0E0E0';
 }
 
 .parentDiv {
@@ -50,8 +71,6 @@ div {
 }
 
 .game-details-container {
-    margin: 4px 0;
     display: flex;
     width: 900px;
-    padding: 10px;
 }

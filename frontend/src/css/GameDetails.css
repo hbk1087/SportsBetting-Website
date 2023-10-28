@@ -1,9 +1,10 @@
 /* Container for the entire component */
-.container {
+.nfl-game-container {
     display: inline-block;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 0px;
+    background-color: #131314;
   }
   
   /* Style for each team section */
@@ -16,7 +17,7 @@
   .team-logo {
     width: 50px; /* Adjust as needed */
     height: 50px;
-    margin-bottom: 00px;
+    margin-bottom: 5px;
   }
   
   /* Betting box styles */

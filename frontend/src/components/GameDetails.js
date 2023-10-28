@@ -8,7 +8,7 @@ import LoadingIndicator from '../util/LoadingIndicator';
 
 import BetBox from "./BetBox"
 
-// import "../css/GameDetails.css"
+import "../css/GameDetails.css"
 
 const GameDetails = ({ game }) => {
     // Destructure game properties
@@ -107,9 +107,6 @@ const GameDetails = ({ game }) => {
     const StyledGridContainer = styled(Grid)({
       display: 'flex',
       flexWrap: 'wrap',
-      border: '1px solid #E0E0E0',
-      borderRadius: '1px',
-      boxSizing: 'border-box', // This ensures that the border doesn't add to the overall width/height
     });
     
     const StyledBetBox = styled(BetBox)({
@@ -122,7 +119,6 @@ const GameDetails = ({ game }) => {
       justifyContent: 'center',
       alignItems: 'center',
       padding: '0px',
-      ":hover" : {border: '2px solid #000000'}
     });
 
     const LogoContainer = styled(Grid)({
@@ -160,7 +156,7 @@ const GameDetails = ({ game }) => {
     });
 
     return (
-      <StyledGridContainer container spacing={0} alignItems="center" justifyContent="center" style={{border: '1px solid #E0E0E0', padding: 0, margin: 0, boxSizing: 'border-box'}}>
+      <StyledGridContainer container spacing={0} alignItems="center" justifyContent="center" style={{borderBottom: '1px solid #869d97'}}>
         <LogoContainer>
           <TeamComponent teamName={away_team} />
           <TeamComponent teamName={home_team} />

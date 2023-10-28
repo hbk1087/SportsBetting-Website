@@ -1,0 +1,46 @@
+.game-odds-header {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #1d1e1f;
+    margin: 0 auto;  /* combines both margin-right and margin-left */
+    width: 900px;
+    height: auto;
+}
+
+.sport-name {
+    display: flex;
+    justify-content: flex-start;
+    color: #ffffff;
+    margin-left: 30px;
+    width: 458px;
+}
+
+.betting-terms {
+    display: flex;
+    margin-right: 40px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    color: #869d97;
+}
+
+.betting-terms > h4 {
+    display: flex;
+    justify-content: center;
+    color: inherit;
+    width: 124px;
+}
+
+/* .spread-header {
+    padding: 5px;
+}
+
+.moneyline-header {
+    padding: 5px;
+}
+
+.total-header {
+    padding: 5px;
+} */
+
+/* Removed .moneyline-header and .total-header since their styles were identical and covered by the generic .betting-terms > div */
