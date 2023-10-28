@@ -111,7 +111,7 @@ def logout():
 
 
 
-@app.route('/home')
+@app.route('/')
 @cross_origin()
 def index():
 
