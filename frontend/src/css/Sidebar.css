@@ -38,7 +38,7 @@
 
 .list-item-image {
   width: 24px; /* Set the desired width for the image */
-  height: auto; /* Let the height adjust proportionally */
+  height: 32px; /* Let the height adjust proportionally */
   margin-right: 8px; /* Add spacing between the image and text if needed */
 }
 

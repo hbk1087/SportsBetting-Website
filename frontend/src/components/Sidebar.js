@@ -10,7 +10,7 @@ const NFLSidebar = () => {
         },
         {
             text: 'NBA',
-            imageUrl: 'https://images.ctfassets.net/h8q6lxmb5akt/5qXnOINbPrHKXWa42m6NOa/421ab176b501f5bdae71290a8002545c/nba-logo_2x.png',
+            imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/03/National_Basketball_Association_logo.svg/105px-National_Basketball_Association_logo.svg.png',
         },
         // {
         //     text: 'NCAAF',
