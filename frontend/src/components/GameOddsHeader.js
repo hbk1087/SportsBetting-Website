@@ -1,4 +1,4 @@
-import "../css/GameOddsHeader.css"
+import "../css/GameDetails.css"
 
 const GameOddsHeader = ({sportName}) => {
 

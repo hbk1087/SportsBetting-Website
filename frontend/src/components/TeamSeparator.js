@@ -6,7 +6,7 @@ const TeamSeparator = () => {
     return (
         <div className="team-separator">
             <img src={atSymbol} className="at-image"></img>
-            <div className="line"></div>
+            <div className="team-separator-line"></div>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Sidebar.css';
 // Import other images if needed
 
-const NFLSidebar = () => {
+const Sidebar = () => {
     const sportsItems = [
         {
             text: 'NFL',
@@ -82,4 +82,4 @@ const NFLSidebar = () => {
     );
 };
 
-export default NFLSidebar;
+export default Sidebar;

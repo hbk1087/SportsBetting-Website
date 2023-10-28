@@ -1,0 +1,31 @@
+.betslip-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px;
+    color: #ffffff;
+    margin-right: 10%;
+    border: 2px solid #ffffff;
+}
+
+.betslip-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.custom-list {
+    list-style: none; 
+    padding-left: 0; 
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}

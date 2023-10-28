@@ -10,6 +10,10 @@ import BetsBar from '../components/BetsBar'
 import axios from 'axios'
 import GameOddsHeader from '../components/GameOddsHeader'
 
+// CSS
+import '../css/Home.css'
+import Betslip from '../components/Betslip'
+
 
 const Home = () => {
     const [game, setGame] = useState([{}])
@@ -54,7 +58,7 @@ const Home = () => {
                     ))}
             </div>
             </div>
-            <BetsBar />
+            <Betslip />
         </div>
     )
 }

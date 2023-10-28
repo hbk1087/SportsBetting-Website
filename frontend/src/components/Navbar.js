@@ -55,9 +55,8 @@ const Navbar = () => {
     }, )
 
     return (
-        <AppBar position="static" >
+        <AppBar position="static">
         <Toolbar>
-
             <IconButton edge="start" color="inherit" aria-label="menu">
                 <MenuIcon/>
             </IconButton>
@@ -67,7 +66,7 @@ const Navbar = () => {
             </Link>
 
             { 
-                    authLoggedIn === true ?
+                    authLoggedIn === true && authLoggedIn && authHasToken !== null ?
                     (
                         // When logged in
                         <>
