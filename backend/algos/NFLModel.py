@@ -115,30 +115,54 @@ class NFLModel:
 
         for index, row in df_api.iterrows():
             try:
-                # ML
-                away_ml = row['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
-                home_ml = row['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
-                away_spread = row['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
-                away_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
-                
-                
-                home_spread = row['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
-                
-                
-                home_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
-                
-                
-                
-                over_total = row['bookmakers'][0]['markets'][2]['outcomes'][0]['point']
-                
-                
-                over_price = row['bookmakers'][0]['markets'][2]['outcomes'][0]['price']
-                
-                
-                under_total = row['bookmakers'][0]['markets'][2]['outcomes'][1]['point']
-                
-                
-                under_price = row['bookmakers'][0]['markets'][2]['outcomes'][1]['price']
+
+                # Get markets and home/away teams
+                home_team = row['home_team']
+                away_team = row['away_team']
+                markets = row['bookmakers'][0]['markets']
+
+                # ML 'h2h' market
+                if markets[0]['key'] == 'h2h':
+                    if markets[0]['outcomes'][0]['name'] == home_team:
+                        home_ml = row['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
+                        away_ml = row['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
+                    else:
+                        home_ml = row['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
+                        away_ml = row['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
+
+                if markets[1]['key'] == 'spreads':
+                    if markets[1]['outcomes'][0]['name'] == home_team:
+
+                        away_spread = row['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+                        away_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
+                        
+                        
+                        home_spread = row['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
+                        home_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
+                    else:
+                        away_spread = row['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
+                        away_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
+                        
+                        
+                        home_spread = row['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+                        home_spread_price = row['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
+
+                if markets[2]['key'] == 'totals':
+                    if markets[2]['outcomes'][0]['name'] == 'Over':
+                        over_total = row['bookmakers'][0]['markets'][2]['outcomes'][0]['point']
+                        over_price = row['bookmakers'][0]['markets'][2]['outcomes'][0]['price']
+                        
+                        
+                        under_total = row['bookmakers'][0]['markets'][2]['outcomes'][1]['point']
+                        under_price = row['bookmakers'][0]['markets'][2]['outcomes'][1]['price']
+                    else:
+                        over_total = row['bookmakers'][0]['markets'][2]['outcomes'][1]['point']
+                        over_price = row['bookmakers'][0]['markets'][2]['outcomes'][1]['price']
+                        
+                        
+                        under_total = row['bookmakers'][0]['markets'][2]['outcomes'][0]['point']
+                        under_price = row['bookmakers'][0]['markets'][2]['outcomes'][0]['price']
+
 
 
 
@@ -260,29 +284,53 @@ class NFLModel:
 
     def makePretty(self, j):
         json_string = json.dumps(j)
-        away_ml = j['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
-        home_ml = j['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
-        away_spread = j['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
-        away_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
-        
-        
-        home_spread = j['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
-        
-        
-        home_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
-        
-        
-        
-        over_total = j['bookmakers'][0]['markets'][2]['outcomes'][0]['point']
-        
-        
-        over_price = j['bookmakers'][0]['markets'][2]['outcomes'][0]['price']
-        
-        
-        under_total = j['bookmakers'][0]['markets'][2]['outcomes'][1]['point']
-        
-        
-        under_price = j['bookmakers'][0]['markets'][2]['outcomes'][1]['price']
+        # Get markets and home/away teams
+        home_team = j['home_team']
+        away_team = j['away_team']
+        markets = j['bookmakers'][0]['markets']
+
+        # ML 'h2h' market
+        if markets[0]['key'] == 'h2h':
+            if markets[0]['outcomes'][0]['name'] == home_team:
+                home_ml = j['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
+                away_ml = j['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
+            else:
+                home_ml = j['bookmakers'][0]['markets'][0]['outcomes'][1]['price']
+                away_ml = j['bookmakers'][0]['markets'][0]['outcomes'][0]['price']
+
+        if markets[1]['key'] == 'spreads':
+            if markets[1]['outcomes'][0]['name'] == home_team:
+
+                away_spread = j['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+                away_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
+                
+                
+                home_spread = j['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
+                home_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
+            else:
+                away_spread = j['bookmakers'][0]['markets'][1]['outcomes'][0]['point']
+                away_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][0]['price']
+                
+                
+                home_spread = j['bookmakers'][0]['markets'][1]['outcomes'][1]['point']
+                home_spread_price = j['bookmakers'][0]['markets'][1]['outcomes'][1]['price']
+
+        if markets[2]['key'] == 'totals':
+            if markets[2]['outcomes'][0]['name'] == 'Over':
+                over_total = j['bookmakers'][0]['markets'][2]['outcomes'][0]['point']
+                over_price = j['bookmakers'][0]['markets'][2]['outcomes'][0]['price']
+                
+                
+                under_total = j['bookmakers'][0]['markets'][2]['outcomes'][1]['point']
+                under_price = j['bookmakers'][0]['markets'][2]['outcomes'][1]['price']
+            else:
+                over_total = j['bookmakers'][0]['markets'][2]['outcomes'][1]['point']
+                over_price = j['bookmakers'][0]['markets'][2]['outcomes'][1]['price']
+                
+                
+                under_total = j['bookmakers'][0]['markets'][2]['outcomes'][0]['point']
+                under_price = j['bookmakers'][0]['markets'][2]['outcomes'][0]['price']
+
         best = j['best_bet']
         best_bet_type = list(best.keys())[0]
         best_bet_edge = list(best.values())[0]
