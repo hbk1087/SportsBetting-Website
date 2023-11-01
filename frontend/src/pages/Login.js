@@ -7,7 +7,7 @@ import axios from "axios";
 // Redux
 import { useDispatch } from 'react-redux';
 import { setToken, setLoggedIn } from '../slices/authSlice'
-import { initializeUser } from '../slices/userSlice';
+import { initializeUser, setUsername } from '../slices/userSlice';
 
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
@@ -47,6 +47,7 @@ function Login() {
             dispatch(setToken(response.data.access_token))
             dispatch(setLoggedIn(true))
             dispatch(initializeUser(formData.username))
+            dispatch(setUsername(formData.username))
             console.log("ur logged in uwu")
             routeChangeHome()
         }

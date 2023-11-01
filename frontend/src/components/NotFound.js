@@ -17,7 +17,6 @@ function NotFoundPage() {
         const timer = setTimeout(() => {
             if (!isLoggedIn) {
                 navigate("/login");
-                return; // stop the execution of the effect here - important!
             }
             navigate('/');
         }, 2000);

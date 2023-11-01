@@ -1,7 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-// export const fetchAuth = createAsyncThunk(
-
+import { createSlice } from '@reduxjs/toolkit';
 
 // Initial state for the auth slice
 const initialState = {
@@ -32,10 +29,13 @@ const authSlice = createSlice({
     setLoggedIn: (state, action) => {
       localStorage.setItem('loggedIn', action.payload)
       state.loggedIn = action.payload;
-    }
+    },
+    getToken: (state) => {
+      return state.token;
+    },
   },
 });
 
 // Export action creators and the reducer
-export const { setToken, removeToken, initializeToken, setLoggedIn } = authSlice.actions;
+export const { setToken, removeToken, initializeToken, setLoggedIn, getToken } = authSlice.actions;
 export default authSlice.reducer;

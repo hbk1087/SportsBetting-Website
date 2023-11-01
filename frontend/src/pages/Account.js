@@ -62,7 +62,7 @@ useEffect(() => {
       console.log(error.response.headers);
     }
   });
-}, [authLoggedIn, authToken, dispatch, navigate]); // added dependencies
+}, [authLoggedIn, authToken]); // added dependencies
 
   return (
     <div className="account">

@@ -1,6 +1,5 @@
 // Router DOM imports
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
 
 // Material UI imports
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -9,7 +8,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Home from './pages/Home'
 import Bets from './pages/Bets'
 import Login from './pages/Login'
-import Signup from './pages/Signup'
+import SignUp from './pages/SignUp'
 import Account from "./pages/Account"
 
 // Components
@@ -54,7 +53,7 @@ function App() {
                             <Route path="/login" element={<Login />} />
                             <Route path="/account" element={<PrivateRoute> <Account /> </PrivateRoute>} />
                             <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
-                            <Route path='/signup' element={<Signup />} />
+                            <Route path='/signup' element={<SignUp />} />
                             <Route path='/*' element={<NotFound />}/>
                         </Routes>
                     </div>

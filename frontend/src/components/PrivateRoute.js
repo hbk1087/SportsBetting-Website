@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { Navigate } from 'react-router-dom';
 
-import Login from '../pages/Login';
-
 
 const PrivateRoute = ({ children }) => {
   const isLoggedIn = useSelector(state => state.auth.loggedIn); 
