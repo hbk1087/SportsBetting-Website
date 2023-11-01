@@ -203,7 +203,6 @@ const GameDetails = ({ game }) => {
       justifyContent: 'start',
       alignItems: 'left',
       color: '#ffffff',
-      padding: '5px',
       marginLeft: '1%',
       fontWeight: '100',
       fontSize: '0.85em'
