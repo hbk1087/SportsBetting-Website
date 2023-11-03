@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 // components
 import GameDetails from '../components/GameDetails'
 import Sidebar from '../components/Sidebar'
-import BetsBar from '../components/BetsBar'
 
 // axios
 import axios from 'axios'
@@ -19,7 +18,7 @@ const Home = () => {
     const [game, setGame] = useState([{}])
 
     useEffect(() => {
-        document.title = "Home"
+        document.title = "AlgoSportsBets"
 
         async function getNflData() {
             try {

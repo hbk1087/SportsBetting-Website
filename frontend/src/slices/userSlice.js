@@ -18,10 +18,13 @@ export const userSlice = createSlice({
     // Add more reducers as needed
     initializeUser: (state, action) => {
       state.username = action.payload;
+    },
+    getUsername: (state) => {
+      return state.username;
     }
   }
 });
 
-export const { setUsername, placeBet, initializeUser } = userSlice.actions;
+export const { setUsername, placeBet, initializeUser, getUsername } = userSlice.actions;
 
 export default userSlice.reducer;

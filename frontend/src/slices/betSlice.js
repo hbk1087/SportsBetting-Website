@@ -4,7 +4,6 @@ const initialState = {
     bets: []
 };
 
-
 const betsSlice = createSlice({
     name: 'bets',
     initialState,

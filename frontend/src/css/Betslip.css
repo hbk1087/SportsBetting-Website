@@ -9,13 +9,13 @@
     color: #ffffff;
     margin-right: 10%;
     border: 2px solid #ffffff;
+    border-radius: 10px;
 }
 
 .betslip-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    
 }
 
 .custom-list {

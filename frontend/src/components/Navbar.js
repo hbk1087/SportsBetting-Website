@@ -66,7 +66,7 @@ const Navbar = () => {
             </Link>
 
             { 
-                    authLoggedIn === true && authLoggedIn && authHasToken !== null ?
+                    authLoggedIn === true && authHasToken !== null ?
                     (
                         // When logged in
                         <>

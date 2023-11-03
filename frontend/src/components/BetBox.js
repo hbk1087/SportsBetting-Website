@@ -1,17 +1,12 @@
+// React
+import React from 'react';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { openActiveBet, removeGameByIdAndType } from '../slices/activeBetSlice';
+
+// CSS
 import '../css/BoxGrid.css';
-
-/*        
-        self.account_username = account_username # Account object here
-        self.game_id = game_id #GameModel object will go here
-        self.bet_type = bet_type
-        self.wager = wager
-        self.potential_payout = potential_payout
-        self.timestamp = timestamp
-        self.actual_payout = actual_payout
-*/
-
-
-import React, { useState } from 'react';
 
 function BetBox({
   bet_type,
@@ -24,22 +19,27 @@ function BetBox({
   total,
   over_odds,
   under_odds,
+  game,
 }) {
 
+  const dispatch = useDispatch();
+  const bets = useSelector((state) => state.activeBets.bets);
 
-  const [bet, setBet] = useState({
-    account_username: '',
-    game_id: '',
-    bet_type: '',
-    wager: '',
-    potential_payout: '',
-    timestamp: '',
-    actual_payout: '',
-  });
+  const handleBetBoxClick = ({bet_type, game}) => {
+    const betExists = bets.find(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type) ? true : false;
+
+    console.log(betExists)
+
+    if (betExists) {
+      dispatch(removeGameByIdAndType({game_id: game.game_id, bet_type: bet_type}))
+    } else {
+      dispatch(openActiveBet({bet_type, game}))  
+    }
+  }
 
   const renderAwaySpreadForm = () => {
     return (
-      <div className='form-container'>
+      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
         <div className='away-spread'>{away_spread < 0 ? away_spread : (away_spread > 0 ? `+${away_spread}` : away_spread)}</div>
         <div className='away-spread-odds'>{away_spread_odds}</div>
       </div>
@@ -48,7 +48,7 @@ function BetBox({
 
   const renderHomeSpreadForm = () => {
     return (
-      <div className='form-container'>
+      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
         <div className='home-spread'>{home_spread < 0 ? home_spread : (home_spread > 0 ? `+${home_spread}` : home_spread)}</div>
         <div className='home-spread-odds'>{home_spread_odds}</div>
       </div>
@@ -57,7 +57,7 @@ function BetBox({
 
   const renderMoneylineAwayForm = () => {
     return (
-      <div className='form-container'>
+      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
         <div className='away-odds'>{away_odds}</div>
       </div>
     );
@@ -65,7 +65,7 @@ function BetBox({
 
   const renderMoneylineHomeForm = () => {
     return (
-      <div className='form-container'>
+      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
         <div className='home-odds'>{home_odds}</div>
       </div>
     );
@@ -74,7 +74,7 @@ function BetBox({
 
   const renderTotalOverForm = () => {
     return (
-      <div className='form-container'>
+      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
         <div className='total'>O {total}</div>
         <div className='over-odds'>{over_odds}</div>
       </div>
@@ -83,7 +83,7 @@ function BetBox({
 
   const renderTotalUnderForm = () => {
     return (
-      <div className='form-container'>
+      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
         <div className='total'>U {total}</div>
         <div className='under-odds'>{under_odds}</div>
       </div>

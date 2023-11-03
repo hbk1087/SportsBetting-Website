@@ -1,14 +1,20 @@
 import React, { Suspense } from 'react';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { addGameChoiceId, removeGameChoiceId, addActiveBet, removeActiveBet } from '../slices/activeBetSlice';
+
+// MUI
 import { Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
+// Components
 import * as NFLLogos from 'react-nfl-logos';
 import LoadingIndicator from '../util/LoadingIndicator';
-
 import BetBox from "./BetBox"
 import TeamSeparator from './TeamSeparator';
 
+// CSS
 import "../css/GameDetails.css"
 
 const GameDetails = ({ game }) => {
@@ -217,15 +223,15 @@ const GameDetails = ({ game }) => {
 
         <BetOptionsContainer>
           <TeamBetContainer>
-            <StyledBetBox bet_type={'away_spread'} away_spread={away_spread} away_spread_odds={away_spread_odds} />
-            <StyledBetBox bet_type={'moneyline_away'} away_odds={away_odds} />
-            <StyledBetBox bet_type={'total_over'} total={total} over_odds={over_odds} />
+            <StyledBetBox bet_type={'away_spread'} away_spread={away_spread} away_spread_odds={away_spread_odds} game={game}/>
+            <StyledBetBox bet_type={'moneyline_away'} away_odds={away_odds} game={game}/>
+            <StyledBetBox bet_type={'total_over'} total={total} over_odds={over_odds} game={game}/>
           </TeamBetContainer>
 
           <TeamBetContainer>
-            <StyledBetBox bet_type={'home_spread'} home_spread={home_spread} home_spread_odds={home_spread_odds} color={getSpreadColor(home_spread)} />
-            <StyledBetBox bet_type={'moneyline_home'} home_odds={home_odds} />
-            <StyledBetBox bet_type={'total_under'} total={total} under_odds={under_odds} />
+            <StyledBetBox bet_type={'home_spread'} home_spread={home_spread} home_spread_odds={home_spread_odds} color={getSpreadColor(home_spread)} game={game}/>
+            <StyledBetBox bet_type={'moneyline_home'} home_odds={home_odds} game={game}/>
+            <StyledBetBox bet_type={'total_under'} total={total} under_odds={under_odds} game={game}/>
           </TeamBetContainer>
         </BetOptionsContainer>
         <DateContainer>{new_date}</DateContainer>

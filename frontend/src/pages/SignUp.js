@@ -20,8 +20,7 @@ const SignupGrid = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(10),
 }));
 
-function Signup() {
-    const [selectedAddress, setSelectedAddress] = useState({})
+function SignUp() {
     let navigate = useNavigate();
 
     const routeChangeLogin = () => {
@@ -202,4 +201,4 @@ function Signup() {
       );
 }
 
-export default Signup;
+export default SignUp;
