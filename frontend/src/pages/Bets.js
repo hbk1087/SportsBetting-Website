@@ -41,7 +41,7 @@ function Bets() {
 
         axios({
             method: "GET",
-            url:"/bets",
+            url:"/api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             }

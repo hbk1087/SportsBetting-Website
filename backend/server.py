@@ -52,7 +52,7 @@ def refresh_expiring_jwts(response):
         return response
     
 # Get token to validate user and session
-@app.route('/token', methods=["POST", 'OPTIONS'])
+@app.route('/api/token', methods=["POST", 'OPTIONS'])
 @cross_origin()
 def create_token():
     username = request.json.get("username", None)
@@ -79,29 +79,46 @@ def create_token():
     except Exception as e:
         return bad_response(e)
 
-@app.route('/account', methods=['GET', 'OPTIONS'])
+@app.route('/account', methods=['GET', 'PATCH', 'OPTIONS'])
 @jwt_required()
 @cross_origin()
 def my_account():
 
-    current_account = get_jwt_identity()
-    print(current_account)
-    connection = connect('users')
+    if request.method == 'GET':
 
-    try:
-        account = list(connection.find({'username': current_account}))
-        # Make sure object id is string
-        for element in account:
-            element['_id'] = str(element['_id'])
-            
-        # Return account details
-        print(account[0])
-        return good_response(account[0])
-    
-    except Exception as e:
-        return bad_response(e)
+        current_account = get_jwt_identity()
+        print(current_account)
+        connection = connect('users')
 
-@app.route("/logout", methods=["POST", 'OPTIONS'])
+        try:
+            account = list(connection.find({'username': current_account}))
+            # Make sure object id is string
+            for element in account:
+                element['_id'] = str(element['_id'])
+                
+            # Return account details
+            print(account[0])
+            return good_response(account[0])
+        
+        except Exception as e:
+            return bad_response(e)
+    # Change account info
+    elif request.method == 'PATCH':
+        username = request.args['username']
+        data = request.json
+
+        try:
+            connection = connect('users')
+            connection.update_one({'username': username}, {'$set': data, '$currentDate': { 'lastUpdated': True }} )
+            return good_response(f"User {username} was updated")
+        except Exception as e:
+            return bad_response(e)
+    else:
+        pass
+
+
+
+@app.route("/api/logout", methods=["POST", 'OPTIONS'])
 @cross_origin()
 def logout():
     response = jsonify({"msg": "logout successful"})
@@ -111,7 +128,7 @@ def logout():
 
 
 
-@app.route('/home')
+@app.route('/api/home')
 @cross_origin()
 def index():
 
@@ -133,7 +150,7 @@ def index():
     
 
 
-@app.route('/static/<path:filename>')
+@app.route('/api/static/<path:filename>')
 @cross_origin()
 def serve_static(filename):
     return app.send_from_directory('static', filename)
@@ -141,16 +158,14 @@ def serve_static(filename):
 
 
 # Blueprint to see all nfl games
-app.register_blueprint(nfl_blueprint, url_prefix='/nfl')
+app.register_blueprint(nfl_blueprint, url_prefix='/api/nfl')
 
 # Blueprint for signup page
-app.register_blueprint(signup_blueprint, url_prefix='/signup')
+app.register_blueprint(signup_blueprint, url_prefix='/api/signup')
 
 # Blueprint to see user bets and insert new ones
-app.register_blueprint(user_bets_blueprint, url_prefix='/bets')
+app.register_blueprint(user_bets_blueprint, url_prefix='/api/bets')
 
-# API endpoint to update account info
-app.register_blueprint(account_updates_blueprint, url_prefix='/account_updates')
 
 @app.errorhandler(404)
 def not_found(e):

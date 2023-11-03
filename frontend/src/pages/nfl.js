@@ -19,7 +19,7 @@ const NFLPage = () => {
             try {
                 const response = await axios({
                   method: "GET",
-                  url: "/home",
+                  url: "/api/nfl",
                 })
             
                 const res = response.data;

@@ -45,7 +45,7 @@ useEffect(() => {
 
   axios({
     method: "GET",
-    url: "/account",
+    url: "/api/account",
     headers: {
       Authorization: 'Bearer ' + authToken,
     },

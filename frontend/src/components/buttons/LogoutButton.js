@@ -21,7 +21,7 @@ const dispatch = useDispatch();
   function logMeOut() {
     axios({
       method: "POST",
-      url:"/logout",
+      url:"/api/logout",
     })
     .then((response) => {
         dispatch(removeToken())

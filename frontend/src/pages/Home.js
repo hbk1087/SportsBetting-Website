@@ -25,7 +25,7 @@ const Home = () => {
             try {
                 const response = await axios({
                   method: "GET",
-                  url: "/home",
+                  url: "/api/home",
                 })
             
                 const res = response.data;
