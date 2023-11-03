@@ -49,7 +49,7 @@ function App() {
                     <div className="App">  
                         <Navbar />
                         <Routes>
-                            <Route path='/' element={<Home />} />
+                            <Route exact path='/' element={<Home />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/account" element={<PrivateRoute> <Account /> </PrivateRoute>} />
                             <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
