@@ -33,7 +33,6 @@ def get_games():
     data = []
     for element in games:
         element['_id'] = str(element['_id'])
-        print(element)
         if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
             data.append(element)
 

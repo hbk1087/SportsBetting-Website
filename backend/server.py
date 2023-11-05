@@ -136,13 +136,12 @@ def index():
     est_tz = pytz.timezone('US/Eastern')
     current_time_est = datetime.now(est_tz)
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
-    
+
     # print games in future  
     games = list(connection.find())
     data = []
     for element in games:
         element['_id'] = str(element['_id'])
-        print(element)
         if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
             data.append(element)
 
