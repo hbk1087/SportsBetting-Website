@@ -27,10 +27,15 @@ def get_games():
     # Get the current time in EST
     current_time_est = datetime.now(est_tz)
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
-    print(formatted_time)   
-    data = list(connection.find({"$and": [{'date': {"$gt": formatted_time}}, {"sport": {'$eq': "nfl"}}]}))
-    for element in data:
+       
+    # get nfl games
+    games = list(connection.find({"sport": {'$eq': "nfl"}}))
+    data = []
+    for element in games:
         element['_id'] = str(element['_id'])
+        print(element)
+        if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
+            data.append(element)
 
     try:
         return good_response(data)

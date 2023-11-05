@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 from routes.showNFL import nfl_blueprint
 from routes.signUp import signup_blueprint
 from routes.userBets import user_bets_blueprint
-from routes.account_updates import account_updates_blueprint
 from db import connect
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 from bson.objectid import ObjectId
@@ -137,10 +136,16 @@ def index():
     est_tz = pytz.timezone('US/Eastern')
     current_time_est = datetime.now(est_tz)
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
-    print(formatted_time)   
-    data = list(connection.find({"$and": [{'date': {"$gt": formatted_time}}]}).sort('date', ASCENDING))
-    for element in data:
+    
+    # print games in future  
+    games = list(connection.find())
+    data = []
+    for element in games:
         element['_id'] = str(element['_id'])
+        print(element)
+        if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
+            data.append(element)
+
 
     try:
         return good_response(data)
