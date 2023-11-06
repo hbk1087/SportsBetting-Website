@@ -9,10 +9,12 @@ const Sidebar = () => {
         {
             text: 'NFL',
             imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/National_Football_League_logo.svg/1200px-National_Football_League_logo.svg.png',
+            link: '/nfl'
         },
         {
             text: 'NBA',
             imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/03/National_Basketball_Association_logo.svg/105px-National_Basketball_Association_logo.svg.png',
+            link: '/nba'
         },
         // {
         //     text: 'NCAAF',
@@ -70,15 +72,16 @@ const Sidebar = () => {
             <h2 className="sidebar-title">Sports</h2>
             <ul className="custom-list">
                 {sportsItems.map((item, index) => (
-                    
+                   <a href={item.link} className="no-underline">
                     <li key={index} className="list-item">
-                        <img
-                            src={item.imageUrl}
-                            alt={item.text}
-                            className="list-item-image"
-                        />
-                        {item.text}
+                            <img
+                                src={item.imageUrl}
+                                alt={item.text}
+                                className="list-item-image"
+                            />
+                            {item.text}
                     </li>
+                    </a> 
                 ))}
             </ul>
         </div>

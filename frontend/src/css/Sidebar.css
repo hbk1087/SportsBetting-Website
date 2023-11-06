@@ -25,6 +25,7 @@
 
 .list-item {
   display: flex;
+  flex-grow: 1;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
@@ -40,3 +41,12 @@
 .sticky-sidebar * {
   color: #ffffff; 
 }
+
+.no-underline {
+  text-decoration: none;
+}
+
+.list-item:hover {
+  background-color: rgb(94, 97, 98);
+}
+
