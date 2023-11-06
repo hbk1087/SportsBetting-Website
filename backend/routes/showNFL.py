@@ -19,7 +19,7 @@ est_tz = pytz.timezone('US/Eastern')
 
 nfl_blueprint = Blueprint('nfl_blueprint', __name__)
 
-@nfl_blueprint.route('/', methods=['GET'])
+@nfl_blueprint.route('', methods=['GET'])
 @cross_origin()
 def get_games():
     # Connect to db
