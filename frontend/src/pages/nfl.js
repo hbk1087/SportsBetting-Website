@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 // components
 import GameDetails from '../components/GameDetails'
 import Sidebar from '../components/Sidebar'
-import BetsBar from '../components/BetsBar'
+//import BetsBar from '../components/BetsBar'
 
 // axios
 import axios from 'axios'
@@ -49,7 +49,7 @@ const NFLPage = () => {
                     </div>
                 ))}
         </div>
-        <BetsBar />
+        {/* <BetsBar /> */}
         </div>
     )
 }
