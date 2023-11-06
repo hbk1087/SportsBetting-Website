@@ -1,0 +1,41 @@
+/* bets.css */
+
+.betslip-bet-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+    margin-bottom: 10px;
+}
+
+.betslip-bet-info {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adjust the gap between child elements as needed */
+}
+
+.betslip-bet-info-type, 
+.betslip-bet-info-wager, 
+.betslip-bet-info-payout {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.betslip-bet-remove {
+    background-color: #ff4c4c; /* Red color */
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    /* Optional: Add hover effect for better UX */
+    &:hover {
+        background-color: #e43c3c; /* Darker red on hover */
+    }
+}

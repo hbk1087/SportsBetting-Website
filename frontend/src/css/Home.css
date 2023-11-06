@@ -1,0 +1,7 @@
+/* Style for the container that holds the sidebar and content */
+.page-content {
+    display: flex; /* Use flexbox to create a sidebar layout */
+    flex-direction: row; /* Make the sidebar and content side-by-side */
+    justify-content: center;
+    margin: 0;
+}

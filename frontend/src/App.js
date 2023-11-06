@@ -1,47 +1,65 @@
-// Importing modules
-import React, { useState, useEffect } from "react";
-import "./App.css";
- 
+// Router DOM imports
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+// Material UI imports
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+
+// Pages
+import Home from './pages/Home'
+import Bets from './pages/Bets'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import Account from "./pages/Account"
+
+// Components
+import Navbar from "./components/Navbar"
+import PrivateRoute from "./components/PrivateRoute"
+import NotFound from "./components/NotFound"
+
+
+import { useEffect } from 'react'
+
+// Redux
+import { useSelector } from 'react-redux'
+
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#2b90ff',
+        },
+        secondary: {
+            main: '#3f51b5',
+        },
+    },
+});
+
 function App() {
-    // usestate for setting a javascript
-    // object for storing and using data
-    const [data, setdata] = useState({
-        name: "",
-        age: 0,
-        date: "",
-        programming: "",
-    });
- 
-    // Using useEffect for single rendering
+    const isLoggedIn = useSelector(state => state.auth.loggedIn);
+    const hasToken = useSelector(state => state.auth.token);
+
     useEffect(() => {
-        // Using fetch to fetch the api from 
-        // flask server it will be redirected to proxy
-        fetch("/data").then((res) =>
-            res.json().then((data) => {
-                // Setting a data from api
-                setdata({
-                    name: data.Name,
-                    age: data.Age,
-                    date: data.Date,
-                    programming: data.programming,
-                });
-            })
-        );
-    }, []);
- 
+        console.log("App.js: isLoggedIn: " + isLoggedIn)
+        console.log("App.js: hasToken: " + hasToken)
+    }, [isLoggedIn, hasToken])
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <h1>React and flask</h1>
-                {/* Calling a data from setdata for showing */}
-                <p>{data.name}</p>
-                <p>{data.age}</p>
-                <p>{data.date}</p>
-                <p>{data.programming}</p>
- 
-            </header>
-        </div>
+          <ThemeProvider theme={theme}>
+              <Router>
+                    <div className="App">  
+                        <Navbar />
+                        <Routes>
+                            <Route path='/' element={<Home />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/account" element={<PrivateRoute> <Account /> </PrivateRoute>} />
+                            <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
+                            <Route path='/signup' element={<SignUp />} />
+                            <Route path='/*' element={<NotFound />}/>
+                        </Routes>
+                    </div>
+              </Router>
+          </ThemeProvider>
     );
-}
- 
-export default App;
+  }
+
+export default App

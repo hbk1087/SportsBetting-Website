@@ -1,0 +1,76 @@
+
+/* div {
+    font-family: Arial, sans-serif; 
+    font-size: 18px; 
+    color: #ffffff;
+    text-align: center;
+}  */
+
+/* Box Styles */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin: 0px; /* Spacing between each form */
+    border: 2px solid #5087c4; 
+    border-radius: 5px; 
+    width: 120px; /* Adjust based on your preference */
+    height: 80px; /* Adjust based on your preference */
+    color: #ffffff;
+}
+
+.form-container .away-spread-odds {
+    color: #2a82d9;
+}
+
+.form-container .away-odds {
+    color: #2a82d9;
+}
+
+.form-container .over-odds {
+    color: #2a82d9;
+}
+
+.form-container .home-spread-odds {
+    color: #2a82d9;
+}
+
+.form-container .home-odds {
+    color: #2a82d9;
+}
+
+.form-container .under-odds {
+    color: #2a82d9;
+}
+
+.form-container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.form-container:hover {
+    background-color: rgb(58, 56, 80);
+  }
+
+
+/* Grid Styles */
+.grid-container {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;
+}
+
+.parentDiv {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+.game-details-container {
+    display: flex;
+    width: 900px;
+}

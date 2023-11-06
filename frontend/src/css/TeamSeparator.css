@@ -1,0 +1,23 @@
+/* TeamSeparator.css */
+.team-separator {
+    position: relative; /* Position relative so that it doesn't affect other elements */
+    display: flex; /* Allows it to be placed inline with other content */
+}
+
+.at-image {
+    display: flex;
+    flex-direction: flex-start;
+    height: 20px;
+    width: 20px;
+    margin-right: 20px;
+}
+
+.team-separator-line::before {
+    content: '';
+    position: absolute;
+    top: 40%; /* Position the line in the middle vertically */
+    left: 100%; /* Position the line to the right of the image */
+    width: 425px; /* Set the line width to 1px */
+    height: 1px; /* Adjust the line height as needed */
+    background-color: #535151; /* Set the line color */
+}

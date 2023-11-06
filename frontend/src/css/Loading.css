@@ -1,0 +1,16 @@
+/* styles.css */
+.loading-spinner {
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 5px solid #000; /* Change this to your desired color */
+    width: 50px;
+    height: 50px;
+    flex: 0 0 auto;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
