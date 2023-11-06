@@ -36,6 +36,11 @@ def get_games():
         if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
             data.append(element)
 
+    def sortDates(dict):
+        return datetime.strptime(dict['date'], "%Y-%m-%d %I:%M:%S %p")
+    
+    data.sort(key=sortDates)
+
     try:
         return good_response(data)
 
