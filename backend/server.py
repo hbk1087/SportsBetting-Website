@@ -78,7 +78,7 @@ def create_token():
     except Exception as e:
         return bad_response(e)
 
-@app.route('/account', methods=['GET', 'PATCH', 'OPTIONS'])
+@app.route('/api/account', methods=['GET', 'PATCH', 'OPTIONS'])
 @jwt_required()
 @cross_origin()
 def my_account():
