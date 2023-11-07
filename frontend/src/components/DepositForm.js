@@ -54,7 +54,7 @@ const DepositForm = ({ onClose, currentBalance }) => {
     }
 
     // Calculate the expected balance by adding the deposit amount to the current balance
-    const expectedBalance = currentBalance + deposit;
+    const expectedBalance = Number(currentBalance) + deposit;
 
     // You can perform further actions here, such as updating the balance in a database or state
     // For this example, we'll just log the expected balance
@@ -66,14 +66,14 @@ const DepositForm = ({ onClose, currentBalance }) => {
             Authorization: 'Bearer ' + authToken,
           },
         data:{
-          current_balance: (currentBalance + parseFloat(depositAmount)).toFixed(2),
+          current_balance: expectedBalance.toFixed(2),
          }
       })
       .then((response) => {
         if (response.status === 200) {
             console.log("balance changed")
             onClose()
-            balance = dispatch(initializeBalance((currentBalance + parseFloat(depositAmount)).toFixed(2)))
+            balance = dispatch(initializeBalance(expectedBalance.toFixed(2)))
             
         }
       }).catch((error) => {
@@ -104,7 +104,7 @@ const DepositForm = ({ onClose, currentBalance }) => {
           <button type="submit">Deposit</button>
           </div>
         </form>
-        <p>Expected Balance: ${depositAmount === "" ? currentBalance : (currentBalance + parseFloat(depositAmount)).toFixed(2)}</p>
+        <p>Expected Balance: ${depositAmount === "" ? currentBalance : (Number(currentBalance) + parseFloat(depositAmount)).toFixed(2)}</p>
         <div style={{ textAlign: 'center' }}>
         <button onClick={onClose}>Close</button>
         </div>

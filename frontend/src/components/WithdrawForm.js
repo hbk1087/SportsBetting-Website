@@ -52,7 +52,7 @@ const WithdrawForm = ({ onClose, currentBalance }) => {
       alert("Invalid withdraw amount. Please enter a positive number or zero.");
       return;
     }
-    if ((currentBalance - parseFloat(withdrawAmount)).toFixed(2) < 0) {
+    if (currentBalance - withdraw < 0) {
       alert("Invalid withdraw amount. Not enough funds in balance.");
       return;
     }
@@ -70,14 +70,14 @@ const WithdrawForm = ({ onClose, currentBalance }) => {
             Authorization: 'Bearer ' + authToken,
           },
         data:{
-          current_balance: (currentBalance - parseFloat(withdrawAmount)).toFixed(2),
+          current_balance: expectedBalance.toFixed(2),
          }
       })
       .then((response) => {
         if (response.status === 200) {
             console.log("balance changed")
             onClose()
-            balance = dispatch(initializeBalance((currentBalance - parseFloat(withdrawAmount)).toFixed(2)))
+            balance = dispatch(initializeBalance(expectedBalance.toFixed(2)))
             
         }
       }).catch((error) => {
