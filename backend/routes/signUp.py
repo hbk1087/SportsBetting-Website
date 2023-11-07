@@ -8,7 +8,7 @@ from flask_cors import CORS, cross_origin
 
 signup_blueprint = Blueprint('signup_blueprint', __name__)
 
-@signup_blueprint.route('/', methods=['GET', 'POST', 'OPTIONS'])
+@signup_blueprint.route('', methods=['GET', 'POST', 'OPTIONS'])
 @cross_origin()
 def signup():
 

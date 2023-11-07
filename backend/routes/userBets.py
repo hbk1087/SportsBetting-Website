@@ -17,7 +17,7 @@ est_timezone = pytz.timezone('US/Eastern')
 
 user_bets_blueprint = Blueprint('user_bets_blueprint', __name__)
 
-@user_bets_blueprint.route('/', methods=['GET', 'POST', 'OPTIONS'])
+@user_bets_blueprint.route('', methods=['GET', 'POST', 'OPTIONS'])
 @cross_origin()
 @jwt_required()
 def get_bets():

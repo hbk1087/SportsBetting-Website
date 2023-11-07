@@ -66,7 +66,7 @@ function SignUp() {
 
       axios({
         method: "POST",
-        url:"/signup",
+        url:"/api/signup",
         data:{
             username: formData.username,
             first_name: formData.first_name,

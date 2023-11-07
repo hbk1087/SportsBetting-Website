@@ -78,7 +78,7 @@ def create_token():
     except Exception as e:
         return bad_response(e)
 
-@app.route('/account', methods=['GET', 'PATCH', 'OPTIONS'])
+@app.route('/api/account', methods=['GET', 'PATCH', 'OPTIONS'])
 @jwt_required()
 @cross_origin()
 def my_account():
@@ -103,7 +103,7 @@ def my_account():
             return bad_response(e)
     # Change account info
     elif request.method == 'PATCH':
-        username = request.args['username']
+        username = get_jwt_identity()
         data = request.json
 
         try:
@@ -145,6 +145,10 @@ def index():
         if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
             data.append(element)
 
+    def sortDates(dict):
+        return datetime.strptime(dict['date'], "%Y-%m-%d %I:%M:%S %p")
+    
+    data.sort(key=sortDates)
 
     try:
         return good_response(data)

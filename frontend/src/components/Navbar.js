@@ -70,7 +70,7 @@ const Navbar = () => {
                     (
                         // When logged in
                         <>
-                            <Button color="inherit" component={Link} to='/bets'>Bets</Button>
+                            <Button color="inherit" component={Link} to='/bets'>My Bets</Button>
                             <div style={{ flexGrow: 1 }}></div>
                             <Welcome username={username} />
                             <LogoutButton />

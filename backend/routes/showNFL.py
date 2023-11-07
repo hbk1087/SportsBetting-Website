@@ -19,7 +19,7 @@ est_tz = pytz.timezone('US/Eastern')
 
 nfl_blueprint = Blueprint('nfl_blueprint', __name__)
 
-@nfl_blueprint.route('/', methods=['GET'])
+@nfl_blueprint.route('', methods=['GET'])
 @cross_origin()
 def get_games():
     # Connect to db
@@ -35,6 +35,11 @@ def get_games():
         element['_id'] = str(element['_id'])
         if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
             data.append(element)
+
+    def sortDates(dict):
+        return datetime.strptime(dict['date'], "%Y-%m-%d %I:%M:%S %p")
+    
+    data.sort(key=sortDates)
 
     try:
         return good_response(data)

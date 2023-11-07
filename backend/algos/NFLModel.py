@@ -356,3 +356,6 @@ class NFLModel:
         for element in self.makeAllPretty():
             if len(list(connection.find({'game_id': element["game_id"]}))) <= 0:
                 connection.insert_one(element)
+            else:
+                print(element)
+                connection.update_one({'game_id': element["game_id"]}, {'$set': element})

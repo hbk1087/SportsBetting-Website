@@ -10,6 +10,7 @@ import Bets from './pages/Bets'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Account from "./pages/Account"
+import NFLPage from './pages/nfl'
 
 // Components
 import Navbar from "./components/Navbar"
@@ -31,6 +32,9 @@ const theme = createTheme({
         secondary: {
             main: '#3f51b5',
         },
+        white: {
+          main: '#ffffff'
+        }
     },
 });
 
@@ -54,6 +58,7 @@ function App() {
                             <Route path="/account" element={<PrivateRoute> <Account /> </PrivateRoute>} />
                             <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
                             <Route path='/signup' element={<SignUp />} />
+                            <Route path='/nfl' element={<NFLPage />} />
                             <Route path='/*' element={<NotFound />}/>
                         </Routes>
                     </div>
