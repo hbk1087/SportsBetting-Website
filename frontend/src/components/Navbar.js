@@ -55,7 +55,8 @@ const Navbar = () => {
     }, )
 
     return (
-        <AppBar position="static">
+        <div className='navbar'>
+        <AppBar position="fixed">
         <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu">
                 <MenuIcon/>
@@ -89,6 +90,7 @@ const Navbar = () => {
             
             </Toolbar>
             </AppBar>
+            </div>
     );
 }
 
