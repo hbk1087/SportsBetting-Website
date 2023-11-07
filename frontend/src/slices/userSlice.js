@@ -19,12 +19,15 @@ export const userSlice = createSlice({
     initializeUser: (state, action) => {
       state.username = action.payload;
     },
+    initializeBalance: (state, action) => {
+      state.balance = action.payload
+    },
     getUsername: (state) => {
       return state.username;
     }
   }
 });
 
-export const { setUsername, placeBet, initializeUser, getUsername } = userSlice.actions;
+export const { setUsername, placeBet, initializeUser, getUsername, initializeBalance } = userSlice.actions;
 
 export default userSlice.reducer;

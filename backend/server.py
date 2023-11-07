@@ -103,7 +103,7 @@ def my_account():
             return bad_response(e)
     # Change account info
     elif request.method == 'PATCH':
-        username = request.args['username']
+        username = get_jwt_identity()
         data = request.json
 
         try:
