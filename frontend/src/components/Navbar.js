@@ -1,15 +1,13 @@
 // React 
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setUsername } from '../slices/userSlice'
+import { useSelector } from 'react-redux';
 
 // MUI
 import { styled } from '@mui/material/styles';
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Toolbar, Button } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 // Components
@@ -38,63 +36,53 @@ const SignupButton = styled(Button)(({ theme }) => ({
 
 
 const Navbar = () => {
-    const dispatch = useDispatch();
-
-    // user authentication selectors
     const authLoggedIn = useSelector((state) => state.auth.loggedIn);
-    const authHasToken = useSelector((state) => state.auth.token);
-
-    // user data selectors
     const username = useSelector((state) => state.user.username);
 
-    useEffect(() => {
-        console.log("Navbar.js: authLoggedIn: " + authLoggedIn)
-        console.log("Navbar.js: authHasToken: " + authHasToken)
+    console.log("BRUHHH:" + authLoggedIn);
+    console.log("username: " + username);
 
-        console.log("Rerendering Navbar.js")
-    }, )
+    useEffect(() => {
+    }, [authLoggedIn])
 
     const appBarStyles = {
-        height: '76.6px', // Set the desired height here
-      };
+        height: '76.6px',
+    };
 
     return (
         <div className='navbar'>
-        <AppBar position="fixed" style={appBarStyles}>
-        <Toolbar>
-            {/* <IconButton edge="start" color="inherit" aria-label="menu">
-                <MenuIcon/>
-            </IconButton> */}
+            <AppBar position="fixed" style={appBarStyles}>
+                <Toolbar>
 
-            <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img src={logo} style={{ marginLeft: '10px', height: '60px', width: '150px', padding: '5px'}}></img>
-            </Link>
+                    <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <img src={logo} alt="Logo" style={{ marginLeft: '10px', height: '60px', width: '150px', padding: '5px'}}></img>
+                    </Link>
 
-            { 
-                    authLoggedIn === true && authHasToken !== null ?
-                    (
-                        // When logged in
-                        <>
-                            <Button color="inherit" component={Link} to='/bets'>My Bets</Button>
-                            <div style={{ flexGrow: 1 }}></div>
-                            <Welcome username={username} />
-                            <LogoutButton />
-                            <Button color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></Button>
-                        </>
-                    ) : 
-                    (
-                        // When logged out
-                        <>
-                            <div style={{ flexGrow: 1 }}></div>
-                            <LoginButton color="inherit" component={Link} to='/login'>Login</LoginButton>
-                            <SignupButton color="inherit" component={Link} to='/signup'>Signup</SignupButton>
-                        </>
-                    )
-            }
-            
-            </Toolbar>
+                    { 
+                            authLoggedIn === true ?
+                            (
+                                // When logged in
+                                <>
+                                    <Button color="inherit" component={Link} to='/bets'>My Bets</Button>
+                                    <div style={{ flexGrow: 1 }}></div>
+                                    <Welcome username={username} />
+                                    <LogoutButton />
+                                    <Button color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></Button>
+                                </>
+                            ) : 
+                            (
+                                // When logged out
+                                <>
+                                    <div style={{ flexGrow: 1 }}></div>
+                                    <LoginButton color="inherit" component={Link} to='/login'>Login</LoginButton>
+                                    <SignupButton color="inherit" component={Link} to='/signup'>Signup</SignupButton>
+                                </>
+                            )
+                    }
+                    
+                </Toolbar>
             </AppBar>
-            </div>
+        </div>
     );
 }
 

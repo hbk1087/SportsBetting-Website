@@ -1,3 +1,4 @@
+// React
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,10 +7,7 @@ import axios from "axios";
 
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
-
-
 import { styled } from '@mui/material/styles';
-
 
 
 const SignupGrid = styled(Grid)(({ theme }) => ({
@@ -59,7 +57,7 @@ function SignUp() {
       const place = await autoCompleteRef.current.getPlace();
       setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
       });
-    }, []);
+    }, [options]);
 
     const signMeUp = (event) => {
         event.preventDefault()

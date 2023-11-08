@@ -23,7 +23,6 @@ import { useEffect } from 'react'
 // Redux
 import { useSelector } from 'react-redux'
 
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -51,7 +50,7 @@ function App() {
           <ThemeProvider theme={theme}>
               <Router>
                     <div className="App">  
-                        <Navbar />
+                        <Navbar/>
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path="/login" element={<Login />} />

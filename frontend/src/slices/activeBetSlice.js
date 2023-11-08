@@ -14,10 +14,10 @@ const activeBetSlice = createSlice({
         openActiveBet: (state, action) => {
             state.bets.push(action.payload);
 
-            console.log(action.payload)
+            console.log("Bet payload: ", action.payload)
         },
 
-        addActiveBet: (state, action) => {
+        submitBets: (state, action) => {
 
             if (action.payload.bet_type === "Home") {
                 action.payload.potential_payout = action.payload.wager * action.payload.home_odds;

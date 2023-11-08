@@ -1,9 +1,5 @@
 import React, { Suspense } from 'react';
 
-// Redux
-import { useDispatch } from 'react-redux';
-import { addGameChoiceId, removeGameChoiceId, addActiveBet, removeActiveBet } from '../slices/activeBetSlice';
-
 // MUI
 import { Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
@@ -20,9 +16,7 @@ import "../css/GameDetails.css"
 const GameDetails = ({ game }) => {
     // Destructure game properties
     const {
-        game_id,
         date,
-        sport,
         away_team,
         home_team,
         away_odds,
@@ -34,8 +28,6 @@ const GameDetails = ({ game }) => {
         total,
         over_odds,
         under_odds,
-        best_bet_type,
-        best_bet_edge,
     } = game;
 
     function formatDate(inputDate) {
@@ -123,17 +115,6 @@ const GameDetails = ({ game }) => {
       }
     }
 
-    const NflIcon = styled('img')({
-      width: '100%',
-      height: '100px',
-    })
-
-    const TimeStyle = styled(Typography)({
-      fontWeight: 'bold',
-      fontSize: '1.2em',
-      color: '#ffffff',
-    })
-
     const TeamName = styled(Typography)({
         fontWeight: 'bold',
         fontSize: '1.2em',
@@ -141,7 +122,6 @@ const GameDetails = ({ game }) => {
     })
     
     const getSpreadColor = (spread) => (spread > 0 ? "green" : "red");
-    const getMoneyLineColor = (ml) => (ml > 0 ? "green" : "red");
 
 
     const StyledGridContainer = styled(Grid)({

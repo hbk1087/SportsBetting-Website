@@ -5,9 +5,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #c55959;
     border-radius: 4px;
-    background-color: #f4f4f4;
+    background-color: #bb2222;
     margin-bottom: 10px;
 }
 
@@ -36,6 +36,22 @@
 
     /* Optional: Add hover effect for better UX */
     &:hover {
-        background-color: #e43c3c; /* Darker red on hover */
+        background-color: #812e2e; /* Darker red on hover */
     }
+}
+
+.betslip-selectedTeam {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    width: 50%;
+    align-items: flex-start;
+}
+
+.betslip-betTeamNames {
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    border: 
 }
