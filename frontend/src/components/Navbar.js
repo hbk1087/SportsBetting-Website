@@ -62,9 +62,9 @@ const Navbar = () => {
         <div className='navbar'>
         <AppBar position="fixed" style={appBarStyles}>
         <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu">
+            {/* <IconButton edge="start" color="inherit" aria-label="menu">
                 <MenuIcon/>
-            </IconButton>
+            </IconButton> */}
 
             <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
                 <img src={logo} style={{ marginLeft: '10px', height: '60px', width: '150px', padding: '5px'}}></img>
