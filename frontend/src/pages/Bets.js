@@ -13,6 +13,7 @@ import { Typography, Container, Paper, List, ListItem, ListItemText } from '@mui
 
 // Axios
 import axios from 'axios';
+import '../css/MyBets.css';
 
 function Bets() {
     // const bets = useSelector((state) => state.bets.bets);
@@ -60,6 +61,7 @@ function Bets() {
     }, [])
 
     return (
+        <div className='betsContainer'>
         <Container>
            {loading ? (
                 <Typography variant="h6" align="center" justify="center" color="primary">
@@ -88,6 +90,7 @@ function Bets() {
                 </Paper>
             )}
         </Container>
+        </div>
     )
 }
 
