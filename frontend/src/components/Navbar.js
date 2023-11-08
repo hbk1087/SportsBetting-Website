@@ -54,9 +54,13 @@ const Navbar = () => {
         console.log("Rerendering Navbar.js")
     }, )
 
+    const appBarStyles = {
+        height: '76.6px', // Set the desired height here
+      };
+
     return (
         <div className='navbar'>
-        <AppBar position="fixed">
+        <AppBar position="fixed" style={appBarStyles}>
         <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu">
                 <MenuIcon/>
