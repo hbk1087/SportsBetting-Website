@@ -11,6 +11,7 @@ import { initializeUser, setUsername } from '../slices/userSlice';
 
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
+import '../css/Login.css';
 
 function Login() {
 
