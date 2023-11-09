@@ -9,7 +9,7 @@ import { addBet, removeBet, updateBet } from '../slices/betSlice';
 import { useEffect, useState } from 'react'
 
 // MUI
-import { Typography, Container, Paper, List, ListItem, ListItemText } from '@mui/material';
+import { Typography, Container, Paper, List, ListItem, ListItemText, Grid } from '@mui/material';
 
 // Axios
 import axios from 'axios';
@@ -74,7 +74,7 @@ function Bets() {
                     No bets placed.
                 </Typography>
             ) : (
-                <Paper spacing={3} elevation={3}>
+                <Container spacing={3} elevation={3}>
                     <Typography variant="h3" align="center" color="primary">
                         Your Bets
                     </Typography>
@@ -87,7 +87,7 @@ function Bets() {
                             // </ListItem>
                             <MyBet bet={betItem}/>
                         ))}
-                </Paper>
+                </Container>
             )}
         </Container>
         </div>
