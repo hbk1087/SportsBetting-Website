@@ -1,13 +1,12 @@
 import React, { Suspense } from 'react';
 
 // MUI
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 // Components
 import * as NFLLogos from 'react-nfl-logos';
 import * as NBALogos from 'react-nba-logos';
-import BestBet from './BestBet';
 import LoadingIndicator from '../util/LoadingIndicator';
 import BetBox from "./BetBox"
 import TeamSeparator from './TeamSeparator';
@@ -191,18 +190,84 @@ const TeamBetContainer = styled(Grid)({
   alignItems: 'center'
 });
 
-const DateContainer = styled('div')({
+const BottomContainer = styled(Grid)({
   display: 'flex',
   flexDirection: 'row',
   flexGrow: 1,
   gap: '0px',
   justifyContent: 'start',
-  alignItems: 'left',
   color: '#ffffff',
   marginLeft: '1%',
-  fontWeight: '100',
   fontSize: '0.85em'
 });
+
+const DateContainer = styled(Grid)({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '0px',
+  justifyContent: 'start',
+  alignItems: 'flex-end',
+  color: '#ffffff',
+  marginLeft: '1%',
+  marginBottom: '2%',
+  fontWeight: '100',
+  fontSize: '0.85em',
+  flexWrap: 'wrap'
+});
+
+const BestBetContainer = styled(Grid)({
+  display: 'flex',
+  flexDirection: 'row',
+  flexGrow: 1,
+  gap: '0px',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  color: '#ffffff',
+  marginLeft: '40.5%',
+  fontWeight: '150',
+  marginRight: '2%',
+  marginBottom: '2%',
+  width: '175px'
+});
+
+const BestBetButton = styled(Button)({
+  fontSize: '1em',
+  color: 'green',
+  border: '2px solid',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: '2px',
+  paddingBottom: '8px',
+  paddingTop: '8px',
+  width: '124px',
+  maxHeight: '70px'
+});
+
+const BestBetText = styled(Typography)({
+  fontWeight: 'bold',
+  fontSize: '1.2em',
+  color: '#ffffff',
+  alignText: 'center',
+  justifyContent: 'center'
+})
+
+const EdgeText = styled(Typography)({
+  fontWeight: 'bold',
+  fontSize: '1.2em',
+  color: '#008001',
+  alignText: 'center',
+  justifyContent: 'center'
+})
+
+const WordsContainer = styled(Grid)({
+  display: 'flex',
+  alignText: 'center',
+  justifyContent: 'space-between',
+  flexGrow: 1,
+  flexDirection: 'row',
+  paddingRight: '6%'
+})
 
 const GameDetails = ({ game }) => {
     // Destructure game properties
@@ -281,8 +346,16 @@ const GameDetails = ({ game }) => {
             <StyledBetBox bet_type={'total_under'} total={total} under_odds={under_odds} game={game}/>
           </TeamBetContainer>
         </BetOptionsContainer>
-        <DateContainer>{new_date}</DateContainer>
-        <BestBet best_bet_type={bb} best_bet_edge={best_bet_edge}/>
+        <BottomContainer>
+          <DateContainer>{new_date}</DateContainer>
+          <BestBetContainer>
+              <WordsContainer>
+                <EdgeText> {best_bet_edge} Point Edge </EdgeText>
+                <BestBetText> Best Bet: </BestBetText>
+              </WordsContainer>
+              <BestBetButton>{bb}</BestBetButton>
+          </BestBetContainer>
+        </BottomContainer>
       </StyledGridContainer>
     )
 }
