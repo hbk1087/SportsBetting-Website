@@ -28,20 +28,21 @@ def get_bets():
         game_id = request.json.get('game_id')
         bet_type = request.json.get('bet_type')
         odds = request.json.get('odds')
+        points = request.json.get('points')
         wager = request.json.get('wager')
         potential_payout = request.json.get('potential_payout')
         timestamp = request.json.get('timestamp')
 
         error = None
         # Return bad request response that form is not completely filled out
-        if not (account_username and game_id and bet_type and odds and wager and potential_payout and timestamp):
+        if not (account_username and game_id and bet_type and odds and points and wager and potential_payout and timestamp):
             error = 'Bet is not completely filled out'
             return bad_response(error)
 
         if error is None:
             print("Its a post")
             print('Good to go')
-            bet = UserBet(account_username, game_id, bet_type, odds, wager, potential_payout, timestamp)
+            bet = UserBet(account_username, game_id, bet_type, odds, points, wager, potential_payout, timestamp)
             try:
                 connection = connect('bets')
 
@@ -119,7 +120,7 @@ def get_bets():
                 odds = the_bet['odds']
                 if points == None:
                     points = 'Money Line'
-                all_bets_ready_for_post.append({"sport": the_game['sport'], "away_team" : away_team, "home_team" : home_team, "away_score" : away_score, "home_score" : home_score, "type": bet_type, "odds": odds, "points": points, "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp'], "game_date": the_game['date']})
+                all_bets_ready_for_post.append({"sport": the_game['sport'], "away_team" : away_team, "home_team" : home_team, "away_score" : away_score, "home_score" : home_score, "type": bet_type, "odds": odds, "points": the_bet['points'], "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp'], "game_date": the_game['date']})
 
 
             print(all_bets_ready_for_post)
