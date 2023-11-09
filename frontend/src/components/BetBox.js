@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 // Redux
@@ -25,6 +25,7 @@ function BetBox({
 
   const dispatch = useDispatch();
   const bets = useSelector((state) => state.activeBets.bets);
+  const hasActiveBets = useSelector((state) => state.activeBets.hasActiveBets)
 
   const handleBetBoxClick = ({bet_type, game}) => {
     const betExists = bets.find(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type) ? true : false;
@@ -42,6 +43,13 @@ function BetBox({
   const RenderAwaySpreadForm = () => {
     const [isClicked, setIsClicked] = useState(false);
 
+    useEffect(() => {
+      if (!hasActiveBets){
+        setIsClicked(false);
+      }
+
+    }, [hasActiveBets])
+
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
     return (
@@ -54,6 +62,13 @@ function BetBox({
 
   const RenderHomeSpreadForm = () => {
     const [isClicked, setIsClicked] = useState(false);
+
+    useEffect(() => {
+      if (!hasActiveBets){
+        setIsClicked(false);
+      }
+
+    }, [hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
@@ -68,6 +83,13 @@ function BetBox({
   const RenderMoneylineAwayForm = () => {
     const [isClicked, setIsClicked] = useState(false);
 
+    useEffect(() => {
+      if (!hasActiveBets){
+        setIsClicked(false);
+      }
+
+    }, [hasActiveBets])
+
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
     return (
@@ -79,6 +101,13 @@ function BetBox({
 
   const RenderMoneylineHomeForm = () => {
     const [isClicked, setIsClicked] = useState(false);
+
+    useEffect(() => {
+      if (!hasActiveBets){
+        setIsClicked(false);
+      }
+
+    }, [hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
@@ -93,6 +122,13 @@ function BetBox({
   const RenderTotalOverForm = () => {
     const [isClicked, setIsClicked] = useState(false);
 
+    useEffect(() => {
+      if (!hasActiveBets){
+        setIsClicked(false);
+      }
+
+    }, [hasActiveBets])
+
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
     return (
@@ -105,6 +141,13 @@ function BetBox({
 
   const RenderTotalUnderForm = () => {
     const [isClicked, setIsClicked] = useState(false);
+
+    useEffect(() => {
+      if (!hasActiveBets){
+        setIsClicked(false);
+      }
+
+    }, [hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
