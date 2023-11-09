@@ -1,11 +1,10 @@
 import React from 'react'
 import { Typography, Paper, Grid } from '@mui/material';
 import { styled } from '@mui/system';
-import "../css/MyBet.css"
+// import "../css/MyBet.css"
 
 const StyledGridContainer = styled(Grid)({
     display: 'flex',
-    flexWrap: 'wrap',
     border: '1px',
     borderColor: '#aaaaaa',
     columns: '16',
@@ -27,9 +26,9 @@ const DateContainer = styled('div')({
 
 const MainContainer = styled(Grid)({
     display: 'flex',
+    flexDirection: 'column',
     gap: '10px',  // Space between logos
-    alignItems: 'center',
-    flexGrow: 1
+    alignItems: 'center'
   });
 
 const WagerContainer = styled(Grid)({
@@ -206,11 +205,12 @@ function MyBet({ bet }) {
                 </OddsContainer>
             </BetInfoContainer>
 
-            <GameContainer>
+        </MainContainer>
+
+        <GameContainer className="gameContainer">
                 <p>{away_team} @ {home_team}</p>
                 <p>{game_time}</p>
-            </GameContainer>
-        </MainContainer>
+        </GameContainer>
 
         {away_score !== null && (
                 <p>Away Score: {away_score}</p>

@@ -61,25 +61,29 @@ const OddsContainer = styled(Grid)({
 const TypeOfBetAndCashOutContainer = styled(Grid)({
   display: 'flex',
   flexDirection: 'row',
-  flexWrap: 'nowrap'
+  flexWrap: 'nowrap',
+  marginBottom: '5%'
 })
 
 const TypeOfBetContainer = styled(Grid)({
-  display: 'flex'
+  display: 'flex',
+  flexGrow: 1
 })
 
 const CashOutContainer = styled(Grid)({
-  display: 'flex'
+  display: 'flex',
 })
 
 const VersusAndTimeContainer = styled(Grid)({
   display: 'flex',
   flexDirection: 'row',
-  flexWrap: 'nowrap'
+  flexWrap: 'nowrap',
+  marginBottom: '5%'
 })
 
 const VersusContainer = styled(Grid)({
-  display: 'flex'
+  display: 'flex', 
+  flexGrow: 1
 })
 
 const TimeContainer = styled(Grid)({
@@ -102,6 +106,45 @@ const formattedOddsSpread = (number) => {
     if (typeof number !== 'number') return "Not a number";
     return number > 0 ? `+${number}` : (number === 0 ? "0" : `${number}`)
 }
+
+const formattedBetType = (bet_type) => {
+    switch (bet_type) {
+        case "away_spread":
+        case "home_spread":
+            return "Spread";
+        case "moneyline_away":
+        case "moneyline_home":
+            return "Moneyline";
+        case "total_over":
+        case "total_under":
+            return "Total Match Points";
+        default:
+            return "Unknown Bet Type";
+    }
+}
+
+function formatDateTime(dateTimeStr) {
+  const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  const date = new Date(dateTimeStr);
+
+  // Formatting the day
+  const day = days[date.getDay()];
+
+  // Formatting the hour
+  let hour = date.getHours();
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12;
+  hour = hour ? hour : 12; // the hour '0' should be '12'
+
+  // Formatting minutes
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  return `${day} ${hour}:${minutes}${ampm} ET`;
+}
+
+// Example usage
+console.log(formatDateTime("2023-11-09 20:15:00"));
+
 
 const BetslipBet = ({bet}) => {
     const dispatch = useDispatch();
@@ -181,7 +224,7 @@ const BetslipBet = ({bet}) => {
           <BetslipBetInformationContainer className="betslipBetConatiner">
             <TeamNameAndOddsContainer className="teamNameAndOddsContainer">
               <TeamNameContainer className="teamNameContainer">
-                <Typography className="betslip-selectedTeam" sx={{ fontWeight: 'bold', color: 'white' }}>
+                <Typography className="betslip-selectedTeam" sx={{ fontWeight: 'bold', color: '#ffffff' }}>
                   {
                     bet.bet_type === 'away_spread'
                     ? `${bet.game.away_team} ${formattedOddsSpread(bet.game.away_spread)}`
@@ -201,7 +244,7 @@ const BetslipBet = ({bet}) => {
               </TeamNameContainer>
 
                 <OddsContainer className="oddsContainer">
-                  <Typography className="betOdds" variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                  <Typography className="betOdds" variant="subtitle1" sx={{ fontWeight: 'bold', color: '#ffffff' }}>
                       {
                         ({
                         'away_spread': `${bet.game.away_spread_odds}`,
@@ -218,26 +261,28 @@ const BetslipBet = ({bet}) => {
 
             <TypeOfBetAndCashOutContainer className="typeOfBetAndCashOutContainer">
               <TypeOfBetContainer className="typeOfBetContainer">
-              MONEYLINE
+              <Typography className="betOdds" variant="caption" sx={{ color: '#749d83' }}>
+              {formattedBetType(bet.bet_type)}
+              </Typography>
               </TypeOfBetContainer>
 
               <CashOutContainer className="cashOutContainer">
-                <Button variant="contained" sx={{ my: 2, py: 1, px: 3, borderRadius: 20, fontSize: '0.5rem', backgroundColor: 'blue', '&:hover': { backgroundColor: 'darkblue' } }}>
+                {/* <Button variant="contained" sx={{ my: 1, py: 1, px: 1, borderRadius: 20, fontSize: '0.5rem', backgroundColor: 'blue', '&:hover': { backgroundColor: 'darkblue' } }}>
                     Cash Out
-                </Button>
+                </Button> */}
               </CashOutContainer>
             </TypeOfBetAndCashOutContainer>
 
             <VersusAndTimeContainer>
               <VersusContainer className="versusContainer">
-                <Typography className="betslip-betTeamNames" variant="body2" sx={{ textAlign: 'center' }}>
+                <Typography className="betslip-betTeamNames" variant="caption" sx={{ textAlign: 'center' }}>
                     {bet.game.away_team} @ {bet.game.home_team}
                 </Typography>
               </VersusContainer>
 
               <TimeContainer className="timeContainer">
-              <Typography className="betslip-betTeamNames" variant="body2" sx={{ textAlign: 'center' }}>
-                SAT 7:00PM ET
+              <Typography className="betslip-betTeamNames" variant="caption" sx={{ textAlign: 'center' }}>
+                {formatDateTime(bet.game.date)}
               </Typography>
               </TimeContainer>
             </VersusAndTimeContainer>

@@ -78,7 +78,6 @@ function Bets() {
                     <Typography variant="h3" align="center" color="primary">
                         Your Bets
                     </Typography>
-                    <List>
                         {bets.map((betItem, index) => (
                             // <ListItem key={betItem.game_id}>
                             //     <ListItemText
@@ -88,7 +87,6 @@ function Bets() {
                             // </ListItem>
                             <MyBet bet={betItem}/>
                         ))}
-                    </List>
                 </Paper>
             )}
         </Container>
