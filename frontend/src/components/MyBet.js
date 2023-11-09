@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Paper, Grid } from '@mui/material';
 import { styled } from '@mui/system';
-import "../css/MyBet.css"
+// import "../css/MyBet.css"
 
 const StyledGridContainer = styled(Grid)({
     display: 'flex',
@@ -27,10 +27,10 @@ const DateContainer = styled('div')({
 
 const MainContainer = styled(Grid)({
     display: 'flex',
-    gap: '10px',  // Space between logos
-    flexWrap: 'wrap',
     flexDirection: 'column',
-    backgroundColor: '#0e0d0d'
+    gap: '10px',  // Space between logos
+    alignItems: 'center',
+    flexGrow: 1
   });
 
 const WagerContainer = styled(Grid)({
@@ -223,12 +223,13 @@ function MyBet({ bet }) {
                 </OddsContainer>
             </BetInfoContainer>
 
-            <GameContainer>
+        </MainContainer>
+
+        <GameContainer className="gameContainer">
                 <p>{away_team} @ {home_team}</p>
-                <GameDate>{game_time}</GameDate>
+                <p>{game_time}</p>
             </GameContainer>
         </MainContainer>
-        <div className='border-div'></div>
 
         {away_score !== null && (
                 <p>Away Score: {away_score}</p>
