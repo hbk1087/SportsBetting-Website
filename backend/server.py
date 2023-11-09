@@ -5,6 +5,7 @@ from flask_cors import CORS, cross_origin
 import os
 from dotenv import load_dotenv
 from routes.showNFL import nfl_blueprint
+from routes.showNBA import nba_blueprint
 from routes.signUp import signup_blueprint
 from routes.userBets import user_bets_blueprint
 from db import connect
@@ -135,7 +136,13 @@ def index():
     # Set the time zone to EST
     est_tz = pytz.timezone('US/Eastern')
     current_time_est = datetime.now(est_tz)
+
+    # Calculate the time one week from now
+    one_week_later = current_time_est + timedelta(weeks=1)
+
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
+
+    one_week_from_now = str(one_week_later.strftime("%Y-%m-%d %I:%M:%S %p"))
 
     # print games in future  
     games = list(connection.find())
@@ -143,7 +150,8 @@ def index():
     for element in games:
         element['_id'] = str(element['_id'])
         if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
-            data.append(element)
+            if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") < datetime.strptime(one_week_from_now, "%Y-%m-%d %I:%M:%S %p"):
+                data.append(element)
 
     def sortDates(dict):
         return datetime.strptime(dict['date'], "%Y-%m-%d %I:%M:%S %p")
@@ -167,6 +175,9 @@ def serve_static(filename):
 
 # Blueprint to see all nfl games
 app.register_blueprint(nfl_blueprint, url_prefix='/api/nfl')
+
+# Blueprint to see all nba games
+app.register_blueprint(nba_blueprint, url_prefix='/api/nba')
 
 # Blueprint for signup page
 app.register_blueprint(signup_blueprint, url_prefix='/api/signup')

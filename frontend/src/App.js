@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Account from "./pages/Account"
 import NFLPage from './pages/nfl'
+import NBAPage from './pages/nba'
 
 // Components
 import Navbar from "./components/Navbar"
@@ -59,6 +60,7 @@ function App() {
                             <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
                             <Route path='/signup' element={<SignUp />} />
                             <Route path='/nfl' element={<NFLPage />} />
+                            <Route path='/nba' element={<NBAPage />} />
                             <Route path='/*' element={<NotFound />}/>
                         </Routes>
                     </div>

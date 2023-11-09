@@ -4,27 +4,22 @@ import { useEffect, useState } from 'react'
 // components
 import GameDetails from '../components/GameDetails'
 import Sidebar from '../components/Sidebar'
+//import BetsBar from '../components/BetsBar'
 
 // axios
 import axios from 'axios'
-import GameOddsHeader from '../components/GameOddsHeader'
 
-// CSS
-import '../css/Home.css'
-import Betslip from '../components/Betslip'
-
-
-const Home = () => {
+const NBAPage = () => {
     const [game, setGame] = useState([{}])
 
     useEffect(() => {
-        document.title = "AlgoSportsBets"
+        document.title = "Home"
 
-        async function getNflData() {
+        async function getNBAData() {
             try {
                 const response = await axios({
                   method: "GET",
-                  url: "/api/home",
+                  url: "/api/nba",
                 })
             
                 const res = response.data;
@@ -39,27 +34,24 @@ const Home = () => {
               }
             }
 
-        getNflData()
+        getNBAData()
     }, []) // This should update periodically, setInterval?
     
 
     // TODO: Display "no games today" if there are no games today
     return (
-        <div className="page-content">
-            <Sidebar />
-            <div className="game-odds-header">
-            <GameOddsHeader sportName="Upcoming Games"/>
-            <div className='nfl-game-container'>
-                    {game.map((gameItem, index) => (
-                        <div key={gameItem.game_id} className='game-details-container'>
-                            <GameDetails game={gameItem} />
-                        </div>
-                    ))}
-            </div>
-            </div>
-            <Betslip />
+        <div>
+        <Sidebar />
+        <div className='parentDiv'>
+                {game.map((gameItem, index) => (
+                    <div key={gameItem.game_id} className='game-details-container'>
+                        <GameDetails game={gameItem} />
+                    </div>
+                ))}
+        </div>
+        {/* <BetsBar /> */}
         </div>
     )
 }
 
-export default Home;
+export default NBAPage
