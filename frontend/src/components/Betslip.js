@@ -21,7 +21,6 @@ const Betslip = () => {
     var selectedGames = useSelector((state) => state.activeBets.selectedGames);
 
     useEffect(() => {
-        console.log("Rerendering Betslip.js")
     }, [selectedGames, bets])
 
     return (

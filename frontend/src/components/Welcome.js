@@ -2,11 +2,13 @@ import { Box } from '@mui/system';
 
 import '../css/Welcome.css'
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
-const Welcome = ({ username }) => {
+const Welcome = () => {
     const isLoggedIn = useSelector(state => state.auth.loggedIn);
+    const username = useSelector(state => state.user.username);
+    const usernameLocal = localStorage.getItem("username");
 
     if (isLoggedIn) {
         return (

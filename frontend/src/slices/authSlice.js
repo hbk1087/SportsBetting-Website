@@ -1,13 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Initial state for the auth slice
 const initialState = {
   token: null,
   loggedIn : false
 };
 
-// Define the authSlice using createSlice
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -24,6 +22,5 @@ const authSlice = createSlice({
   },
 });
 
-// Export action creators and the reducer
 export const { setToken, removeToken, setLoggedIn } = authSlice.actions;
 export default authSlice.reducer;

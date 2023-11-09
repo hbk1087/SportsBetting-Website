@@ -65,7 +65,7 @@ const Navbar = () => {
                                 <>
                                     <Button color="inherit" component={Link} to='/bets'>My Bets</Button>
                                     <div style={{ flexGrow: 1 }}></div>
-                                    <Welcome username={username} />
+                                    <Welcome />
                                     <LogoutButton />
                                     <Button color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></Button>
                                 </>

@@ -28,7 +28,6 @@ const Home = () => {
                 })
             
                 const res = response.data;
-                console.log(res);
                 setGame(res)
               } catch (error) {
                 if (error.response) {
@@ -47,7 +46,7 @@ const Home = () => {
     return (
         <div className="page-content">
             <Sidebar />
-            
+
             <div className="game-odds-header">
               <GameOddsHeader sportName="NFL"/>
               <div className='nfl-game-container'>

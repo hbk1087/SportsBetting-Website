@@ -10,14 +10,20 @@ import authReducer from './slices/authSlice';
 import betsReducer from './slices/betSlice';
 import activeBetsReducer from './slices/activeBetSlice';
 
-const persistConfig = {
-  key: 'root',
+const authPersistConfig = {
+  key: 'auth',
   storage,
-  blacklist: ['auth', 'user']
+  blacklist: ['auth']
 }
 
-const persistAuthReducer = persistReducer(persistConfig, authReducer);
-const persistUserReducer = persistReducer(persistConfig, userReducer);
+const userPersistConfig = {
+  key: 'user',
+  storage,
+  blacklist: ['user']
+}
+
+const persistAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistUserReducer = persistReducer(userPersistConfig, userReducer);
 
 export const store = configureStore({
   reducer: {
