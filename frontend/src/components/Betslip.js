@@ -2,6 +2,7 @@ import { React, useEffect } from 'react';
 
 // MUI
 import { Button, Grid } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/system';
 
 // Redux
@@ -21,17 +22,24 @@ import "../css/Betslip.css"
 const BetslipContainer = styled(Grid)({
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start'
-
+    justifyContent: 'flex-start',
 })
 const BetslipHeaderContainer = styled(Grid)({
-
+    backgroundColor: '#131314',
+    marginBottom: '50px',
+    borderBottom: '1px solid #869d97',
+    width: "80%",
+    justifyContent: 'flex-start',
+    padding: '30px'
 })
 const BetslipsContainer = styled(Grid)({
 
 })
 
 const RemoveBetsContainer = styled(Grid)({
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: "center"
 
 })
 const LoginPromptContainer = styled(Grid)({
@@ -48,10 +56,12 @@ const Betslip = () => {
 
     return (
         <BetslipContainer className="betslip-container">
+
             <BetslipHeaderContainer className="betslip-title-header">
-                <div className="betslip-title">Betslip</div>
                 <CircleCounter number={bets.length} />
+                <div className="betslip-title"><b>Betslip</b></div>
             </BetslipHeaderContainer>
+
             <BetslipsContainer className="betslip">
                 {
                     bets.length === 0 ? (
@@ -64,8 +74,8 @@ const Betslip = () => {
                                     ))
                                 }
 
-                                <RemoveBetsContainer>
-                                    <Button className="betslip-clear" onClick={() => dispatch(clearActiveBets())}>Clear</Button>
+                                <RemoveBetsContainer className="removeBetsContainer">
+                                    <Button className="clearButton" startIcon={<DeleteIcon/>} onClick={() => dispatch(clearActiveBets())}>Remove all selections</Button>
                                 </RemoveBetsContainer>
                             </>
                         )

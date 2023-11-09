@@ -13,16 +13,16 @@ const CircleCounter = ({ number }) => {
             flexDirection="row"
             alignItems="center"
             justifyContent="center" 
-            border="2px solid white"
             borderRadius="50%" 
-            width="50px" 
+            width="25px" 
             height={"auto"} 
             bgcolor="primary.main" 
             color="white" 
+            marginLeft="10px"
 >
             <Typography 
                 variant="body1" 
-                style={{ textAlign: "center", color: "blue" }}>
+                style={{ textAlign: "center", color: "black" }}>
                 {number}
             </Typography>
         </Box>
