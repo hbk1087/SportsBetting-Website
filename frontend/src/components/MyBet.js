@@ -73,7 +73,7 @@ function MyBet({ bet }) {
         <p>Wager: {wager}</p>
         <p className={actual_payout !== null && actual_payout > 0 ? 'green-text' : actual_payout !== null && actual_payout <= 0 ? 'red-text' : null}>
         {actual_payout !== null
-            ? 'Actual Payout: ' + actual_payout
+            ? 'Payout: ' + actual_payout
             : 'Potential Payout: ' + potential_payout}
         </p>
 
