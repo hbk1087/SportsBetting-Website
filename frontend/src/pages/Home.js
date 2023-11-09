@@ -20,7 +20,7 @@ const Home = () => {
     useEffect(() => {
         document.title = "AlgoSportsBets"
 
-        async function getNflData() {
+        async function getAllGameData() {
             try {
                 const response = await axios({
                   method: "GET",
@@ -28,7 +28,6 @@ const Home = () => {
                 })
             
                 const res = response.data;
-                console.log(res);
                 setGame(res)
               } catch (error) {
                 if (error.response) {
@@ -39,7 +38,7 @@ const Home = () => {
               }
             }
 
-        getNflData()
+          getAllGameData()
     }, []) // This should update periodically, setInterval?
     
 
@@ -47,6 +46,7 @@ const Home = () => {
     return (
         <div className="page-content">
             <Sidebar />
+
             <div className="game-odds-header">
             <GameOddsHeader sportName="Upcoming Games"/>
             <div className='nfl-game-container'>
@@ -55,8 +55,9 @@ const Home = () => {
                             <GameDetails game={gameItem} />
                         </div>
                     ))}
+              </div>
             </div>
-            </div>
+
             <Betslip />
         </div>
     )

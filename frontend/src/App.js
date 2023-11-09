@@ -24,7 +24,6 @@ import { useEffect } from 'react'
 // Redux
 import { useSelector } from 'react-redux'
 
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -42,17 +41,19 @@ const theme = createTheme({
 function App() {
     const isLoggedIn = useSelector(state => state.auth.loggedIn);
     const hasToken = useSelector(state => state.auth.token);
+    const username = useSelector(state => state.user.username);
 
     useEffect(() => {
         console.log("App.js: isLoggedIn: " + isLoggedIn)
         console.log("App.js: hasToken: " + hasToken)
-    }, [isLoggedIn, hasToken])
+        console.log("App.js: username: " + username)
+    }, [isLoggedIn, hasToken, username])
 
     return (
           <ThemeProvider theme={theme}>
               <Router>
                     <div className="App">  
-                        <Navbar />
+                        <Navbar/>
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path="/login" element={<Login />} />

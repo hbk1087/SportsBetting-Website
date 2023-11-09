@@ -6,11 +6,20 @@
     align-items: center;
     justify-content: flex-start;
     padding: 16px;
-    color: #ffffff;
+    color: #5c5858;
     margin-right: 10%;
     border: 2px solid #ffffff;
     border-radius: 10px;
     margin-top: 76.7px;
+}
+
+.betslip-title-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    background-color: #686565;
 }
 
 .betslip-title {

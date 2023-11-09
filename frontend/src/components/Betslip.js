@@ -8,40 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import BetslipBet from './BetslipBet';
+import CircleCounter from "./CircleCounter";
 
 // Slices
 import { clearActiveBets } from '../slices/activeBetSlice';
 
 import "../css/Betslip.css"
-
-function CircleCounter({ number }) {
-
-    useEffect(() => {
-    }, [number])
-
-
-    return (
-        <Box
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            alignContent="center"
-            justifyContent="spacing-between"
-            border="2px solid white"
-            borderRadius="50%" // makes it circular
-            width={50} // width of the circle
-            height={50} // height of the circle
-            bgcolor="primary.main" // background color
-            color="white" // text color
-
-        >
-            <Typography 
-                variant="body1" 
-                style={{ display: "flex", alignContent: "center", justifyContent: "center", color: "blue", textAlign: "center"}}>{number}
-            </Typography>
-        </Box>
-    );
-}
 
 const Betslip = () => {
     const dispatch = useDispatch();
@@ -49,7 +21,6 @@ const Betslip = () => {
     var selectedGames = useSelector((state) => state.activeBets.selectedGames);
 
     useEffect(() => {
-        console.log("Rerendering Betslip.js")
     }, [selectedGames, bets])
 
     return (

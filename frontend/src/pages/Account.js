@@ -93,7 +93,7 @@ useEffect(() => {
     const res = response.data;
     console.log(res);
     setAccountData(res);
-    balance = dispatch(initializeBalance(accountData.current_balance))
+    // dispatch(initializeBalance(accountData.current_balance))
   })
   .catch((error) => {
     if (error.response) {
@@ -102,7 +102,7 @@ useEffect(() => {
       console.log(error.response.headers);
     }
   });
-}, [authLoggedIn, authToken, balance]); // added dependencies
+}, [authLoggedIn, authToken, balance]); 
 
   return (
     

@@ -5,8 +5,8 @@ import { Navigate } from 'react-router-dom';
 
 
 const PrivateRoute = ({ children }) => {
-  const isLoggedIn = useSelector(state => state.auth.loggedIn); 
-  const hasToken = useSelector(state => state.auth.token); 
+  const isLoggedIn = useSelector(state => state.auth?.loggedIn ?? false);
+  const hasToken = !!useSelector(state => state.auth.token); 
 
   const isAuthenticated = isLoggedIn && hasToken;
 

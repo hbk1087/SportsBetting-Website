@@ -19,17 +19,17 @@ function Bets() {
     // const bets = useSelector((state) => state.bets.bets);
     const dispatch = useDispatch();
 
-    const handleAddBet = (bet) => {
-        dispatch(addBet(bet));
-    }
+    // const handleAddBet = (bet) => {
+    //     dispatch(addBet(bet));
+    // }
 
-    const handleRemoveBet = (bet) => {
-        dispatch(removeBet(bet));
-    }
+    // const handleRemoveBet = (bet) => {
+    //     dispatch(removeBet(bet));
+    // }
 
-    const handleUpdateBet = (bet) => {
-        dispatch(updateBet(bet));
-    }
+    // const handleUpdateBet = (bet) => {
+    //     dispatch(updateBet(bet));
+    // }
 
     const [bets, setBet] = useState([])
     const [loading, setLoading] = useState(true)

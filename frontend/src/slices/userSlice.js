@@ -1,33 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  username: "test",
+  balance: 1000,
+  lifetime_winnings: 0,
+};
+
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    username: '',
-    balance: 1000,
-    lifetime_winnings: 0
-  },
+  initialState,
   reducers: {
     setUsername: (state, action) => {
       state.username = action.payload;
+      console.log("intially after storing from payload" + state.username);
     },
     placeBet: (state, action) => {
       state.balance -= action.payload.amount;
       state.lifetime_winnings -= action.payload.amount;
     },
-    // Add more reducers as needed
-    initializeUser: (state, action) => {
-      state.username = action.payload;
-    },
     initializeBalance: (state, action) => {
       state.balance = action.payload
     },
-    getUsername: (state) => {
-      return state.username;
-    }
   }
 });
 
-export const { setUsername, placeBet, initializeUser, getUsername, initializeBalance } = userSlice.actions;
-
+export const { setUsername, placeBet, initializeBalance } = userSlice.actions;
 export default userSlice.reducer;
