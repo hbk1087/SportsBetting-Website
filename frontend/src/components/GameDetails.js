@@ -30,6 +30,8 @@ const GameDetails = ({ game }) => {
         total,
         over_odds,
         under_odds,
+        best_bet_type,
+        best_bet_edge
     } = game;
 
     function formatDate(inputDate) {

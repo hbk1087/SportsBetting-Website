@@ -27,53 +27,39 @@ def get_bets():
         account_username = get_jwt_identity()
         game_id = request.json.get('game_id')
         bet_type = request.json.get('bet_type')
+        odds = request.json.get('odds')
         wager = request.json.get('wager')
         potential_payout = request.json.get('potential_payout')
         timestamp = request.json.get('timestamp')
 
         error = None
         # Return bad request response that form is not completely filled out
-        if not (account_username and game_id and bet_type and wager and potential_payout and timestamp):
+        if not (account_username and game_id and bet_type and odds and wager and potential_payout and timestamp):
             error = 'Bet is not completely filled out'
             return bad_response(error)
 
         if error is None:
             print("Its a post")
             print('Good to go')
-            bet = UserBet(account_username, game_id, bet_type, wager, potential_payout, timestamp)
+            bet = UserBet(account_username, game_id, bet_type, odds, wager, potential_payout, timestamp)
             try:
                 connection = connect('bets')
 
                 # Make sure account balance - wager is >= 0
                 connection_to_users = connect('users')
                 account = list(connection_to_users.find({'username': account_username}))[0]
-                if account['current_balance'] - bet.wager >= 0:
+                if float(account['current_balance']) - float(bet.wager) >= 0:
 
                     # Insert new bet and return created success response, update user account balance and lifetime winnings
                     connection.insert_one(bet.data_dict)
 
-                    new_lifetime_winnings = account['lifetime_winnings'] - bet.wager
-                    new_current_balance = account['current_balance'] - bet.wager
+                    new_lifetime_winnings = float(account['lifetime_winnings']) - float(bet.wager)
+                    new_current_balance = float(account['current_balance']) - float(bet.wager)
                     connection_to_users.update_one({'username': account_username}, {'$set': {"lifetime_winnings": new_lifetime_winnings}, '$currentDate': { 'lastUpdated': True }} )
                     connection_to_users.update_one({'username': account_username}, {'$set': {"current_balance": new_current_balance}, '$currentDate': { 'lastUpdated': True }} )
                     return good_creation_response("Successfully created bet!")
                 else:
                     return bad_response("Insufficient funds for wager")
-
-                
-
-                # # Add to account bets array
-                # connection_to_users = connect('users')
-                # account = list(connection_to_users.find({'username': account_username}))[0]
-                # print(account)
-                # print(account['bets'])
-                # bets_list = account['bets']
-                # bets_list.append(bet.data_dict)
-                # print(bets_list)
-                # print(bet.data_dict)
-
-                # # Update user to include new bet 
-                # connection_to_users.update_one({'username': account_username}, {'$set': {'bets': bets_list}, '$currentDate': { 'lastUpdated': True }} )
                 
 
 
@@ -102,6 +88,9 @@ def get_bets():
                 print(the_bet)
                 the_game_id = the_bet['game_id']
                 the_game = list(connection_to_games.find({'game_id': the_game_id}))[0]
+
+                away_score = the_game['away_score']
+                home_score = the_game['home_score']
                 away_team = the_game['away_team']
                 home_team = the_game['home_team']
                 bet_type = the_bet['bet_type']
@@ -126,13 +115,17 @@ def get_bets():
                     odds = the_game['under_odds']
                     points = the_game['total']
 
-                pp = odds * the_bet['wager']
+                pp = the_bet['potential_payout']
+                odds = the_bet['odds']
                 if points == None:
                     points = 'Money Line'
-                all_bets_ready_for_post.append({"away_team" : away_team, "home_team" : home_team, "type": bet_type, "odds": odds, "points": points, "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp']})
+                all_bets_ready_for_post.append({"sport": the_game['sport'], "away_team" : away_team, "home_team" : home_team, "away_score" : away_score, "home_score" : home_score, "type": bet_type, "odds": odds, "points": points, "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp'], "game_date": the_game['date']})
 
 
-            return good_response(all_bets_ready_for_post)
+            print(all_bets_ready_for_post)
+            sorted_data_descending = sorted(all_bets_ready_for_post, key=lambda x: x['timestamp'], reverse=True)
+
+            return good_response(sorted_data_descending)
 
         except Exception as e:
                 return bad_response(e)

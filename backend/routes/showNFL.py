@@ -170,8 +170,8 @@ def update_games():
 
                         # Update corresponding account balance and lifetime winnings 
                         bet_account = list(connection_to_users.find({"username": bet['account_username']}))[0]
-                        new_lifetime_winnings = bet_account['lifetime_winnings'] + payout
-                        new_current_balance = bet_account['current_balance'] + payout
+                        new_lifetime_winnings = float(bet_account['lifetime_winnings']) + float(payout)
+                        new_current_balance = float(bet_account['current_balance']) + float(payout)
                         connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"lifetime_winnings": new_lifetime_winnings}, '$currentDate': { 'lastUpdated': True }} )
                         connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"current_balance": new_current_balance}, '$currentDate': { 'lastUpdated': True }} )
 

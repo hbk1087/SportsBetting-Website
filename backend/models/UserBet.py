@@ -1,9 +1,10 @@
 class UserBet():
 
-    def __init__(self, account_username, game_id, bet_type, wager, potential_payout, timestamp, actual_payout=None):
+    def __init__(self, account_username, game_id, bet_type, odds, wager, potential_payout, timestamp, actual_payout=None):
         self.account_username = account_username 
         self.game_id = game_id 
         self.bet_type = bet_type
+        self.odds = odds
         self.wager = wager
         self.potential_payout = potential_payout
         self.timestamp = timestamp
@@ -15,6 +16,7 @@ class UserBet():
             "account_username": self.account_username,
             "game_id": self.game_id,
             "bet_type": self.bet_type,
+            "odds": self.odds,
             "wager": self.wager,
             "potential_payout": self.potential_payout,
             "timestamp": self.timestamp, 

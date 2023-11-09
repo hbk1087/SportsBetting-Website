@@ -14,6 +14,7 @@ import { Typography, Container, Paper, List, ListItem, ListItemText } from '@mui
 // Axios
 import axios from 'axios';
 import '../css/MyBets.css';
+import MyBet from '../components/MyBet';
 
 function Bets() {
     // const bets = useSelector((state) => state.bets.bets);
@@ -79,12 +80,13 @@ function Bets() {
                     </Typography>
                     <List>
                         {bets.map((betItem, index) => (
-                            <ListItem key={betItem.game_id}>
-                                <ListItemText
-                                    primary={`${betItem.away_team} vs. ${betItem.home_team}`}
-                                    secondary={`Wager: ${betItem.wager}, Payout: ${betItem.actual_payout}`}
-                                />
-                            </ListItem>
+                            // <ListItem key={betItem.game_id}>
+                            //     <ListItemText
+                            //         primary={`${betItem.away_team} vs. ${betItem.home_team}`}
+                            //         secondary={`Wager: ${betItem.wager}, Payout: ${betItem.actual_payout}`}
+                            //     />
+                            // </ListItem>
+                            <MyBet bet={betItem}/>
                         ))}
                     </List>
                 </Paper>
