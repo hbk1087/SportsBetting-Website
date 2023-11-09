@@ -75,9 +75,10 @@ function Bets() {
                 </Typography>
             ) : (
                 <Container spacing={3} elevation={3}>
-                    <Typography variant="h3" align="center" color="primary">
-                        Your Bets
+                    <Typography variant="h3" align="center" color="#ffffff">
+                        My Bets
                     </Typography>
+                    <br></br>
                         {bets.map((betItem, index) => (
                             // <ListItem key={betItem.game_id}>
                             //     <ListItemText

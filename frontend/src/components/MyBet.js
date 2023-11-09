@@ -35,20 +35,58 @@ const MainContainer = styled(Grid)({
 
 const WagerContainer = styled(Grid)({
     display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',  // Space between logos
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingLeft: '50px',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'nowrap',
+    backgroundColor: '#1d1e1f',
   });
+
+const WagerAmountContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'column', 
+    justifyContent: 'flex-start',
+    flexGrow: 1,
+    marginLeft: '1%',
+    marginTop: '1%',
+  });
+
+const PayoutContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'column', 
+    marginTop: '1%',
+    justifyContent: 'flex-start',
+    alignItems: 'end',
+    marginRight: '1%',
+  });
+
+const Amount = styled(Typography)({
+    fontWeight: 'bold',
+    fontSize: '1.2em',
+    color: '#ffffff',
+})
 
 const SecondaryContainer = styled(Grid)({
     display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',  // Space between logos
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingLeft: '50px',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'nowrap',
+    color: '#ffffff',
+    paddingLeft: '1%',
+    paddingRight: '1%',
+    backgroundColor: '#1d1e1f',
+    paddingTop: '0.5%',
+    paddingBottom: '0.5%'
+  });
+
+const TertiaryContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'nowrap',
+    color: '#ffffff',
+    marginLeft: '1%',
+    marginRight: '1%',
+    backgroundColor: '#1d1e1f',
   });
 
 const BetName = styled(Typography)({
@@ -67,6 +105,12 @@ const Odds = styled(Typography)({
 const BetTypeName = styled(Typography)({
     fontWeight: 'lighter',
     fontSize: '1.1em',
+    color: '#aaaaaa',
+})
+
+const TotalWager = styled(Typography)({
+    fontWeight: 'lighter',
+    fontSize: '1em',
     color: '#aaaaaa',
 })
 
@@ -240,18 +284,29 @@ function MyBet({ bet }) {
 
 
         <WagerContainer>
-            <p>Wager: {wager}</p>
-            <p className={actual_payout !== null && actual_payout > 0 ? 'green-text' : actual_payout !== null && actual_payout <= 0 ? 'red-text' : null}>
+            <WagerAmountContainer>
+                <Amount>$ {wager}</Amount>
+                <TotalWager>Total Wager</TotalWager>
+            </WagerAmountContainer>
+            {/* <p>
             {actual_payout !== null
                 ? 'Payout: ' + actual_payout
                 : 'Potential Payout: ' + potential_payout}
-            </p>
+            </p> */}
+            <PayoutContainer>
+
+                <Amount>$ {potential_payout}</Amount>
+                <TotalWager>Potential Payout</TotalWager>
+
+                
+            </PayoutContainer>
         </WagerContainer>
         
+        <div className='border-div'></div>
 
         <SecondaryContainer>
-            <p>Sport: {sport}</p>
-            <p>Placed: {bet_date}</p>
+            <TotalWager>Sport: {sport.toUpperCase()}</TotalWager>
+            <GameDate> Placed: {bet_date}</GameDate>
         </SecondaryContainer>
         
         
