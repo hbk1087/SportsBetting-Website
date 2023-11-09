@@ -6,3 +6,20 @@
     color: red;
 }
 
+.bet {
+    border:1px solid black;
+}
+
+.main-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.bet-info {
+    flex-direction: row;
+    display: flex;
+}
+
+.odds {
+    display: flex;
+}

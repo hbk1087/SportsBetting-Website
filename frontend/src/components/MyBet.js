@@ -1,6 +1,91 @@
 import React from 'react'
 import { Typography, Paper, Grid } from '@mui/material';
+import { styled } from '@mui/system';
 import "../css/MyBet.css"
+
+const StyledGridContainer = styled(Grid)({
+    display: 'flex',
+    flexWrap: 'nowrap',
+    border: '1px',
+    borderColor: '#aaaaaa',
+    columns: '16',
+    flexDirection: 'column'
+  });
+
+const DateContainer = styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+    gap: '0px',
+    justifyContent: 'start',
+    alignItems: 'left',
+    color: '#ffffff',
+    marginLeft: '1%',
+    fontWeight: '100',
+    fontSize: '0.85em'
+  });
+
+const MainContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',  // Space between logos
+    alignItems: 'center',
+    flexGrow: 1
+  });
+
+const WagerContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',  // Space between logos
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: '50px',
+  });
+
+const SecondaryContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',  // Space between logos
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: '50px',
+  });
+
+const BetName = styled(Typography)({
+    fontWeight: 'bold',
+    fontSize: '1.2em',
+    color: '#000000',
+})
+
+const BetTypeName = styled(Typography)({
+    fontWeight: 'lighter',
+    fontSize: '1.2em',
+    color: '#aaaaaa',
+})
+
+const BetInfoContainer = styled(Grid)({
+    // minWidth: '95%',
+    display: 'flex',
+    flexDirection: 'row',  
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  });
+
+const BetNameContainer = styled(Grid)({
+    minWidth: '300px',
+    display: 'flex',
+    flexDirection: 'column', 
+    justifyContent: 'flex-start',
+    flexGrow: 1,
+  });
+
+  const OddsContainer = styled(Grid)({
+    minWidth: '300px',
+    display: 'flex',
+    flexDirection: 'column',  // Space between names
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end'
+  });
 
 function MyBet({ bet }) {
     const { 
@@ -52,14 +137,72 @@ function MyBet({ bet }) {
       }
       const bet_date = formatDate(timestamp)
       const game_time = formatDate(game_date)
+    
+    function getBetName(b) {
+         let name = ""
+        if (b === "Home") {
+            name = home_team
+        } else if (b === "Away") {
+            name = away_team
+        } else if (b === "Home Line") {
+            name = home_team + " " + points
+        } else if (b === "Away Line") {
+            name = away_team + " " + points
+        } else if (b === "Over") {
+            name =  "Over " + points
+        } else if (b === "Under") {
+            name =  "Under " + points
+        }
+
+        
+        return name
+    }
+
+    function getBetTypeName(b) {
+        let name = ""
+        if (b === "Home") {
+            name = points
+        } else if (b === "Away") {
+            name = points
+        } else if (b === "Home Line") {
+            name = "Spread"
+        } else if (b === "Away Line") {
+            name = "Spread"
+        } else if (b === "Over") {
+            name =  "Total Points"
+        } else if (b === "Under") {
+            name =  "Total Points"
+        }
+
+        
+        return name
+    }
+
+
+    
+    const bet_name = getBetName(bet_type)
+    const bet_type_name = getBetTypeName(bet_type)
 
   return (
-    <div className='bet'>
-        <p>Sport: {sport}</p>
+    <StyledGridContainer>
+    
+        
+        <MainContainer className='main-container'>
+            <BetInfoContainer className='betInfo-container'>
+                <BetNameContainer className='betName-container'>
+                    <BetName variant="h6">{bet_name}</BetName>
+                    <BetTypeName variant="h6">{bet_type_name}</BetTypeName>
+                </BetNameContainer>
+                <OddsContainer className='odds-container'>
+                    <BetName variant="h6">{odds}</BetName>
+                </OddsContainer>
+            </BetInfoContainer>
 
-        <p></p>
-
-        <p>{away_team} @ {home_team}</p>
+            <div>
+                <p>{away_team} @ {home_team}</p>
+                <p>{game_time}</p>
+            </div>
+        </MainContainer>
 
         {away_score !== null && (
                 <p>Away Score: {away_score}</p>
@@ -69,20 +212,25 @@ function MyBet({ bet }) {
                 <p>Home Score: {home_score}</p>
             )}
 
-        <p>Type: {bet_type}</p>
-        <p>Odds: {odds}</p>
-        <p>Points: {points}</p>
-        <p>Wager: {wager}</p>
-        <p className={actual_payout !== null && actual_payout > 0 ? 'green-text' : actual_payout !== null && actual_payout <= 0 ? 'red-text' : null}>
-        {actual_payout !== null
-            ? 'Payout: ' + actual_payout
-            : 'Potential Payout: ' + potential_payout}
-        </p>
 
-        <p>Bet Placed: {bet_date}</p>
-        <p>Game Date: {game_time}</p>
+        <WagerContainer>
+            <p>Wager: {wager}</p>
+            <p className={actual_payout !== null && actual_payout > 0 ? 'green-text' : actual_payout !== null && actual_payout <= 0 ? 'red-text' : null}>
+            {actual_payout !== null
+                ? 'Payout: ' + actual_payout
+                : 'Potential Payout: ' + potential_payout}
+            </p>
+        </WagerContainer>
+        
 
-    </div>
+        <SecondaryContainer>
+            <p>Sport: {sport}</p>
+            <p>Placed: {bet_date}</p>
+        </SecondaryContainer>
+        
+        
+    
+    </StyledGridContainer>
   )
 }
 
