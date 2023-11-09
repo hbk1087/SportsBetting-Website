@@ -8,7 +8,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addActiveBet } from '../slices/activeBetSlice';
+import { addActiveBet, removeGameByIdAndType } from '../slices/activeBetSlice';
 
 // CSS
 import "../css/BetslipBet.css"
@@ -160,9 +160,6 @@ function truncateToTwoDecimals(num) {
   return Math.floor(num * 100) / 100;
 }
 
-// Example usage
-console.log(formatDateTime("2023-11-09 20:15:00"));
-
 
 const BetslipBet = ({bet}) => {
     const dispatch = useDispatch();
@@ -179,8 +176,9 @@ const BetslipBet = ({bet}) => {
     });
 
     const onRemove = (event) => {
-      console.log("Remove a bet.")
-      return
+      dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
+      console.log("Remove a bet.");
+      return;
     }
 
     const handleSubmit = (event) => {

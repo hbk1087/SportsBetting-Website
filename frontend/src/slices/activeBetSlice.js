@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     bets: [],
+    hasActiveBets: false
 };
 
 // account_username, game_id, bet_type, wager, potential_payout, timestamp
@@ -13,6 +14,7 @@ const activeBetSlice = createSlice({
     reducers: {
         openActiveBet: (state, action) => {
             state.bets.push(action.payload);
+            state.hasActiveBets = true;
 
             console.log("Bet payload: ", action.payload)
         },
@@ -64,6 +66,7 @@ const activeBetSlice = createSlice({
             state.bets = state.bets.filter(bet => !(bet.game.game_id === action.payload.game_id && bet.bet_type === action.payload.bet_type));
         },
         clearActiveBets: (state) => {
+            state.hasActiveBets = false;
             state.bets = [];
             state.gameChoiceIds = [];
         }, 
