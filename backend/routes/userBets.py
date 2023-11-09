@@ -120,7 +120,7 @@ def get_bets():
                 odds = the_bet['odds']
                 if points == None:
                     points = 'Money Line'
-                all_bets_ready_for_post.append({"sport": the_game['sport'], "away_team" : away_team, "home_team" : home_team, "away_score" : away_score, "home_score" : home_score, "type": bet_type, "odds": odds, "points": the_bet['points'], "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp'], "game_date": the_game['date']})
+                all_bets_ready_for_post.append({"sport": the_game['sport'], "away_team" : away_team, "home_team" : home_team, "away_score" : away_score, "home_score" : home_score, "bet_type": bet_type, "odds": odds, "points": the_bet['points'], "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp'], "game_date": the_game['date']})
 
 
             print(all_bets_ready_for_post)

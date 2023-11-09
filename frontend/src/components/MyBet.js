@@ -9,7 +9,7 @@ function MyBet({ bet }) {
         home_team, 
         away_score, 
         home_score, 
-        type, 
+        bet_type, 
         odds, 
         points, 
         wager, 
@@ -56,8 +56,10 @@ function MyBet({ bet }) {
   return (
     <div className='bet'>
         <p>Sport: {sport}</p>
-        <p>Away Team: {away_team}</p>
-        <p>Home Team: {home_team}</p>
+
+        <p></p>
+
+        <p>{away_team} @ {home_team}</p>
 
         {away_score !== null && (
                 <p>Away Score: {away_score}</p>
@@ -67,7 +69,7 @@ function MyBet({ bet }) {
                 <p>Home Score: {home_score}</p>
             )}
 
-        <p>Type: {type}</p>
+        <p>Type: {bet_type}</p>
         <p>Odds: {odds}</p>
         <p>Points: {points}</p>
         <p>Wager: {wager}</p>
