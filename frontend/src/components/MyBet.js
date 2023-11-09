@@ -5,7 +5,7 @@ import "../css/MyBet.css"
 
 const StyledGridContainer = styled(Grid)({
     display: 'flex',
-    flexWrap: 'nowrap',
+    flexWrap: 'wrap',
     border: '1px',
     borderColor: '#aaaaaa',
     columns: '16',
@@ -27,7 +27,6 @@ const DateContainer = styled('div')({
 
 const MainContainer = styled(Grid)({
     display: 'flex',
-    flexDirection: 'column',
     gap: '10px',  // Space between logos
     alignItems: 'center',
     flexGrow: 1
@@ -69,6 +68,7 @@ const BetInfoContainer = styled(Grid)({
     flexDirection: 'row',  
     justifyContent: 'flex-start',
     alignItems: 'center',
+    flexGrow: 1
   });
 
 const BetNameContainer = styled(Grid)({
@@ -83,6 +83,14 @@ const BetNameContainer = styled(Grid)({
     minWidth: '300px',
     display: 'flex',
     flexDirection: 'column',  // Space between names
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end'
+  });
+
+  const GameContainer = styled(Grid)({
+    minWidth: '300px',
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'flex-end'
   });
@@ -198,10 +206,10 @@ function MyBet({ bet }) {
                 </OddsContainer>
             </BetInfoContainer>
 
-            <div>
+            <GameContainer>
                 <p>{away_team} @ {home_team}</p>
                 <p>{game_time}</p>
-            </div>
+            </GameContainer>
         </MainContainer>
 
         {away_score !== null && (
