@@ -55,7 +55,7 @@ const Betslip = () => {
             <BetslipsContainer className="betslip">
                 {
                     bets.length === 0 ? (
-                        <EmptyBetslip className="betslip-empty" message="No bets selected" img={null}/>
+                        <EmptyBetslip className="betslip-empty" noBetsMessage="No bets selected" instructionsMessage="Add selections to place bet" img={null}/>
                     ) : (
                             <>
                                 {
