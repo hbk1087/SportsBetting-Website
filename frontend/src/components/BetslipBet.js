@@ -18,10 +18,21 @@ import { ThemeProvider, useTheme } from "../context/betslipTheme";
 
 const BetslipContainer = styled(Grid)({
   display: 'flex',
+  justifyContent: 'flex-start',
   backgroundColor: '#131314',
   border: '5px',
   borderColor: 'black',
-  borderBottom: '1px solid #869d97',
+  marginBottom: '2px',
+  position: 'relative', 
+    '&::after': { 
+        content: '""', 
+        position: 'absolute',
+        left: "5%", 
+        right: 0, 
+        bottom: '-1px', 
+        height: '1px',  
+        backgroundColor: '#869d97',
+    }
 });
 
 const BetslipBetInformationContainer = styled(Grid)({
@@ -79,11 +90,12 @@ const VersusAndTimeContainer = styled(Grid)({
   flexDirection: 'row',
   flexWrap: 'nowrap',
   marginBottom: '5%'
+  
 })
 
 const VersusContainer = styled(Grid)({
   display: 'flex', 
-  flexGrow: 1
+  flexGrow: 1, 
 })
 
 const TimeContainer = styled(Grid)({
@@ -95,11 +107,13 @@ const WagerAndWinContainer = styled(Grid)({
 })
 
 const WagerContainer = styled(Grid)({
-  display: 'flex'
+  display: 'flex',
+  marginRight: '1%'
 })
 
 const ToWinContainer = styled(Grid)({
-  display: 'flex'
+  display: 'flex',
+  marginLeft: '1%'
 })
 
 const formattedOddsSpread = (number) => {
@@ -140,6 +154,10 @@ function formatDateTime(dateTimeStr) {
   const minutes = date.getMinutes().toString().padStart(2, '0');
 
   return `${day} ${hour}:${minutes}${ampm} ET`;
+}
+
+function truncateToTwoDecimals(num) {
+  return Math.floor(num * 100) / 100;
 }
 
 // Example usage
@@ -193,21 +211,49 @@ const BetslipBet = ({bet}) => {
         const { name, value } = event.target;
 
         if (name === "wager") {
-          if (bet.bet_type === "away_spread")
-          {
-            setFormState(prevState => ({...prevState, [name]: value, potential_payout: value * parseInt(bet.game.away_spread_odds)}))
+          let parsedValue = parseInt(value, 10); // Parse the value to an integer
+          console.log(parsedValue);
+          let odds = 0;
+  
+          switch (bet.bet_type) {
+              case "away_spread":
+                  odds = parseFloat(bet.game.away_spread_odds, 10);
+                  break;
+              case "home_spread":
+                  odds = parseFloat(bet.game.home_spread_odds, 10);
+                  break;
+              case "moneyline_away":
+                  odds = parseFloat(bet.game.away_odds, 10);
+                  break;
+              case "moneyline_home":
+                  odds = parseFloat(bet.game.home_odds, 10);
+                  break;
+              case "total_over":
+                  odds = parseFloat(bet.game.totaal_odds, 10);
+                  break;
+              case "total_under":
+                  odds = parseFloat(bet.game.under_odds, 10);
+                  break;
+              default:
+                  // Handle unknown bet type
+                  break;
           }
-          else if (bet.bet_type === "away_spread")
-          {
-            setFormState(prevState => ({...prevState, [name]: value, potential_payout: value * 2}))
-          }
-          else
-          {
-            setFormState(prevState => ({...prevState, [name]: value, potential_payout: value * 2}))
+  
+          if (!isNaN(parsedValue) && !isNaN(odds)) {
+              console.log("odds: ", odds)
+              setFormState(prevState => ({
+                  ...prevState, 
+                  [name]: parsedValue, 
+                  potential_payout: truncateToTwoDecimals((parsedValue * odds) - parsedValue)
+              }));
+          } else {
+              setFormState(prevState => ({
+                ...prevState, 
+                [name]: "", 
+                potential_payout: ""
+            }));
           }
         }
-
-        setFormState(prevState => ({ ...prevState, [name]: value }));
     };
 
     return (
@@ -289,26 +335,28 @@ const BetslipBet = ({bet}) => {
 
             <WagerAndWinContainer>
               <WagerContainer className="wagerContainer">
-                <TextField 
+                <TextField
+                        name="wager" 
                         label="Wager" 
-                        type="number"
                         variant="outlined" 
                         InputLabelProps={{ shrink: true }}
                         InputProps={{ style: { color: 'white' } }}
                         sx={{ input: { color: 'white' }, label: { color: 'gray' }, borderColor: 'gray', '& .MuiOutlinedInput-root': { '& fieldset': { borderColor: 'gray' }, '&:hover fieldset': { borderColor: 'white' }, '&.Mui-focused fieldset': { borderColor: 'blue' } } }}
                         onChange={handleChange}
+                        value={formState.wager}
                 />
               </WagerContainer>
 
               <ToWinContainer className="toWinContainer">
                 <TextField 
-                        label="To Win" 
-                        type="number"
+                        name="potential_payout"
+                        label="To Win"
                         variant="outlined" 
                         InputLabelProps={{ shrink: true }}
                         InputProps={{ style: { color: 'white' } }}
                         sx={{ input: { color: 'white' }, label: { color: 'gray' }, borderColor: 'gray', '& .MuiOutlinedInput-root': { '& fieldset': { borderColor: 'gray' }, '&:hover fieldset': { borderColor: 'white' }, '&.Mui-focused fieldset': { borderColor: 'blue' } } }}
                         onChange={handleChange}
+                        value={formState.potential_payout}
                 />
               </ToWinContainer>
             </WagerAndWinContainer>

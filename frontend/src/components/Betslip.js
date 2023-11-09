@@ -23,7 +23,9 @@ const BetslipContainer = styled(Grid)({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-})
+});
+
+
 const BetslipHeaderContainer = styled(Grid)({
     backgroundColor: '#131314',
     marginBottom: '50px',
@@ -32,6 +34,7 @@ const BetslipHeaderContainer = styled(Grid)({
     justifyContent: 'flex-start',
     padding: '30px'
 })
+
 const BetslipsContainer = styled(Grid)({
 
 })
