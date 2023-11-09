@@ -44,11 +44,15 @@ function BetBox({
     const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
+      const betExists = bets.some(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type);
+
+      setIsClicked(betExists);
+
       if (!hasActiveBets){
         setIsClicked(false);
       }
 
-    }, [hasActiveBets])
+    }, [bets, hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
@@ -64,11 +68,15 @@ function BetBox({
     const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
+      const betExists = bets.some(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type);
+
+      setIsClicked(betExists);
+
       if (!hasActiveBets){
         setIsClicked(false);
       }
 
-    }, [hasActiveBets])
+    }, [bets, hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
@@ -84,11 +92,15 @@ function BetBox({
     const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
+      const betExists = bets.some(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type);
+
+      setIsClicked(betExists);
+
       if (!hasActiveBets){
         setIsClicked(false);
       }
 
-    }, [hasActiveBets])
+    }, [bets, hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
@@ -103,11 +115,15 @@ function BetBox({
     const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
+      const betExists = bets.some(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type);
+
+      setIsClicked(betExists);
+
       if (!hasActiveBets){
         setIsClicked(false);
       }
 
-    }, [hasActiveBets])
+    }, [bets, hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
@@ -123,11 +139,15 @@ function BetBox({
     const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
+      const betExists = bets.some(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type);
+
+      setIsClicked(betExists);
+
       if (!hasActiveBets){
         setIsClicked(false);
       }
 
-    }, [hasActiveBets])
+    }, [bets, hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
@@ -143,11 +163,15 @@ function BetBox({
     const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
+      const betExists = bets.some(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type);
+
+      setIsClicked(betExists);
+
       if (!hasActiveBets){
         setIsClicked(false);
       }
 
-    }, [hasActiveBets])
+    }, [bets, hasActiveBets])
 
     const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
 
