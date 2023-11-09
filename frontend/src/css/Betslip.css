@@ -19,7 +19,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
 
-    background-color: #686565;
+    background-color: #faf8f8;
 }
 
 .betslip-title {
@@ -38,4 +38,20 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 8px;
+}
+
+.selectedBet {
+    display: 'flex';
+    flex-direction: 'column';
+    background-color: '#ffffff';
+    color: '#ffffff';
+    border-radius: 2;
+    padding: 2;
+    box-shadow: '0 3px 10px rgba(0, 0, 0, 0.2)';
+    max-width: 376;
+    margin: 'auto';
+}
+
+.selectedBet teamname {
+    color: "#ffffff"
 }

@@ -54,4 +54,4 @@ const NFLPage = () => {
     )
 }
 
-export default NFLPage
+export default NFLPage;

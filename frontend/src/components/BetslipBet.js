@@ -156,17 +156,7 @@ const BetslipBet = ({bet}) => {
         //     </Box>
         //   </Box>
 
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'white',
-          color: 'white',
-          borderRadius: 2,
-          padding: 2,
-          boxShadow: '0 3px 10px rgba(0, 0, 0, 0.2)', // subtle shadow
-          maxWidth: 376,
-          margin: 'auto'
-          }}>
+        <Box className="selectedBet">
           {/* Close Button */}
           <IconButton onClick={onRemove} sx = {{display: 'flex', flexDirection: 'column', flexGrow: 1, alignItems: 'flex-start', height: '100%'}}>
               <RemoveCircleOutlineIcon />

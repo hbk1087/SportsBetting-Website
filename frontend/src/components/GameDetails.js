@@ -6,6 +6,8 @@ import { styled } from '@mui/system';
 
 // Components
 import * as NFLLogos from 'react-nfl-logos';
+import * as NBALogos from 'react-nba-logos';
+
 import LoadingIndicator from '../util/LoadingIndicator';
 import BetBox from "./BetBox"
 import TeamSeparator from './TeamSeparator';
@@ -96,6 +98,36 @@ const GameDetails = ({ game }) => {
       'Tampa Bay Buccaneers': NFLLogos.TB,
       'Tennessee Titans': NFLLogos.TEN,
       'Washington Commanders': NFLLogos.WAS,
+      'Atlanta Hawks': NBALogos.ATL,
+      'Brooklyn Nets': NBALogos.BKN,
+      'Boston Celtics': NBALogos.BOS,
+      'Charlotte Hornets': NBALogos.CHA,
+      'Chicago Bulls': NBALogos.CHI,
+      'Cleveland Cavaliers': NBALogos.CLE,
+      'Dallas Mavericks': NBALogos.DAL,
+      'Denver Nuggets': NBALogos.DEN,
+      'Detroit Pistons': NBALogos.DET,
+      'Golden State Warriors': NBALogos.GSW,
+      'Houston Rockets': NBALogos.HOU,
+      'Indiana Pacers': NBALogos.IND,
+      'LA Clippers': NBALogos.LAC,
+      'Los Angeles Lakers': NBALogos.LAL,
+      'Memphis Grizzlies': NBALogos.MEM,
+      'Miami Heat': NBALogos.MIA,
+      'Milwaukee Bucks': NBALogos.MIL,
+      'Minnesota Timberwolves': NBALogos.MIN,
+      'New Orleans Pelicans': NBALogos.NOP,
+      'New York Knicks': NBALogos.NYK,
+      'Oklahoma City Thunder': NBALogos.OKC,
+      'Orlando Magic': NBALogos.ORL,
+      'Philadelphia 76ers': NBALogos.PHI,
+      'Phoenix Suns': NBALogos.PHX,
+      'Portland Trail Blazers': NBALogos.POR,
+      'Sacramento Kings': NBALogos.SAC,
+      'San Antonio Spurs': NBALogos.SAS,
+      'Toronto Raptors': NBALogos.TOR,
+      'Utah Jazz': NBALogos.UTA,
+      'Washington Wizards': NBALogos.WAS,
     };
     
 
