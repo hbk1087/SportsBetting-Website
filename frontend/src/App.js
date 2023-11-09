@@ -17,6 +17,8 @@ import NBAPage from './pages/nba'
 import Navbar from "./components/Navbar"
 import PrivateRoute from "./components/PrivateRoute"
 import NotFound from "./components/NotFound"
+import Sidebar from './components/Sidebar'
+import Betslip from './components/Betslip'
 
 
 import { useEffect } from 'react'
