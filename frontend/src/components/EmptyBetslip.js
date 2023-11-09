@@ -7,12 +7,16 @@ import noBetsIcon from "../img/nobet.png"
 const styles = {
     container: {
         background: 'black',
-        minHeight: '100vh',
-        marginTop: '20px', // Add margin-top
-        padding: '20px', // Add padding
+        minHeight: '30vh',
+        marginTop: '20px', 
+        padding: '20px', 
+        minWidth: '200px',
+        width: '100%'
     },
     paper: {
-        padding: '20px',
+        background: 'black',
+        width: '100%',
+        color: '#cedae7'
     },
     image: {
         width: '100%',
@@ -20,18 +24,19 @@ const styles = {
     },
 };
 
-const EmptyBetslip = ({message}) => {
+const EmptyBetslip = ({noBetsMessage, instructionsMessage}) => {
 
     return (
         <Grid container style={styles.container} justifyContent="center" alignItems="center">
-            <Grid item xs={12} sm={6} md={4}>
-                <Paper elevation={3} style={styles.paper}>
-                    <img src={noBetsIcon} alt="Empty Betslip" style={styles.image} />
-                    <Typography variant="h6" align="center">
-                        {message}
-                    </Typography>
-                </Paper>
-            </Grid>
+            <Paper elevation={3} style={styles.paper}>
+                <img src={noBetsIcon} alt="Empty Betslip" style={styles.image} />
+                <Typography variant="h5" align="center">
+                    {noBetsMessage}
+                </Typography>
+                <Typography variant="h6" align="center">
+                    {instructionsMessage}
+                </Typography>
+            </Paper>
         </Grid>
     );
 }
