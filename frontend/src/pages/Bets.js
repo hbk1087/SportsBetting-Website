@@ -87,8 +87,7 @@ function Bets() {
                             // </ListItem>
                             <MyBet bet={betItem}/>
                         ))}
-                    </List>
-                </Paper>
+                </Container>
             )}
         </Container>
         </div>
