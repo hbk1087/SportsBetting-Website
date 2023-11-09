@@ -144,6 +144,43 @@ def update_games():
 
         home_df['Total Score'] = home_df['Home Score'] + home_df['Away Score']
 
+        # Change team names to be accurate
+        nba_teams = {
+            'Hawks': 'Atlanta Hawks',
+            'Celtics': 'Boston Celtics',
+            'Nets': 'Brooklyn Nets',
+            'Hornets': 'Charlotte Hornets',
+            'Bulls': 'Chicago Bulls',
+            'Cavaliers': 'Cleveland Cavaliers',
+            'Mavericks': 'Dallas Mavericks',
+            'Nuggets': 'Denver Nuggets',
+            'Pistons': 'Detroit Pistons',
+            'Warriors': 'Golden State Warriors',
+            'Rockets': 'Houston Rockets',
+            'Pacers': 'Indiana Pacers',
+            'Clippers': 'Los Angeles Clippers',
+            'Lakers': 'Los Angeles Lakers',
+            'Grizzlies': 'Memphis Grizzlies',
+            'Heat': 'Miami Heat',
+            'Bucks': 'Milwaukee Bucks',
+            'Timberwolves': 'Minnesota Timberwolves',
+            'Pelicans': 'New Orleans Pelicans',
+            'Knicks': 'New York Knicks',
+            'Thunder': 'Oklahoma City Thunder',
+            'Magic': 'Orlando Magic',
+            'Seventysixers': 'Philadelphia 76ers',
+            'Suns': 'Phoenix Suns',
+            'Trailblazers': 'Portland Trail Blazers',
+            'Kings': 'Sacramento Kings',
+            'Spurs': 'San Antonio Spurs',
+            'Raptors': 'Toronto Raptors',
+            'Jazz': 'Utah Jazz',
+            'Wizards': 'Washington Wizards',
+        }
+
+        home_df['Home Team'] = home_df['Home Team'].map(nba_teams)
+        home_df['Away Team'] = home_df['Away Team'].map(nba_teams)
+
         nba = NBAModel()
         nba.populateDB()
 
