@@ -204,7 +204,7 @@ function MyBet({ bet }) {
       const game_time = formatDate(game_date)
     
     function getBetName(b) {
-         let name = ""
+        let name = ""
         if (b === "Home") {
             name = home_team
         } else if (b === "Away") {

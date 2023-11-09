@@ -7,13 +7,16 @@ import { styled } from '@mui/system';
 // Components
 import * as NFLLogos from 'react-nfl-logos';
 import * as NBALogos from 'react-nba-logos';
-
+import BestBet from './BestBet';
 import LoadingIndicator from '../util/LoadingIndicator';
 import BetBox from "./BetBox"
 import TeamSeparator from './TeamSeparator';
 
+
 // CSS
 import "../css/GameDetails.css"
+
+
 
 function formatDate(inputDate) {
   // Parse the input date string
@@ -220,6 +223,36 @@ const GameDetails = ({ game }) => {
         best_bet_edge
     } = game;
 
+    function getBestBet(b) {
+      let name = ""
+            if (b === "Home") {
+                name = home_team + " Money Line"
+            } else if (b === "Away") {
+                name = away_team + " Money Line"
+            } else if (b === "Home Line") {
+                if (home_spread > 0){
+                  name = home_team + " +" + home_spread
+                } else {
+                name = home_team + " " + home_spread
+                }
+            } else if (b === "Away Line") {
+              if (away_spread > 0){
+                name = away_team + " +" + away_spread
+              } else {
+              name = away_team + " " + away_spread
+              }
+            } else if (b === "Over") {
+                name =  "Over " + total
+            } else if (b === "Under") {
+                name =  "Under " + total
+            }   
+            return name
+    }
+
+    const bb = getBestBet(best_bet_type) 
+
+
+
     const new_date = formatDate(date);
 
     return (
@@ -249,6 +282,7 @@ const GameDetails = ({ game }) => {
           </TeamBetContainer>
         </BetOptionsContainer>
         <DateContainer>{new_date}</DateContainer>
+        <BestBet best_bet_type={bb} best_bet_edge={best_bet_edge}/>
       </StyledGridContainer>
     )
 }

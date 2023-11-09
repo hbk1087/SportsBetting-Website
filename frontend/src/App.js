@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // Material UI imports
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
+import './css/Home.css'
+
 // Pages
 import Home from './pages/Home'
 import Bets from './pages/Bets'
