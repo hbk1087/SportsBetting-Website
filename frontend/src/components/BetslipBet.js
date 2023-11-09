@@ -2,19 +2,23 @@
 import { React, useState, createContext, useContext } from 'react';
 
 // MUI
-import { Button, TextField, Grid, Typography, IconButton } from '@mui/material';
+import {  TextField, Grid, Typography, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addActiveBet, removeGameByIdAndType } from '../slices/activeBetSlice';
+import { addActiveBet, submitBets, removeGameByIdAndType } from '../slices/activeBetSlice';
+import { authToken } from '../slices/authSlice';
 
 // CSS
 import "../css/BetslipBet.css"
 
 // Context
-import { ThemeProvider, useTheme } from "../context/betslipTheme";
+import { ThemeProvider } from "../context/betslipTheme";
+
+// Axios
+import axios from 'axios';
 
 const BetslipContainer = styled(Grid)({
   display: 'flex',
@@ -160,15 +164,33 @@ function truncateToTwoDecimals(num) {
   return Math.floor(num * 100) / 100;
 }
 
+function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+
+  const year = date.getFullYear();
+  // getMonth() returns 0-11, adding 1 to make it 1-12
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  let hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+
+  // Converting 24hr format to 12hr format
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
+}
+
 
 const BetslipBet = ({bet}) => {
     const dispatch = useDispatch();
+    const authToken = useSelector((state) => state.auth.token);
 
     console.log(bet);
 
     const username = useSelector((state) => state.user.username);
-    var selectedGameId = useSelector((state) => state.activeBets.selectedGameId);
-    var selectedGameBetType = useSelector((state) => state.activeBets.selectedGameBetType);
 
     const [formState, setFormState] = useState({
         wager: 0,
@@ -184,22 +206,80 @@ const BetslipBet = ({bet}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        var betTypeName = null;
+        var odds = null;
+        var points = "Money Line";
+
+        if (bet.bet_type === "moneyline_home") {
+          betTypeName = "Home";
+          odds = bet.game.home_odds;
+        } else if (bet.bet_type === "moneyline_away") {
+            betTypeName = "Away";
+            odds = bet.game.away_odds;
+        } else if (bet.bet_type === "home_spread") {
+            betTypeName = "Home Line";
+            odds = bet.game.home_spread_odds;
+            points = formattedOddsSpread(bet.game.home_spread);
+        } else if (bet.bet_type === "away_spread") {
+            betTypeName = "Away Line";
+            odds = bet.game.away_spread_odds;
+            points = formattedOddsSpread(bet.game.away_spread);
+        } else if (bet.bet_type === "total_over") {
+            betTypeName = "Over";
+            odds = bet.game.over_odds;
+            points = `${bet.game.total}`;
+        } else if (bet.bet_type === "total_under") {
+            betTypeName = "Under";
+            odds = bet.game.under_odds;
+            points = `${bet.game.total}`;
+        }
+
         // Process your form data here, maybe dispatch it somewhere, or send it to an API.
         const formattedBet = {
             account_username: username,
-            game_id: selectedGameId,
-            bet_type: selectedGameBetType,
+            game_id: bet.game.game_id,
+            bet_type: betTypeName,
+            odds: odds,
+            points: points,
             wager: formState.wager,
-            potential_payout: 0,
-            timestamp: Date.now()
+            potential_payout: truncateToTwoDecimals(formState.potential_payout + formState.wager),
+            timestamp: formatTimestamp(Date.now())
         }
 
         console.log(formattedBet)
 
         // Send the bet to the backend.
-        // axios.p
+        axios({
+          method: "POST",
+          url:"/api/bets",
+          headers: {
+            Authorization: 'Bearer ' + authToken
+          },
+          data:{
+            account_username: username,
+            game_id: bet.game.game_id,
+            bet_type: betTypeName,
+            odds: odds,
+            points: points,
+            wager: formState.wager,
+            potential_payout: truncateToTwoDecimals(formState.potential_payout + formState.wager),
+            timestamp: formatTimestamp(Date.now())
+           }
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
+            console.log("Submitted bet.");
+          }
+        }).catch((error) => {
+          if (error.response) {
+            console.log(error.response)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+            }
+        })
 
-        dispatch(addActiveBet({formattedBet}))
+        // dispatch(submitBets(formattedBet))
 
         // Clear bets after submission (if desired).
         // dispatch(clearActiveBets());
@@ -210,7 +290,6 @@ const BetslipBet = ({bet}) => {
 
         if (name === "wager") {
           let parsedValue = parseInt(value, 10); // Parse the value to an integer
-          console.log(parsedValue);
           let odds = 0;
   
           switch (bet.bet_type) {
@@ -227,7 +306,7 @@ const BetslipBet = ({bet}) => {
                   odds = parseFloat(bet.game.home_odds, 10);
                   break;
               case "total_over":
-                  odds = parseFloat(bet.game.totaal_odds, 10);
+                  odds = parseFloat(bet.game.over_odds, 10);
                   break;
               case "total_under":
                   odds = parseFloat(bet.game.under_odds, 10);
@@ -261,6 +340,12 @@ const BetslipBet = ({bet}) => {
 
           <RemoveBetContainer>
             <IconButton onClick={onRemove} sx={{color: "red", ":hover": {color: "black"}}}>
+                <RemoveCircleOutlineIcon />
+            </IconButton>
+          </RemoveBetContainer>
+
+          <RemoveBetContainer>
+            <IconButton onClick={handleSubmit} sx={{color: "green", ":hover": {color: "black"}}}>
                 <RemoveCircleOutlineIcon />
             </IconButton>
           </RemoveBetContainer>

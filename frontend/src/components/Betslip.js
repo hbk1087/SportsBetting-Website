@@ -51,11 +51,10 @@ const LoginPromptContainer = styled(Grid)({
 
 const Betslip = () => {
     const dispatch = useDispatch();
-    var bets = useSelector((state) => state.activeBets.bets);
-    var selectedGames = useSelector((state) => state.activeBets.selectedGames);
+    const bets = useSelector((state) => state.activeBets.bets);
 
     useEffect(() => {
-    }, [selectedGames, bets])
+    }, [bets])
 
     return (
         <BetslipContainer className="betslip-container">
