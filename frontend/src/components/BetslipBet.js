@@ -18,6 +18,7 @@ import { ThemeProvider, useTheme } from "../context/betslipTheme";
 
 const BetslipContainer = styled(Grid)({
   display: 'flex',
+  justifyContent: 'flex-start',
   backgroundColor: '#131314',
   border: '5px',
   borderColor: 'black',

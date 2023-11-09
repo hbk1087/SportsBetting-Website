@@ -1,5 +1,6 @@
 // React
 import React from 'react';
+import { useState } from 'react';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,55 +36,80 @@ function BetBox({
     } else {
       dispatch(openActiveBet({bet_type, game}))  
     }
+
   }
 
-  const renderAwaySpreadForm = () => {
+  const RenderAwaySpreadForm = () => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
+
     return (
-      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
+      <div className={containerClassName} onClick={() => {handleBetBoxClick({bet_type, game}); setIsClicked(current => !current)}}>
         <div className='away-spread'>{away_spread < 0 ? away_spread : (away_spread > 0 ? `+${away_spread}` : away_spread)}</div>
         <div className='away-spread-odds'>{away_spread_odds}</div>
       </div>
     );
   };
 
-  const renderHomeSpreadForm = () => {
+  const RenderHomeSpreadForm = () => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
+
     return (
-      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
+      <div className={containerClassName} onClick={() => {handleBetBoxClick({bet_type, game}); setIsClicked(current => !current)}}>
         <div className='home-spread'>{home_spread < 0 ? home_spread : (home_spread > 0 ? `+${home_spread}` : home_spread)}</div>
         <div className='home-spread-odds'>{home_spread_odds}</div>
       </div>
     );
   };
 
-  const renderMoneylineAwayForm = () => {
+  const RenderMoneylineAwayForm = () => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
+
     return (
-      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
+      <div className={containerClassName} onClick={() => {handleBetBoxClick({bet_type, game}); setIsClicked(current => !current)}}>
         <div className='away-odds'>{away_odds}</div>
       </div>
     );
   }
 
-  const renderMoneylineHomeForm = () => {
+  const RenderMoneylineHomeForm = () => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
+
     return (
-      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
+      <div className={containerClassName} onClick={() => {handleBetBoxClick({bet_type, game}); setIsClicked(current => !current)}}>
         <div className='home-odds'>{home_odds}</div>
       </div>
     );
   }
 
 
-  const renderTotalOverForm = () => {
+  const RenderTotalOverForm = () => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
+
     return (
-      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
+      <div className={containerClassName} onClick={() => {handleBetBoxClick({bet_type, game}); setIsClicked(current => !current)}}>
         <div className='total'>O {total}</div>
         <div className='over-odds'>{over_odds}</div>
       </div>
     );
   };
 
-  const renderTotalUnderForm = () => {
+  const RenderTotalUnderForm = () => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const containerClassName = isClicked ? 'form-container-clicked' : 'form-container';
+
     return (
-      <div className='form-container' onClick={() => handleBetBoxClick({bet_type, game})}>
+      <div className={containerClassName} onClick={() => {handleBetBoxClick({bet_type, game}); setIsClicked(current => !current)}}>
         <div className='total'>U {total}</div>
         <div className='under-odds'>{under_odds}</div>
       </div>
@@ -93,22 +119,22 @@ function BetBox({
   let renderedForm;
   switch (bet_type) {
     case 'away_spread':
-      renderedForm = renderAwaySpreadForm();
+      renderedForm = RenderAwaySpreadForm();
       break;
     case 'home_spread':
-      renderedForm = renderHomeSpreadForm();
+      renderedForm = RenderHomeSpreadForm();
       break;
     case 'moneyline_away':
-      renderedForm = renderMoneylineAwayForm();
+      renderedForm = RenderMoneylineAwayForm();
       break;
     case 'moneyline_home':
-      renderedForm = renderMoneylineHomeForm();
+      renderedForm = RenderMoneylineHomeForm();
       break;
     case 'total_over':
-      renderedForm = renderTotalOverForm();
+      renderedForm = RenderTotalOverForm();
       break;
     case 'total_under':
-      renderedForm = renderTotalUnderForm();
+      renderedForm = RenderTotalUnderForm();
       break;
     default:
       renderedForm = null;
