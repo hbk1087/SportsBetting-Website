@@ -47,10 +47,19 @@
     flex-wrap: nowrap;
     width: 50%;
     align-items: flex-start;
+    color: #ffffff;
+}
+
+.betslip-odds {
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    color: #ffffff;
 }
 
 .betslip-betTeamNames {
     justify-content: flex-start;
     align-items: flex-start;
     padding: 20px;
+    color: #ffffff;
 }

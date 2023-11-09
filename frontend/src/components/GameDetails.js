@@ -184,7 +184,6 @@ const BetOptionsContainer = styled(Grid)({
 const TeamBetContainer = styled(Grid)({
   display: 'flex',
   flexDirection: 'row',
-  gap: '0px',  // Space between BetBoxes
   justifyContent: 'center',
   alignItems: 'center'
 });

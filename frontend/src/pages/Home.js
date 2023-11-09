@@ -13,7 +13,6 @@ import GameOddsHeader from '../components/GameOddsHeader'
 import '../css/Home.css'
 import Betslip from '../components/Betslip'
 
-
 const Home = () => {
     const [game, setGame] = useState([{}])
 
@@ -48,14 +47,14 @@ const Home = () => {
             <Sidebar />
 
             <div className="game-odds-header">
-            <GameOddsHeader sportName="Upcoming Games"/>
-            <div className='nfl-game-container'>
+                <GameOddsHeader sportName="Upcoming Games"/>
+                <div className='nfl-game-container'>
                     {game.map((gameItem, index) => (
                         <div key={gameItem.game_id} className='game-details-container'>
                             <GameDetails game={gameItem} />
                         </div>
                     ))}
-              </div>
+                </div>
             </div>
 
             <Betslip />

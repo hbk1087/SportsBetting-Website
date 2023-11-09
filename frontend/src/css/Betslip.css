@@ -22,7 +22,7 @@
 }
 
 .nobet {
-    width: 50px; /* Adjust as needed */
+    width: 50px;
     height: 50px;
     margin-bottom: 5px;
   }
@@ -31,6 +31,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #ffffff;
+    margin-left: 1%;
+
 }
 
 .custom-list {
@@ -47,4 +50,15 @@
 
 .selectedBet .teamname {
     color: #000000;
+}
+
+
+.removeBetsContainer {
+    margin-top: 20px;
+    background-color: #131314
+}
+
+.clearButton {
+    background-color: #960d0d;
+    flex-grow: 1;
 }
