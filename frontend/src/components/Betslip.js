@@ -1,7 +1,8 @@
 import { React, useEffect } from 'react';
 
 // MUI
-import { Button, Box, Typography } from '@mui/material';
+import { Button, Grid } from '@mui/material';
+import { styled } from '@mui/system';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,11 +10,33 @@ import { useDispatch, useSelector } from 'react-redux';
 // Components
 import BetslipBet from './BetslipBet';
 import CircleCounter from "./CircleCounter";
+import EmptyBetslip from "./EmptyBetslip";
 
 // Slices
 import { clearActiveBets } from '../slices/activeBetSlice';
 
 import "../css/Betslip.css"
+
+
+const BetslipContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+
+})
+const BetslipHeaderContainer = styled(Grid)({
+
+})
+const BetslipsContainer = styled(Grid)({
+
+})
+
+const RemoveBetsContainer = styled(Grid)({
+
+})
+const LoginPromptContainer = styled(Grid)({
+
+})
 
 const Betslip = () => {
     const dispatch = useDispatch();
@@ -24,15 +47,15 @@ const Betslip = () => {
     }, [selectedGames, bets])
 
     return (
-        <div className="betslip-container">
-            <div className="betslip-title-header">
+        <BetslipContainer className="betslip-container">
+            <BetslipHeaderContainer className="betslip-title-header">
                 <div className="betslip-title">Betslip</div>
                 <CircleCounter number={bets.length} />
-            </div>
-            <div className="betslip">
+            </BetslipHeaderContainer>
+            <BetslipsContainer className="betslip">
                 {
                     bets.length === 0 ? (
-                        <div className="betslip-empty">No bets selected</div>
+                        <EmptyBetslip className="betslip-empty" message="No bets selected" img={null}/>
                     ) : (
                             <>
                                 {
@@ -40,12 +63,15 @@ const Betslip = () => {
                                         <BetslipBet key={bet.id} bet={bet} />
                                     ))
                                 }
+
+                                <RemoveBetsContainer>
+                                    <Button className="betslip-clear" onClick={() => dispatch(clearActiveBets())}>Clear</Button>
+                                </RemoveBetsContainer>
                             </>
                         )
                 }
-            </div>
-            <Button className="betslip-clear" onClick={() => dispatch(clearActiveBets())}>Clear</Button>
-        </div>
+            </BetslipsContainer>
+        </BetslipContainer>
     );
     
 }
