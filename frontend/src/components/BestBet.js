@@ -6,11 +6,6 @@ import { styled } from '@mui/system';
 
 function BestBet({ best_bet_type, best_bet_edge }) {
 
-    function prettyBetType() {
-        if (best_bet_type === 'Home') {
-            return ""
-        }
-    }
   return (
     <div>
     <div>{best_bet_type}</div>
