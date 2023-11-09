@@ -74,7 +74,7 @@ function Bets() {
                     No bets placed.
                 </Typography>
             ) : (
-                <Container spacing={3} elevation={3}>
+                <Container style={{ maxWidth: '800px', margin: '0 auto' }} spacing={3} elevation={3}>
                     <Typography variant="h3" align="center" color="#ffffff">
                         My Bets
                     </Typography>

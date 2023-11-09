@@ -9,21 +9,10 @@ const StyledGridContainer = styled(Grid)({
     border: '1px solid',
     borderColor: '#3f3f3f',
     flexDirection: 'column',
-    color: '#ffffff'
+    color: '#ffffff',
+    marginBottom: '2%'
   });
 
-const DateContainer = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1,
-    gap: '0px',
-    justifyContent: 'start',
-    alignItems: 'left',
-    color: '#ffffff',
-    marginLeft: '1%',
-    fontWeight: '100',
-    fontSize: '0.85em'
-  });
 
 const MainContainer = styled(Grid)({
     display: 'flex',
@@ -65,6 +54,12 @@ const Amount = styled(Typography)({
     color: '#ffffff',
 })
 
+// const Payout = styled(Typography)({
+//     fontWeight: 'bold',
+//     fontSize: '1.2em',
+//     color: '#ffffff',
+// })
+
 const SecondaryContainer = styled(Grid)({
     display: 'flex',
     flexDirection: 'row',
@@ -78,16 +73,6 @@ const SecondaryContainer = styled(Grid)({
     paddingBottom: '0.5%'
   });
 
-const TertiaryContainer = styled(Grid)({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flexWrap: 'nowrap',
-    color: '#ffffff',
-    marginLeft: '1%',
-    marginRight: '1%',
-    backgroundColor: '#1d1e1f',
-  });
 
 const BetName = styled(Typography)({
     fontWeight: 'bold',
@@ -157,6 +142,7 @@ const BetNameContainer = styled(Grid)({
   });
 
 function MyBet({ bet }) {
+
     const { 
         sport,
         away_team, 
@@ -172,6 +158,16 @@ function MyBet({ bet }) {
         timestamp,
         game_date 
     }  = bet;
+
+    const Payout = styled(Typography)(({ theme, actual_payout }) => ({
+        fontWeight: 'bold',
+        fontSize: '1.2em',
+        color: actual_payout !== null
+          ? actual_payout > 0
+            ? theme.palette.success.main // Green for positive actual_payout
+            : theme.palette.error.main // Red for non-positive actual_payout
+          : '#ffffff', // Default color when actual_payout is null
+      }));
 
     function formatDate(inputDate) {
         // Parse the input date string
@@ -268,37 +264,39 @@ function MyBet({ bet }) {
             </BetInfoContainer>
 
             <GameContainer>
-                <p>{away_team} @ {home_team}</p>
-                <GameDate>{game_time}</GameDate>
+                {away_score === null && home_score === null ? (
+                    <>
+                    <p>{away_team} @ {home_team}</p>
+                    <GameDate>{game_time}</GameDate>
+                    </>
+                ) : (
+                    <>
+                    <p>{away_team}:&nbsp;<strong>{away_score}</strong>&nbsp; @ &nbsp;{home_team}:&nbsp;<strong>{home_score}</strong></p>
+                    <GameDate>{game_time}</GameDate>
+                    </>
+                )}
             </GameContainer>
         </MainContainer>
         <div className='border-div'></div>
-
-        {away_score !== null && (
-                <p>Away Score: {away_score}</p>
-            )}
-            
-        {home_score !== null && (
-                <p>Home Score: {home_score}</p>
-            )}
-
 
         <WagerContainer>
             <WagerAmountContainer>
                 <Amount>$ {wager}</Amount>
                 <TotalWager>Total Wager</TotalWager>
             </WagerAmountContainer>
-            {/* <p>
-            {actual_payout !== null
-                ? 'Payout: ' + actual_payout
-                : 'Potential Payout: ' + potential_payout}
-            </p> */}
+
             <PayoutContainer>
-
-                <Amount>$ {potential_payout}</Amount>
-                <TotalWager>Potential Payout</TotalWager>
-
-                
+                {actual_payout !== null ? (
+                    <>
+                    <Payout actual_payout={actual_payout}>$ {actual_payout}</Payout>
+                    <TotalWager>Payout</TotalWager>
+                    </>
+                ) : (
+                    <>
+                    <Payout actual_payout={actual_payout}>$ {potential_payout}</Payout>
+                    <TotalWager>Potential Payout</TotalWager>
+                    </>
+                )}
             </PayoutContainer>
         </WagerContainer>
         
