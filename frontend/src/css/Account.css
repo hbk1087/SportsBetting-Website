@@ -18,10 +18,16 @@
     font-weight: bold;
     color: #ffffff;
     align-items: center;
-    justify-content: center;
+    justify-content: top;
     display: flex;
     flex-direction: column;
-    margin-top: 76.7px;
+    margin-top: 80px;
+    width: 900px;
+}
+
+.account-contents {
+    width: 400px;
+    align-content: center;
 }
 
 .before-curly {

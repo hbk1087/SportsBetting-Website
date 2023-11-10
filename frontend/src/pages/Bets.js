@@ -67,11 +67,11 @@ function Bets() {
            {loading ? (
                 <Typography variant="h6" align="center" justify="center" color="primary">
                     Loading bets...
-                    <LoadingSpinner />
+                    <LoadingSpinner align="center" justify="center"/>
                 </Typography>
             ) : bets.length === 0 ? (
-                <Typography variant="h6" align="center">
-                    No bets placed.
+                <Typography variant="h3" align="center" color="#ffffff">
+                    No Bets Placed
                 </Typography>
             ) : (
                 <Container style={{ maxWidth: '800px', margin: '0 auto' }} spacing={3} elevation={3}>

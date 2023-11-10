@@ -94,7 +94,7 @@ const teamToComponent = {
   'Golden State Warriors': NBALogos.GSW,
   'Houston Rockets': NBALogos.HOU,
   'Indiana Pacers': NBALogos.IND,
-  'LA Clippers': NBALogos.LAC,
+  'Los Angeles Clippers': NBALogos.LAC,
   'Los Angeles Lakers': NBALogos.LAL,
   'Memphis Grizzlies': NBALogos.MEM,
   'Miami Heat': NBALogos.MIA,

@@ -107,12 +107,9 @@ useEffect(() => {
   return (
     
     <div className='page-content'>
-      <div className='sidebar'>
-      <Sidebar/>
-      </div>
       <div className="account">
         {accountData && 
-              <div>
+              <div className='account-contents'>
                 <p>
                   <span className="before-curly">Username: </span> {accountData.username}
                 </p>

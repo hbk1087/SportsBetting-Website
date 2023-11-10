@@ -8,6 +8,7 @@ import axios from "axios";
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import '../css/Login.css';
 
 
 const SignupGrid = styled(Grid)(({ theme }) => ({
@@ -101,7 +102,7 @@ function SignUp() {
 
 
       return (
-        <div className="signupForm">
+        <div className="loginForm">
         <SignupGrid container justifyContext="center" alignItems="center" style={{ height: '50vh' }}>
           <Paper className="signupForm" elevation={3} style={{ padding: '2rem' }}>
             <Typography variant="h5" gutterBottom>

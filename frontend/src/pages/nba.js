@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import GameDetails from '../components/GameDetails'
 import Sidebar from '../components/Sidebar'
 //import BetsBar from '../components/BetsBar'
+import GameOddsHeader from '../components/GameOddsHeader'
 
 // axios
 import axios from 'axios'
@@ -40,16 +41,20 @@ const NBAPage = () => {
 
     // TODO: Display "no games today" if there are no games today
     return (
-        <div>
-        <Sidebar />
-        <div className='parentDiv'>
-                {game.map((gameItem, index) => (
-                    <div key={gameItem.game_id} className='game-details-container'>
-                        <GameDetails game={gameItem} />
-                    </div>
-                ))}
-        </div>
-        {/* <BetsBar /> */}
+        <div className="page-content">
+
+            <div className="game-odds-header">
+                <GameOddsHeader sportName="NBA"/>
+                <div className='nfl-game-container'>
+                    {game.map((gameItem, index) => (
+                        <div key={gameItem.game_id} className='game-details-container'>
+                            <GameDetails game={gameItem} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* <Betslip /> */}
         </div>
     )
 }

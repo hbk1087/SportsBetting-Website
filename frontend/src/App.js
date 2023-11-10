@@ -56,8 +56,11 @@ function App() {
     return (
           <ThemeProvider theme={theme}>
               <Router>
-                    <div className="App">  
-                        <Navbar/>
+                    <div className="page-content">
+                    <Navbar />
+                    {isLoggedIn ? (
+                            <Sidebar />
+                        ) : null}
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path="/login" element={<Login />} />
@@ -68,6 +71,10 @@ function App() {
                             <Route path='/nba' element={<NBAPage />} />
                             <Route path='/*' element={<NotFound />}/>
                         </Routes>
+
+                        {isLoggedIn ? (
+                            <Betslip />
+                        ) : null}
                     </div>
               </Router>
           </ThemeProvider>
