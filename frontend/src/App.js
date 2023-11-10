@@ -1,5 +1,5 @@
 // Router DOM imports
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useMatch } from 'react-router-dom'
 
 // Material UI imports
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -46,6 +46,8 @@ function App() {
     const isLoggedIn = useSelector(state => state.auth.loggedIn);
     const hasToken = useSelector(state => state.auth.token);
     const username = useSelector(state => state.user.username);
+    let loginmatch = useMatch("/login");
+    let signupmatch = useMatch("/signup");
 
     useEffect(() => {
         console.log("App.js: isLoggedIn: " + isLoggedIn)
@@ -55,10 +57,10 @@ function App() {
 
     return (
           <ThemeProvider theme={theme}>
-              <Router>
+              
                     <div className="page-content">
                     <Navbar />
-                    <Sidebar/>
+                    {!loginmatch && !signupmatch && <Sidebar />}
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path="/login" element={<Login />} />
@@ -69,10 +71,9 @@ function App() {
                             <Route path='/nba' element={<NBAPage />} />
                             <Route path='/*' element={<NotFound />}/>
                         </Routes>
-
-                        <Betslip/>
+                        {!loginmatch && !signupmatch && <Betslip />}
                     </div>
-              </Router>
+              
           </ThemeProvider>
     );
   }
