@@ -14,7 +14,7 @@ import CircleCounter from "./CircleCounter";
 import EmptyBetslip from "./EmptyBetslip";
 
 // Slices
-import { clearActiveBets } from '../slices/activeBetSlice';
+import { clearActiveBets, submitBets } from '../slices/activeBetSlice';
 
 import "../css/Betslip.css"
 
@@ -45,8 +45,15 @@ const RemoveBetsContainer = styled(Grid)({
     alignContent: "center"
 
 })
+
 const LoginPromptContainer = styled(Grid)({
 
+})
+
+const SubmitAllBets = styled(Grid)({
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: "center"
 })
 
 const Betslip = () => {
@@ -83,6 +90,10 @@ const Betslip = () => {
                         )
                 }
             </BetslipsContainer>
+
+            <SubmitAllBets>
+                <Button className="submitAllBetsButton" onClick={() => dispatch(submitBets())}>Submit all bets!</Button>
+            </SubmitAllBets>
         </BetslipContainer>
     );
     

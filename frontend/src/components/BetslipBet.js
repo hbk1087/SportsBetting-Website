@@ -187,6 +187,7 @@ function formatTimestamp(timestamp) {
 const BetslipBet = ({bet}) => {
     const dispatch = useDispatch();
     const authToken = useSelector((state) => state.auth.token);
+    const finalizedBets = useSelector((state) => state.activeBets.finalizedBets);
 
     console.log(bet);
 
@@ -247,6 +248,7 @@ const BetslipBet = ({bet}) => {
         }
 
         console.log(formattedBet)
+        
 
         // Send the bet to the backend.
         axios({
