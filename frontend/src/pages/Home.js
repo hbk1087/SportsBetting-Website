@@ -44,7 +44,7 @@ const Home = () => {
     // TODO: Display "no games today" if there are no games today
     return (
         <div className="page-content">
-            {/* <Sidebar /> */}
+            
 
             <div className="game-odds-header">
                 <GameOddsHeader sportName="Upcoming Games"/>

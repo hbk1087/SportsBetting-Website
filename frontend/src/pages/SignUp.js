@@ -102,10 +102,10 @@ function SignUp() {
 
 
       return (
-        <div className="loginForm">
-        <SignupGrid container justifyContext="center" alignItems="center" style={{ height: '50vh' }}>
-          <Paper className="signupForm" elevation={3} style={{ padding: '2rem' }}>
-            <Typography variant="h5" gutterBottom>
+        <div className="signupForm" >
+        <SignupGrid container justifyContext="center" alignItems="center" style={{ height: '50vh', paddingTop: '90px'}}>
+          <Paper elevation={3} style={{ padding: '2rem' }}>
+            <Typography variant="h5" gutterBottom justifyContent="center" display="flex">
               Signup
             </Typography>
             <form onSubmit={signMeUp}>
@@ -187,7 +187,7 @@ function SignUp() {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item justifyContent="center" display="flex">
                   <Button type="submit" variant="contained" color="primary">
                     Sign Up
                   </Button>

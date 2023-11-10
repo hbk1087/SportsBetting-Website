@@ -68,9 +68,9 @@ function Login() {
 
       return (
         <div className="loginForm">
-        <Grid container justifyContent="center" alignItems="center" style={{ height: '50vh' }}>
+        <Grid container justifyContent="center" alignItems="center" style={{ height: '50vh', paddingTop: '10%' }}>
           <Paper elevation={3} style={{ padding: '2rem' }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="h5" gutterBottom justifyContent="center" display="flex">
               Login
             </Typography>
             <form onSubmit={logMeIn}>
@@ -96,7 +96,7 @@ function Login() {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item justifyContent="center" display="flex">
                   <Button type="submit" variant="contained" color="primary">
                     Login
                   </Button>

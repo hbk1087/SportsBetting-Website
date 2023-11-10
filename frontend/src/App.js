@@ -58,9 +58,7 @@ function App() {
               <Router>
                     <div className="page-content">
                     <Navbar />
-                    {isLoggedIn ? (
-                            <Sidebar />
-                        ) : null}
+                    <Sidebar/>
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path="/login" element={<Login />} />
@@ -72,9 +70,7 @@ function App() {
                             <Route path='/*' element={<NotFound />}/>
                         </Routes>
 
-                        {isLoggedIn ? (
-                            <Betslip />
-                        ) : null}
+                        <Betslip/>
                     </div>
               </Router>
           </ThemeProvider>

@@ -6,6 +6,7 @@ import GameDetails from '../components/GameDetails'
 import Sidebar from '../components/Sidebar'
 //import BetsBar from '../components/BetsBar'
 import GameOddsHeader from '../components/GameOddsHeader'
+import Betslip from '../components/Betslip'
 
 // axios
 import axios from 'axios'
@@ -42,7 +43,7 @@ const NBAPage = () => {
     // TODO: Display "no games today" if there are no games today
     return (
         <div className="page-content">
-
+            {/* <Sidebar /> */}
             <div className="game-odds-header">
                 <GameOddsHeader sportName="NBA"/>
                 <div className='nfl-game-container'>

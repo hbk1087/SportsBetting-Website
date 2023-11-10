@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import GameDetails from '../components/GameDetails'
 import Sidebar from '../components/Sidebar'
 import GameOddsHeader from '../components/GameOddsHeader'
+import Betslip from '../components/Betslip'
 
 // axios
 import axios from 'axios'
@@ -41,7 +42,7 @@ const NFLPage = () => {
     // TODO: Display "no games today" if there are no games today
     return (
       <div className="page-content">
-
+          {/* <Sidebar /> */}
         <div className="game-odds-header">
             <GameOddsHeader sportName="NFL"/>
             <div className='nfl-game-container'>
@@ -52,6 +53,7 @@ const NFLPage = () => {
                 ))}
             </div>
         </div>
+        {/* <Betslip /> */}
      </div>
     )
 }

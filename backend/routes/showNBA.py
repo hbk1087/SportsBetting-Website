@@ -244,17 +244,17 @@ def update_games():
 
                         # Away Spread
                         elif bet['bet_type'] == 'Away Line':                   
-                            if element['home_score'] - element['away_score'] < element['away_spread_odds']:
+                            if element['home_score'] - element['away_score'] < element['away_spread']:
                                 payout = bet['potential_payout']
-                            elif element['home_score'] - element['away_score'] > element['away_spread_odds']:
+                            elif element['home_score'] - element['away_score'] > element['away_spread']:
                                 payout = 0
                             else:
                                 payout = bet['wager']
                         # Home Spread
                         elif bet['bet_type'] == 'Home Line':                   
-                            if element['away_score'] - element['home_score'] < element['home_spread_odds']:
+                            if element['away_score'] - element['home_score'] < element['home_spread']:
                                 payout = bet['potential_payout']
-                            elif element['away_score'] - element['home_score'] > element['home_spread_odds']:
+                            elif element['away_score'] - element['home_score'] > element['home_spread']:
                                 payout = 0
                             else:
                                 payout = bet['wager']

@@ -15,6 +15,8 @@ import { Typography, Container, Paper, List, ListItem, ListItemText, Grid } from
 import axios from 'axios';
 import '../css/MyBets.css';
 import MyBet from '../components/MyBet';
+import Sidebar from '../components/Sidebar';
+import Betslip from '../components/Betslip';
 
 function Bets() {
     // const bets = useSelector((state) => state.bets.bets);
@@ -62,6 +64,7 @@ function Bets() {
     }, [])
 
     return (
+        <div>
         <div className='betsContainer'>
         <Container>
            {loading ? (
@@ -91,6 +94,7 @@ function Bets() {
                 </Container>
             )}
         </Container>
+        </div>
         </div>
     )
 }
