@@ -35,7 +35,7 @@ function BetBox({
     if (betExists) {
       dispatch(removeGameByIdAndType({game_id: game.game_id, bet_type: bet_type}))
     } else {
-      dispatch(openActiveBet({bet_type, game}))  
+      dispatch(openActiveBet({bet_type: bet_type, game: game}))  
     }
 
   }

@@ -11,6 +11,9 @@ import LoadingIndicator from '../util/LoadingIndicator';
 import BetBox from "./BetBox"
 import TeamSeparator from './TeamSeparator';
 
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { removeGameByIdAndType, openActiveBet } from '../slices/activeBetSlice';
 
 // CSS
 import "../css/GameDetails.css"
@@ -94,7 +97,7 @@ const teamToComponent = {
   'Golden State Warriors': NBALogos.GSW,
   'Houston Rockets': NBALogos.HOU,
   'Indiana Pacers': NBALogos.IND,
-  'LA Clippers': NBALogos.LAC,
+  'Los Angeles Clippers': NBALogos.LAC,
   'Los Angeles Lakers': NBALogos.LAL,
   'Memphis Grizzlies': NBALogos.MEM,
   'Miami Heat': NBALogos.MIA,
@@ -241,7 +244,7 @@ const BestBetButton = styled(Button)({
   paddingBottom: '8px',
   paddingTop: '8px',
   width: '124px',
-  maxHeight: '70px'
+  maxHeight: '70px',
 });
 
 const BestBetText = styled(Typography)({
@@ -288,6 +291,25 @@ const GameDetails = ({ game }) => {
         best_bet_edge
     } = game;
 
+    const dispatch = useDispatch();
+    const bets = useSelector((state) => state.activeBets.bets);
+    const hasActiveBets = useSelector((state) => state.activeBets.hasActiveBets)
+
+    const handleBestBetClick = ({bet_type, game}) => {
+      console.log("best bet type: ", bet_type, " and game: ", game);
+
+      const betExists = bets.find(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type) ? true : false;
+  
+      console.log(betExists)
+  
+      if (betExists) {
+        dispatch(removeGameByIdAndType({game_id: game.game_id, bet_type: bet_type}))
+      } else {
+        dispatch(openActiveBet({bet_type: bet_type, game: game}))  
+      }
+  
+    }
+
     function getBestBet(b) {
       let name = ""
             if (b === "Home") {
@@ -314,10 +336,26 @@ const GameDetails = ({ game }) => {
             return name
     }
 
-    const bb = getBestBet(best_bet_type) 
+    function convertBackToOriginalBetType(betTypeName) {
+      switch (betTypeName) {
+          case "Home":
+              return "moneyline_home";
+          case "Away":
+              return "moneyline_away";
+          case "Home Line":
+              return "home_spread";
+          case "Away Line":
+              return "away_spread";
+          case "Over":
+              return "total_over";
+          case "Under":
+              return "total_under";
+          default:
+              return "Unknown Bet Type";
+      }
+  }
 
-
-
+    const bb = getBestBet(best_bet_type);
     const new_date = formatDate(date);
 
     return (
@@ -353,7 +391,7 @@ const GameDetails = ({ game }) => {
                 <EdgeText> {best_bet_edge} Point Edge </EdgeText>
                 <BestBetText> Best Bet: </BestBetText>
               </WordsContainer>
-              <BestBetButton>{bb}</BestBetButton>
+              <BestBetButton onClick={() => handleBestBetClick({bet_type: convertBackToOriginalBetType(best_bet_type), game: game})}>{bb}</BestBetButton>
           </BestBetContainer>
         </BottomContainer>
       </StyledGridContainer>
