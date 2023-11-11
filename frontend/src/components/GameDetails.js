@@ -233,7 +233,7 @@ const BestBetContainer = styled(Grid)({
   width: '175px'
 });
 
-const BestBetButton = styled(Button)({
+const BestBetButton = styled(Button)(({ isClicked }) => ({
   fontSize: '1em',
   color: 'green',
   border: '2px solid',
@@ -245,7 +245,12 @@ const BestBetButton = styled(Button)({
   paddingTop: '8px',
   width: '124px',
   maxHeight: '70px',
-});
+  backgroundColor: isClicked ? 'green' : 'transparent', // TODO: Implement isClicked state
+  '&:hover': {
+      backgroundColor: 'green',
+      color: 'white'
+  },
+}));
 
 const BestBetText = styled(Typography)({
   fontWeight: 'bold',
