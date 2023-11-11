@@ -214,7 +214,7 @@ const DateContainer = styled(Grid)({
   marginLeft: '1%',
   marginBottom: '2%',
   fontWeight: '100',
-  fontSize: '0.85em',
+  fontSize: '1em',
   flexWrap: 'wrap'
 });
 
@@ -226,7 +226,7 @@ const BestBetContainer = styled(Grid)({
   justifyContent: 'space-between',
   alignItems: 'center',
   color: '#ffffff',
-  marginLeft: '40.5%',
+  marginLeft: '31.5%',
   fontWeight: '150',
   marginRight: '2%',
   marginBottom: '2%',
@@ -272,10 +272,23 @@ const WordsContainer = styled(Grid)({
   paddingRight: '6%'
 })
 
+const LogoDateContainer = styled(Grid)({
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
+  flexDirection: 'row',
+  width: '25%',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-end',
+  paddingBottom: '1%',
+  paddingLeft: '1%'
+})
+
 const GameDetails = ({ game }) => {
     // Destructure game properties
     const {
         date,
+        sport,
         away_team,
         home_team,
         away_odds,
@@ -385,7 +398,20 @@ const GameDetails = ({ game }) => {
           </TeamBetContainer>
         </BetOptionsContainer>
         <BottomContainer>
-          <DateContainer>{new_date}</DateContainer>
+          <LogoDateContainer>
+          {sport === 'nfl' ? (
+            <img
+              src={'https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/National_Football_League_logo.svg/1200px-National_Football_League_logo.svg.png'}
+              className="list-item-image"
+            />
+          ) : (
+            <img
+              src={'https://upload.wikimedia.org/wikipedia/en/thumb/0/03/National_Basketball_Association_logo.svg/105px-National_Basketball_Association_logo.svg.png'}
+              className="list-item-image"
+            />
+          )}
+              <DateContainer>{new_date}</DateContainer>
+          </LogoDateContainer>
           <BestBetContainer>
               <WordsContainer>
                 <EdgeText> {best_bet_edge} Point Edge </EdgeText>
