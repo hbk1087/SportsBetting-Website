@@ -5,6 +5,7 @@ import { React, useState, createContext, useContext } from 'react';
 import {  TextField, Grid, Typography, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -185,6 +186,7 @@ function formatTimestamp(timestamp) {
 
 
 const BetslipBet = ({bet}) => {
+    const loggedIn = useSelector((state) => state.auth.loggedIn);
     const dispatch = useDispatch();
     const authToken = useSelector((state) => state.auth.token);
     const finalizedBets = useSelector((state) => state.activeBets.finalizedBets);
@@ -340,17 +342,25 @@ const BetslipBet = ({bet}) => {
 
         <BetslipContainer className="betslipBetConatiner">
 
-          <RemoveBetContainer>
+          {loggedIn === true ?
+          (<RemoveBetContainer>
             <IconButton onClick={onRemove} sx={{color: "red", ":hover": {color: "black"}}}>
                 <RemoveCircleOutlineIcon />
             </IconButton>
-          </RemoveBetContainer>
-
-          <RemoveBetContainer>
             <IconButton onClick={handleSubmit} sx={{color: "green", ":hover": {color: "black"}}}>
+                <AddCircleOutlineIcon />
+            </IconButton>
+          </RemoveBetContainer>) :
+
+          (<RemoveBetContainer>
+            <IconButton sx={{color: "grey", ":hover": {color: "grey"}}}>
                 <RemoveCircleOutlineIcon />
             </IconButton>
-          </RemoveBetContainer>
+            <IconButton sx={{color: "grey", ":hover": {color: "grey"}}}>
+                <AddCircleOutlineIcon />
+            </IconButton>
+          </RemoveBetContainer>)
+            }
 
           <BetslipBetInformationContainer className="betslipBetConatiner">
             <TeamNameAndOddsContainer className="teamNameAndOddsContainer">
