@@ -16,6 +16,8 @@ from datetime import datetime, timedelta, timezone
 import bcrypt
 from routes.responses import good_response, bad_response
 import pytz
+import requests
+from apscheduler.schedulers.background import BackgroundScheduler
 
  
 load_dotenv()
@@ -23,7 +25,8 @@ load_dotenv()
 # Initializing flask app
 app = Flask(__name__, static_folder="static")
 
-
+scheduler = BackgroundScheduler()
+scheduler.start()
 
 ### Login Session/Authentication management
 secret_key = os.getenv('SECRET_KEY')
@@ -190,6 +193,23 @@ app.register_blueprint(user_bets_blueprint, url_prefix='/api/bets')
 def not_found(e):
     return app.send_static_file('index.html')
 
+
+def scheduled_task_job():
+    response = requests.get('http://0.0.0.0:5000/api/nfl/update_games')  # Replace with your Flask app's URL
+    if response.status_code == 200:
+        print("Scheduled task executed and called /api/nfl/update_games.")
+    else:
+        print(f"Scheduled task executed, but calling /api/nfl/update_games failed with status code {response.status_code}.")
+
+    response = requests.get('http://0.0.0.0:5000/api/nba/update_games')  # Replace with your Flask app's URL
+    if response.status_code == 200:
+        print("Scheduled task executed and called /api/nba/update_games.")
+    else:
+        print(f"Scheduled task executed, but calling /api/nba/update_games failed with status code {response.status_code}.")
+
+
+# Schedule the task to run daily at 3 AM
+scheduler.add_job(scheduled_task_job, 'cron', hour=3, minute=30)
      
 # Running app
 if __name__ == '__main__':
