@@ -4,19 +4,16 @@ import React from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { addBet, removeBet, updateBet } from '../slices/betSlice';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react'
 
 // MUI
-import { Typography, Container, Paper, List, ListItem, ListItemText, Grid } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 
 // Axios
 import axios from 'axios';
 import '../css/MyBets.css';
 import MyBet from '../components/MyBet';
-import Sidebar from '../components/Sidebar';
-import Betslip from '../components/Betslip';
 
 function Bets() {
 
