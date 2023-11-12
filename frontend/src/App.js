@@ -64,11 +64,12 @@ function App() {
                         <Navbar />
 
                             <div className='under-navbar'>
-                                <div className='side-bar-wrapper'>
-                                    <div className='side-bar'>
-                                        {!loginmatch && !signupmatch && <Sidebar />}
-                                    </div>
-                                </div>
+                                {(!loginmatch && !signupmatch) && (
+                                    <div className='side-bar-wrapper'>
+                                        <div className='side-bar'>
+                                            <Sidebar />
+                                        </div>
+                                    </div>)}
 
                                 <div className='middle'>
                                     <Routes>
@@ -83,13 +84,14 @@ function App() {
                                     </Routes>
                                 </div>
 
-                                <div className='bet-slip-wrapper'>
-                                    <div className='bet-slip'>
-                                        {!loginmatch && !signupmatch && <Betslip />}
-                                    </div>
-                                </div>
+                                {(!loginmatch && !signupmatch) && (
+                                    <div className='bet-slip-wrapper'>
+                                        <div className='bet-slip'>
+                                            {!loginmatch && !signupmatch && <Betslip />}
+                                        </div>
+                                    </div>)}
                             </div>
-                            
+
                         </div>
                     </div>
           </ThemeProvider>

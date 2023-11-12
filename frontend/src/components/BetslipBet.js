@@ -5,7 +5,7 @@ import { React, useState, useEffect } from 'react';
 import {  TextField, Grid, Typography, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import InputAdornment from '@mui/material/InputAdornment';
 
 // Redux
@@ -352,16 +352,16 @@ const BetslipBet = ({bet}) => {
                 <RemoveCircleOutlineIcon />
             </IconButton>
             <IconButton onClick={handleSubmit} sx={{color: "green", ":hover": {color: "black"}}}>
-                <AddCircleOutlineIcon />
+                <CheckCircleOutlineIcon />
             </IconButton>
           </RemoveBetContainer>) :
 
           (<RemoveBetContainer>
-            <IconButton sx={{color: "grey", ":hover": {color: "grey"}}}>
+            <IconButton onClick={onRemove} sx={{color: "red", ":hover": {color: "black"}}}>
                 <RemoveCircleOutlineIcon />
             </IconButton>
             <IconButton sx={{color: "grey", ":hover": {color: "grey"}}}>
-                <AddCircleOutlineIcon />
+                <CheckCircleOutlineIcon />
             </IconButton>
           </RemoveBetContainer>)
             }

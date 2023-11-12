@@ -68,7 +68,7 @@ function Login() {
 
       return (
         <div className="loginForm">
-        <Grid container justifyContent="center" alignItems="center" style={{ height: '50vh', paddingTop: '10%' }}>
+        <Grid container justifyContent="center" alignItems="center" style={{ height: '50vh', paddingTop: '90px' }}>
           <Paper elevation={3} style={{ padding: '2rem' }}>
             <Typography variant="h5" gutterBottom justifyContent="center" display="flex">
               Login
@@ -101,8 +101,14 @@ function Login() {
                     Login
                   </Button>
                 </Grid>
+                <Grid item justifyContent="center" display="flex" style={{ paddingTop: '10%' }}>
+                  <Typography gutterBottom justifyContent="center" display="flex">
+                    Don't have an account? &nbsp; <a href="/signup">Sign up here</a>
+                  </Typography>
+                </Grid>
               </Grid>
             </form>
+            
           </Paper>
         </Grid>
         </div>

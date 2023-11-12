@@ -1,4 +1,8 @@
+// React
 import { React, useEffect } from 'react';
+
+// Router
+import { useNavigate } from "react-router-dom";
 
 // MUI
 import { Button, Grid, Box } from '@mui/material';
@@ -16,6 +20,7 @@ import EmptyBetslip from "./EmptyBetslip";
 // Slices
 import { clearActiveBets, submitBets } from '../slices/activeBetSlice';
 
+// CSS
 import "../css/Betslip.css"
 
 
@@ -46,6 +51,7 @@ const BetslipTitleCounter = styled(Grid)({
 const BetslipsContainer = styled(Box)({
     maxHeight: '650px',
     overflow: 'auto',
+    marginBottom: 'auto',
 });
 
 const RemoveBetsContainer = styled(Grid)({
@@ -60,17 +66,39 @@ const LoginPromptContainer = styled(Grid)({
 
 const SubmitBetsButton = styled(Button)({
     display: 'flex',
+    backgroundColor: '#2f2d2f',
+    ':hover': {
+        backgroundColor: '#2b90ff',
+        color: 'white'
+      },
+});
+
+const LoginOrSignupButton = styled(Button)({
+    display: 'flex',
+    color: 'green',
+    backgroundColor: '#2f2d2f',
+    ':hover': {
+        backgroundColor: 'green',
+        color: 'white'
+      },
 });
 
 const SubmitAllBets = styled(Grid)({
     display: 'flex',
-    justifyContent: 'center',
-    alignContent: "center"
+    justifyContent: 'flex-end',
+    alignContent: "center",
+    flexDirection: 'column',
+    width: '100%',
+    padding: '8px 0px 8px 0px',
 });
+
+
 
 const Betslip = () => {
     const dispatch = useDispatch();
     const bets = useSelector((state) => state.activeBets.bets);
+    const isLoggedIn = useSelector(state => state.auth.loggedIn);
+    const navigate = useNavigate();
 
     useEffect(() => {
     }, [bets])
@@ -105,8 +133,12 @@ const Betslip = () => {
                 }
             </BetslipsContainer>
 
-            <SubmitAllBets>
-                <SubmitBetsButton className="submitAllBetsButton" onClick={() => dispatch(submitBets())}>Submit all bets!</SubmitBetsButton>
+            <SubmitAllBets className='submitAllContainer'>
+                { isLoggedIn ? 
+                (<SubmitBetsButton className="submitAllBetsButton" onClick={() => dispatch(submitBets())}>Submit all bets!</SubmitBetsButton>)
+                :
+                (<LoginOrSignupButton onClick={() => navigate('/login')}>Login or Signup to Bet</LoginOrSignupButton>)
+                }
             </SubmitAllBets>
         </BetslipContainer>
     );
