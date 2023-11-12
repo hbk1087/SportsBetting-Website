@@ -15,6 +15,6 @@
 }
 
 .my-bets-button:hover {
-    z-index: 1300;
+    z-index: 2000;
     background-color: #1d1e1f;
 }

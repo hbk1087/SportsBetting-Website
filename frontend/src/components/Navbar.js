@@ -34,13 +34,19 @@ const SignupButton = styled(Button)(({ theme }) => ({
     }
 }));
 
+// Custom styled button for the signup/join
+const MyBetsButton = styled(Button)(({ theme }) => ({
+    backgroundColor: '#000000',
+    '&:hover': {
+    backgroundColor: '#1d1e1f', // a bit darker on hover
+    }
+}));
+
 
 const Navbar = () => {
     const authLoggedIn = useSelector((state) => state.auth.loggedIn);
     const username = useSelector((state) => state.user.username);
 
-    // console.log("BRUHHH:" + authLoggedIn);
-    // console.log("username: " + username);
 
     useEffect(() => {
     }, [authLoggedIn])
@@ -65,7 +71,7 @@ const Navbar = () => {
                             (
                                 // When logged in
                                 <>
-                                    <Button className='my-bets-button' color="inherit" style={{ color: 'inherit' }} component={Link} to='/bets'>My Bets</Button>
+                                    <MyBetsButton color="inherit" component={Link} to='/bets'>My Bets</MyBetsButton>
                                     <div style={{ flexGrow: 1 }}></div>
                                     <Welcome />
                                     <LogoutButton />
