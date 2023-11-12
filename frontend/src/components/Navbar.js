@@ -75,7 +75,7 @@ const Navbar = () => {
                                     <div style={{ flexGrow: 1 }}></div>
                                     <Welcome />
                                     <LogoutButton />
-                                    <Button color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></Button>
+                                    <MyBetsButton color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></MyBetsButton>
                                 </>
                             ) : 
                             (
