@@ -1,14 +1,17 @@
+// React
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // API
 import axios from "axios";
 
+// Hooks
+import useGoogleMapsApi from '../hooks/useGoogleMapsApi';
+
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
-
-
 import { styled } from '@mui/material/styles';
+import '../css/Login.css';
 
 
 
@@ -43,30 +46,33 @@ function SignUp() {
     }, [])
 
 
-    const autoCompleteRef = useRef();
+    const autocompleteRef = useRef();
     const inputRef = useRef();
+    const googleMapsApi = useGoogleMapsApi()
+
     const options = {
       componentRestrictions: { country: "us" }
     };
 
     useEffect(() => {
-      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-      inputRef.current,
-      options
-      );
-
-      autoCompleteRef.current.addListener("place_changed", async function () {
-      const place = await autoCompleteRef.current.getPlace();
-      setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
-      });
-    }, []);
+      if (googleMapsApi) {
+        autocompleteRef.current = new googleMapsApi.places.Autocomplete(inputRef.current, options)
+        autocompleteRef.current.addListener('place_changed',  async () => {
+          const place = await autocompleteRef.current.getPlace()
+  
+          setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
+  
+    
+        })
+      }
+    }, [googleMapsApi])
 
     const signMeUp = (event) => {
         event.preventDefault()
 
       axios({
         method: "POST",
-        url:"/api/signup",
+        url:"http://3.138.170.253:5000/api/signup",
         data:{
             username: formData.username,
             first_name: formData.first_name,
@@ -79,16 +85,16 @@ function SignUp() {
       })
       .then((response) => {
         if (response.status === 201) {
-            console.log("ur logged in uwu")
+            // console.log("ur logged in uwu")
             routeChangeLogin()
         } else {
-            console.log("Error signing in wnw")
+            // console.log("Error signing in wnw")
         }
       }).catch((error) => {
         if (error.response) {
-          console.log(error.response)
-          console.log(error.response.status)
-          console.log(error.response.headers)
+          // console.log(error.response)
+          // console.log(error.response.status)
+          // console.log(error.response.headers)
           }
       })
     }
@@ -98,15 +104,15 @@ function SignUp() {
       setFormData(prevNote => ({
           ...prevNote, [name]: value})
       )
-      console.log(formData)
+      // console.log(formData)
     }
 
 
       return (
-        <div className="signupForm">
-        <SignupGrid container justifyContext="center" alignItems="center" style={{ height: '50vh' }}>
-          <Paper className="signupForm" elevation={3} style={{ padding: '2rem' }}>
-            <Typography variant="h5" gutterBottom>
+        <div className="signupForm" >
+        <SignupGrid container justifyContext="center" alignItems="center" style={{ height: '50vh', paddingTop: '90px'}}>
+          <Paper elevation={3} style={{ padding: '2rem' }}>
+            <Typography variant="h5" gutterBottom justifyContent="center" display="flex">
               Signup
             </Typography>
             <form onSubmit={signMeUp}>
@@ -188,7 +194,7 @@ function SignUp() {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item justifyContent="center" display="flex">
                   <Button type="submit" variant="contained" color="primary">
                     Sign Up
                   </Button>

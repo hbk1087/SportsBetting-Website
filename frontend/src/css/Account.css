@@ -1,4 +1,4 @@
-.page-content {
+.pagecontent {
     display: flex; /* Use flexbox to create a sidebar layout */
     flex-direction: row; /* Make the sidebar and content side-by-side */
     justify-content: space-between;
@@ -18,9 +18,16 @@
     font-weight: bold;
     color: #ffffff;
     align-items: center;
-    justify-content: center;
+    justify-content: top;
     display: flex;
     flex-direction: column;
+    margin-top: 80px;
+    width: 900px;
+}
+
+.account-contents {
+    width: 400px;
+    align-content: center;
 }
 
 .before-curly {
@@ -31,7 +38,7 @@
 p {
 
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     display: flex;
 
 }

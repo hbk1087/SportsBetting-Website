@@ -21,18 +21,18 @@ const dispatch = useDispatch();
   function logMeOut() {
     axios({
       method: "POST",
-      url:"/api/logout",
+      url:"http://3.138.170.253:5000/api/logout",
     })
     .then((response) => {
         dispatch(removeToken())
         dispatch(setLoggedIn(false))
-        console.log("ur logged out uwu")
+        // console.log("ur logged out uwu")
         navigate('/')
     }).catch((error) => {
       if (error.response) {
-        console.log(error.response)
-        console.log(error.response.status)
-        console.log(error.response.headers)
+        // console.log(error.response)
+        // console.log(error.response.status)
+        // console.log(error.response.headers)
         }
     })}
 

@@ -18,6 +18,7 @@ function Logout() {
 
     dispatch(setLoggedIn(false));
     dispatch(removeToken());
+    dispatch(setUsername('guest'))
 
       return (
         <LogoutButton onLogout={logMeOut} />

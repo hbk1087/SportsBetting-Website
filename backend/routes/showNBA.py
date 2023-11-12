@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, request, jsonify, Response, make_response
 from models.GameModel import GameModel
-from algos.NFLModel import NFLModel
+from algos.NBAModel import NBAModel
 from db import connect
 from datetime import datetime
 import pytz
@@ -17,9 +17,9 @@ est_tz = pytz.timezone('US/Eastern')
 
 
 
-nfl_blueprint = Blueprint('nfl_blueprint', __name__)
+nba_blueprint = Blueprint('nba_blueprint', __name__)
 
-@nfl_blueprint.route('', methods=['GET'])
+@nba_blueprint.route('', methods=['GET'])
 @cross_origin()
 def get_games():
     # Connect to db
@@ -28,8 +28,8 @@ def get_games():
     current_time_est = datetime.now(est_tz)
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
        
-    # get nfl games
-    games = list(connection.find({"sport": {'$eq': "nfl"}}))
+    # get nba games
+    games = list(connection.find({"sport": {'$eq': "nba"}}))
     data = []
     for element in games:
         element['_id'] = str(element['_id'])
@@ -49,31 +49,141 @@ def get_games():
 
 
 # API Call to retrieve historical data and update current games/bets/users to reflect final scores
-@nfl_blueprint.route('/update_games', methods=['GET', 'OPTIONS'])
+@nba_blueprint.route('/update_games', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def update_games():
     try: 
-        db_hard_start = datetime(2023, 10, 16)
+        db_hard_start = datetime(2023, 11, 7)
 
-        # URL of the Excel file hosted online
-
-        url = 'https://www.aussportsbetting.com/historical_data/nfl.xlsx'
+        # URL of the data
+        url = 'https://sportsdatabase.com/NBA/query?output=default&sdql=date%2C+team%2C+site%2C+o%3Ateam%2C+total%2C+line%2C+line%20ave%20odds%2C+money%20line%2C+total%20over%20ave%20odds%2C+total%20under%20ave%20odds%2C++points%2C+o%3Apoints+%40season%3E2019&submit=++S+D+Q+L+%21++'
 
         # Send an HTTP GET request to the URL and get the response content
         response = requests.get(url)
 
         if response.status_code == 200:
-            # Create a BytesIO object and load the response content into it
-            excel_data = io.BytesIO(response.content)
+            # Convert the response content to JSON format
+            data1 = response.json()
 
-            # Read the Excel data directly from the BytesIO object using pandas
-            df = pd.read_excel(excel_data)
+            column_names = data1['headers']
+            column_data = data1['groups'][0]['columns']
+
+            data_transposed = list(map(list, zip(*column_data)))
+
+            # Create a Pandas DataFrame from the transposed data
+            df = pd.DataFrame(data_transposed)
+
+            # Optionally, set column names
+            df.columns = column_names
         
         else:
-            print('Failed to fetch the Excel file.')
+            print('Failed to fetch the nba data.')
 
-        nfl = NFLModel()
-        nfl.populateDB()
+        
+
+        # Date formatting, get rows before today
+        new_df = df
+        new_df['date'] = pd.to_datetime(new_df['date'], format='%Y%m%d')
+
+        # Get today's date
+        today = datetime.now()
+
+        before_today_df = new_df
+        
+        # Rename columns
+        before_today_df = before_today_df.rename(columns={'team': 'Home Team', 'o:team': 'Away Team','points': 'Score', 'o:points': 'Opp Score'})
+        print(before_today_df)
+
+        before_today_df = before_today_df.dropna()
+
+        home_df = before_today_df[before_today_df['site'] == 'home']
+        away_df = before_today_df[before_today_df['site'] == 'away']
+
+        away_mls = away_df['money line'].tolist()
+        away_lines = away_df['line'].tolist()
+        away_lines_odds = away_df['line ave odds'].tolist()
+
+        # Renaming
+        home_df['Away Odds Close'] = away_mls
+        home_df['Away Line Close'] = away_lines
+        home_df['Away Line Odds Close'] = away_lines_odds
+
+        home_df = home_df.rename(columns={'Score': 'Home Score', 'Opp Score': 'Away Score', 'date': 'Date', 'total': 'Total Score Close', 'money line': 'Home Odds Close', 'line': 'Home Line Close', 'line ave odds': 'Home Line Odds Close', 'total over ave odds' :'Total Score Over Close', 'total under ave odds' : 'Total Score Under Close'})
+        # Drop the site column
+        home_df = home_df.drop('site', axis=1)
+
+        # Define a function to extract the last element from a list
+        get_last_element = lambda x: x[-1]
+
+        # Apply the function to the list columns
+        home_df['Home Line Odds Close'] = home_df['Home Line Odds Close'].apply(get_last_element)
+        home_df['Away Line Odds Close'] = home_df['Away Line Odds Close'].apply(get_last_element)
+        home_df['Total Score Over Close'] = home_df['Total Score Over Close'].apply(get_last_element)
+        home_df['Total Score Under Close'] = home_df['Total Score Under Close'].apply(get_last_element)
+
+        # Even to +100
+        home_df.loc[home_df['Home Odds Close'] == 'even', 'Home Odds Close'] = '100'
+        home_df.loc[home_df['Away Odds Close'] == 'even', 'Away Odds Close'] = '100'
+
+        # Function to convert American odds to decimal odds
+        def american_to_decimal(american_odds):
+            american_odds = pd.to_numeric(american_odds)  # Convert the string to numeric
+            if american_odds > 0:
+                return round((american_odds / 100) + 1, 2)
+            elif american_odds < 0:
+                return round((-100 / american_odds) + 1, 2)
+            else:
+                return 1  # Even (American odds of 0)
+            
+        # Apply the conversion function to the American Odds columns
+        home_df['Home Odds Close'] = home_df['Home Odds Close'].apply(american_to_decimal)
+        home_df['Away Odds Close'] = home_df['Away Odds Close'].apply(american_to_decimal)
+        home_df['Home Line Odds Close'] = home_df['Home Line Odds Close'].apply(american_to_decimal)
+        home_df['Away Line Odds Close'] = home_df['Away Line Odds Close'].apply(american_to_decimal)
+        home_df['Total Score Over Close'] = home_df['Total Score Over Close'].apply(american_to_decimal)
+        home_df['Total Score Under Close'] = home_df['Total Score Under Close'].apply(american_to_decimal)
+
+        home_df['Total Score'] = home_df['Home Score'] + home_df['Away Score']
+
+        # Change team names to be accurate
+        nba_teams = {
+            'Hawks': 'Atlanta Hawks',
+            'Celtics': 'Boston Celtics',
+            'Nets': 'Brooklyn Nets',
+            'Hornets': 'Charlotte Hornets',
+            'Bulls': 'Chicago Bulls',
+            'Cavaliers': 'Cleveland Cavaliers',
+            'Mavericks': 'Dallas Mavericks',
+            'Nuggets': 'Denver Nuggets',
+            'Pistons': 'Detroit Pistons',
+            'Warriors': 'Golden State Warriors',
+            'Rockets': 'Houston Rockets',
+            'Pacers': 'Indiana Pacers',
+            'Clippers': 'Los Angeles Clippers',
+            'Lakers': 'Los Angeles Lakers',
+            'Grizzlies': 'Memphis Grizzlies',
+            'Heat': 'Miami Heat',
+            'Bucks': 'Milwaukee Bucks',
+            'Timberwolves': 'Minnesota Timberwolves',
+            'Pelicans': 'New Orleans Pelicans',
+            'Knicks': 'New York Knicks',
+            'Thunder': 'Oklahoma City Thunder',
+            'Magic': 'Orlando Magic',
+            'Seventysixers': 'Philadelphia 76ers',
+            'Suns': 'Phoenix Suns',
+            'Trailblazers': 'Portland Trail Blazers',
+            'Kings': 'Sacramento Kings',
+            'Spurs': 'San Antonio Spurs',
+            'Raptors': 'Toronto Raptors',
+            'Jazz': 'Utah Jazz',
+            'Wizards': 'Washington Wizards',
+        }
+
+        home_df['Home Team'] = home_df['Home Team'].map(nba_teams)
+        home_df['Away Team'] = home_df['Away Team'].map(nba_teams)
+
+        nba = NBAModel()
+        nba.populateDB()
 
         # Function to format a date string from Mongo to excel format
         def convert_date_format(input_date):
@@ -84,8 +194,7 @@ def update_games():
             return formatted_date
         
         #Only keep rows after hard start
-        df['Date'] = pd.to_datetime(df['Date'])
-        filtered_df = df[df['Date'] > pd.to_datetime(db_hard_start)]
+        filtered_df = home_df[home_df['Date'] > pd.to_datetime(db_hard_start)]
         print(filtered_df)
 
         # Update games in MongoDB with result
@@ -95,7 +204,7 @@ def update_games():
         current_time_est = datetime.now(est_tz)
         formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
         #print(formatted_time)   
-        data = list(connection.find({"$and": [{'date': {"$lt": formatted_time}}, {"sport": {'$eq': "nfl"}}, {"home_score": {'$eq': None}}, {"away_score": {'$eq': None}}]}))
+        data = list(connection.find({"$and": [{'date': {"$lt": formatted_time}}, {"sport": {'$eq': "nba"}}, {"home_score": {'$eq': None}}, {"away_score": {'$eq': None}}]}))
         for element in data:
             element['_id'] = str(element['_id'])
             row = filtered_df[(filtered_df['Date'] == convert_date_format(element['date'])) & (filtered_df['Home Team'] == element['home_team']) & (filtered_df['Away Team'] == element['away_team'])]
@@ -136,17 +245,17 @@ def update_games():
 
                         # Away Spread
                         elif bet['bet_type'] == 'Away Line':                   
-                            if element['home_score'] - element['away_score'] < element['away_spread_odds']:
+                            if element['home_score'] - element['away_score'] < element['away_spread']:
                                 payout = bet['potential_payout']
-                            elif element['home_score'] - element['away_score'] > element['away_spread_odds']:
+                            elif element['home_score'] - element['away_score'] > element['away_spread']:
                                 payout = 0
                             else:
                                 payout = bet['wager']
                         # Home Spread
                         elif bet['bet_type'] == 'Home Line':                   
-                            if element['away_score'] - element['home_score'] < element['home_spread_odds']:
+                            if element['away_score'] - element['home_score'] < element['home_spread']:
                                 payout = bet['potential_payout']
-                            elif element['away_score'] - element['home_score'] > element['home_spread_odds']:
+                            elif element['away_score'] - element['home_score'] > element['home_spread']:
                                 payout = 0
                             else:
                                 payout = bet['wager']
@@ -176,7 +285,7 @@ def update_games():
                         connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"lifetime_winnings": new_lifetime_winnings}, '$currentDate': { 'lastUpdated': True }} )
                         connection_to_users.update_one({'username': bet['account_username']}, {'$set': {"current_balance": new_current_balance}, '$currentDate': { 'lastUpdated': True }} )
 
-        return good_response("NFL Games were updated")
+        return good_response("NBA Games were updated")
     
     except Exception as e:
         return bad_response(e)

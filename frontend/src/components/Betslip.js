@@ -1,82 +1,144 @@
+// React
 import { React, useEffect } from 'react';
 
+// Router
+import { useNavigate } from "react-router-dom";
+
 // MUI
-import { Button, Box, Typography } from '@mui/material';
+import { Button, Grid, Box } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { styled } from '@mui/system';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import BetslipBet from './BetslipBet';
+import SubmitBetsButton from './buttons/SubmitBetsButton';
+import CircleCounter from "./CircleCounter";
+import EmptyBetslip from "./EmptyBetslip";
 
 // Slices
-import { clearActiveBets } from '../slices/activeBetSlice';
+import { clearActiveBets, submitBets } from '../slices/activeBetSlice';
 
+// CSS
 import "../css/Betslip.css"
 
-function CircleCounter({ number }) {
 
-    useEffect(() => {
-    }, [number])
+const BetslipContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    maxWidth: '400px',
+    marginRight: 'auto'
+});
+
+const BetslipHeaderContainer = styled(Grid)({
+    backgroundColor: '#131314',
+    borderBottom: '1px solid #2d2f30',
+    width: "100%",
+    justifyContent: 'flex-start',
+    padding: '30px',
+    position: 'relative',
+    marginBottom: '10px'
+})
+
+const BetslipTitleCounter = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+});
+
+const BetslipsContainer = styled(Box)({
+    maxHeight: '650px',
+    overflow: 'auto',
+    marginBottom: 'auto',
+});
+
+const RemoveBetsContainer = styled(Grid)({
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: "center",
+});
+
+const RemoveButton = styled(Button)({
+    display: 'flex',
+    color: 'red',
+    backgroundColor: '#131314',
+    width: '100%',
+    ':hover': {
+        backgroundColor: 'red',
+        color: 'white'
+      },
+});
 
 
-    return (
-        <Box
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            alignContent="center"
-            justifyContent="spacing-between"
-            border="2px solid white"
-            borderRadius="50%" // makes it circular
-            width={50} // width of the circle
-            height={50} // height of the circle
-            bgcolor="primary.main" // background color
-            color="white" // text color
+const LoginOrSignupButton = styled(Button)({
+    display: 'flex',
+    color: 'green',
+    backgroundColor: '#2f2d2f',
+    ':hover': {
+        backgroundColor: 'green',
+        color: 'white'
+      },
+});
 
-        >
-            <Typography 
-                variant="body1" 
-                style={{ display: "flex", alignContent: "center", justifyContent: "center", color: "blue", textAlign: "center"}}>{number}
-            </Typography>
-        </Box>
-    );
-}
+const SubmitAllBets = styled(Grid)({
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignContent: "center",
+    flexDirection: 'column',
+    width: '100%',
+    padding: '8px 0px 8px 0px',
+});
+
+
 
 const Betslip = () => {
     const dispatch = useDispatch();
-    var bets = useSelector((state) => state.activeBets.bets);
-    var selectedGames = useSelector((state) => state.activeBets.selectedGames);
+    const bets = useSelector((state) => state.activeBets.bets);
+    const finalizedBets = useSelector((state) => state.activeBets.finalizedBets);
+    const isLoggedIn = useSelector(state => state.auth.loggedIn);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Rerendering Betslip.js")
-    }, [selectedGames, bets])
+    }, [bets, finalizedBets])
 
     return (
-        <div className="betslip-container">
-            <div className="betslip-title-header">
-                <div className="betslip-title">Betslip</div>
-                <CircleCounter number={bets.length} />
-            </div>
-            <div className="betslip">
+        <BetslipContainer className="betslip-container">
+
+            <BetslipHeaderContainer className="betslip-title-header">
+                <BetslipTitleCounter className="betslip-title-counter">
+                    <CircleCounter className="betslipCounterCircle" number={bets.length} />
+                    <div className="betslip-title"><b>Betslip</b></div>
+                </BetslipTitleCounter>
+            </BetslipHeaderContainer>
+
+            <BetslipsContainer className="betslip">
                 {
                     bets.length === 0 ? (
-                        <div className="betslip-empty">No bets selected</div>
+                        <EmptyBetslip className="betslip-empty" noBetsMessage="No bets selected" instructionsMessage="Add selections to place bet" img={null}/>
                     ) : (
                             <>
                                 {
                                     bets.map((bet) => (
-                                        <BetslipBet key={bet.id} bet={bet} />
+                                        <BetslipBet key={`${bet.game.game_id}-${bet.bet_type}`} bet={bet}/>
                                     ))
                                 }
+
+                                <RemoveBetsContainer className="removeBetsContainer">
+                                    <RemoveButton startIcon={<DeleteIcon/>} onClick={() => dispatch(clearActiveBets())}>Remove all selections</RemoveButton>
+                                </RemoveBetsContainer>
                             </>
                         )
                 }
-            </div>
-            <Button className="betslip-clear" onClick={() => dispatch(clearActiveBets())}>Clear</Button>
-        </div>
+            </BetslipsContainer>
+
+            <SubmitAllBets className='submitAllContainer'>
+                <SubmitBetsButton className="submitBetsButton"/>
+            </SubmitAllBets>
+        </BetslipContainer>
     );
-    
 }
 
 export default Betslip;

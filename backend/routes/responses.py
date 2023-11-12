@@ -3,7 +3,6 @@ from flask import Flask, Blueprint, request, jsonify, Response, make_response
 def good_response(data):
     response = make_response(jsonify(data))
     response.status_code = 200
-    #response.headers.set('Access-Control-Allow-Origin', '*')
     return response
 
 def good_creation_response(data):

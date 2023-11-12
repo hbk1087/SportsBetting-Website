@@ -5,6 +5,7 @@
     margin: 0 auto;  /* combines both margin-right and margin-left */
     width: 900px;
     height: auto;
+    padding-top: 40px;
 }
 
 .sport-name {
@@ -93,4 +94,5 @@
   .team + .bet-box:first-of-type {
     margin-left: 20px;
   }
+
   

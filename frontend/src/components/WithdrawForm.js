@@ -62,7 +62,7 @@ const WithdrawForm = ({ onClose, currentBalance }) => {
 
     // You can perform further actions here, such as updating the balance in a database or state
     // For this example, we'll just log the expected balance
-    console.log(`Expected Balance after withdraw: ${expectedBalance}`);
+    // console.log(`Expected Balance after withdraw: ${expectedBalance}`);
     axios({
         method: "PATCH",
         url:"/api/account",
@@ -75,16 +75,16 @@ const WithdrawForm = ({ onClose, currentBalance }) => {
       })
       .then((response) => {
         if (response.status === 200) {
-            console.log("balance changed")
+            // console.log("balance changed")
             onClose()
             balance = dispatch(initializeBalance(expectedBalance.toFixed(2)))
             
         }
       }).catch((error) => {
         if (error.response) {
-          console.log(error.response)
-          console.log(error.response.status)
-          console.log(error.response.headers)
+          // console.log(error.response)
+          // console.log(error.response.status)
+          // console.log(error.response.headers)
           }
       })
   };

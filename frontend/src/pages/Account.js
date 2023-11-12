@@ -1,22 +1,30 @@
+// React
 import { useState, useEffect } from 'react'
 import axios from "axios";
 
+// Router
 import { useNavigate } from 'react-router-dom';
 
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setToken, setLoggedIn } from '../slices/authSlice'
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
-// Redux
-import { initializeUser, setUsername, initializeBalance } from '../slices/userSlice';
 
+// MUI
+import { Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+// Components
 import DepositForm from '../components/DepositForm';
 import WithdrawForm from '../components/WithdrawForm';
-import Sidebar from '../components/Sidebar';
+import LoadingIndicator from '../util/LoadingIndicator';
 
+// CSS
 import '../css/Account.css';
 
 function Account() {
+
+  // Loading symbol state
+  const [loading, setLoading] = useState(true)
   // Custom styled button for the Deposit
 const DepositButton = styled(Button)(({ theme }) => ({
   marginRight: theme.spacing(2),
@@ -68,7 +76,7 @@ useEffect(() => {
 
   if (!authLoggedIn) {
     // Not allowed to access page - output status message and redirect to login page.
-    console.log("You are not logged in");
+    // console.log("You are not logged in");
     dispatch(setLoggedIn(false));
     localStorage.removeItem("loggedIn");
 
@@ -84,35 +92,35 @@ useEffect(() => {
 
   axios({
     method: "GET",
-    url: "/api/account",
+    url: "http://3.138.170.253:5000/api/account",
     headers: {
       Authorization: 'Bearer ' + authToken,
     },
   })
   .then((response) => {
     const res = response.data;
-    console.log(res);
     setAccountData(res);
-    balance = dispatch(initializeBalance(accountData.current_balance))
   })
   .catch((error) => {
     if (error.response) {
-      console.log(error.response);
-      console.log(error.response.status);
-      console.log(error.response.headers);
+      // console.log(error.response);
+      // console.log(error.response.status);
+      // console.log(error.response.headers);
     }
-  });
-}, [authLoggedIn, authToken, balance]); // added dependencies
+  }).finally(() => {
+    setLoading(false)
+  });  
+}, [authLoggedIn, authToken, balance]); 
 
   return (
     
-    <div className='page-content'>
-      <div className='sidebar'>
-      <Sidebar/>
-      </div>
+    <div className='pagecontent'>
       <div className="account">
-        {accountData && 
-              <div>
+        
+      {loading ? (
+                <LoadingIndicator text={'Loading Account Details...'} margtop={'10px'} wid={'900px'}/>
+            ) : (accountData && <div>
+              <div className='account-contents'>
                 <p>
                   <span className="before-curly">Username: </span> {accountData.username}
                 </p>
@@ -138,15 +146,16 @@ useEffect(() => {
                   <span className="before-curly">Current Balance: </span> $ {accountData.current_balance}
                 </p>
               </div>
-            }
+            
       
-        <div className='buttons'>
-        <DepositButton className='trans-buttons' color="white" onClick={togglePopup}>Deposit</DepositButton>
-        {isPopupOpen && <DepositForm currentBalance={accountData.current_balance} onClose={togglePopup} />}
-        
-        <WithdrawButton className='trans-buttons' color="white" onClick={togglePopup2}>Withdraw</WithdrawButton>
-        {isPopupOpen2 && <WithdrawForm currentBalance={accountData.current_balance} onClose={togglePopup2} />}
-        </div>
+          <div className='buttons'>
+          <DepositButton className='trans-buttons' color="white" onClick={togglePopup}>Deposit</DepositButton>
+          {isPopupOpen && <DepositForm currentBalance={accountData.current_balance} onClose={togglePopup} />}
+          
+          <WithdrawButton className='trans-buttons' color="white" onClick={togglePopup2}>Withdraw</WithdrawButton>
+          {isPopupOpen2 && <WithdrawForm currentBalance={accountData.current_balance} onClose={togglePopup2} />}
+          </div>
+        </div> )}
       </div>
     </div>
   );

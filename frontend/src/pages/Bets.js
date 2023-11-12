@@ -1,34 +1,25 @@
+// React
 import React from 'react';
-
-// Components
-import LoadingSpinner from '../components/LoadingSpinner';
-
-// Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { addBet, removeBet, updateBet } from '../slices/betSlice';
 import { useEffect, useState } from 'react'
 
+// Components
+import MyBet from '../components/MyBet';
+import LoadingIndicator from '../util/LoadingIndicator';
+
+// Redux
+import { useSelector } from 'react-redux';
+
 // MUI
-import { Typography, Container, Paper, List, ListItem, ListItemText } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 
 // Axios
 import axios from 'axios';
 
+// CSS
+import '../css/MyBets.css';
+
+
 function Bets() {
-    // const bets = useSelector((state) => state.bets.bets);
-    const dispatch = useDispatch();
-
-    const handleAddBet = (bet) => {
-        dispatch(addBet(bet));
-    }
-
-    const handleRemoveBet = (bet) => {
-        dispatch(removeBet(bet));
-    }
-
-    const handleUpdateBet = (bet) => {
-        dispatch(updateBet(bet));
-    }
 
     const [bets, setBet] = useState([])
     const [loading, setLoading] = useState(true)
@@ -41,7 +32,7 @@ function Bets() {
 
         axios({
             method: "GET",
-            url:"/api/bets",
+            url:"http://3.138.170.253:5000/api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             }
@@ -60,34 +51,29 @@ function Bets() {
     }, [])
 
     return (
+        <div>
+        <div className='betsContainer'>
         <Container>
            {loading ? (
-                <Typography variant="h6" align="center" justify="center" color="primary">
-                    Loading bets...
-                    <LoadingSpinner />
-                </Typography>
+                <LoadingIndicator text={'Loading Bets...'} margtop={'90px'} wid={'800px'}/>
             ) : bets.length === 0 ? (
-                <Typography variant="h6" align="center">
-                    No bets placed.
+                <Typography variant="h3" align="center" color="#ffffff">
+                    No Bets Placed
                 </Typography>
             ) : (
-                <Paper spacing={3} elevation={3}>
-                    <Typography variant="h3" align="center" color="primary">
-                        Your Bets
+                <Container style={{ maxWidth: '800px', margin: '0 auto' }} spacing={3} elevation={3}>
+                    <Typography variant="h3" align="center" color="#ffffff">
+                        My Bets
                     </Typography>
-                    <List>
+                    <br></br>
                         {bets.map((betItem, index) => (
-                            <ListItem key={betItem.game_id}>
-                                <ListItemText
-                                    primary={`${betItem.away_team} vs. ${betItem.home_team}`}
-                                    secondary={`Wager: ${betItem.wager}, Payout: ${betItem.actual_payout}`}
-                                />
-                            </ListItem>
+                            <MyBet bet={betItem}/>
                         ))}
-                    </List>
-                </Paper>
+                </Container>
             )}
         </Container>
+        </div>
+        </div>
     )
 }
 

@@ -11,7 +11,11 @@ const GameOddsHeader = ({sportName}) => {
                 <h4 className="spread-header">Spread</h4>
                 <h4 className="moneyline-header">Money</h4>
                 <h4 className="total-header">Total</h4>
+                
             </div>
+            {/* <div className="best-bet">
+                <h4 className="best-bet-header">Best Bet</h4>
+            </div> */}
         </header>
     )
     

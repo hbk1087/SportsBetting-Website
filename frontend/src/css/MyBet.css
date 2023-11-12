@@ -1,0 +1,29 @@
+.green-text {
+    color: green;
+}
+
+.red-text {
+    color: red;
+}
+
+.bet {
+    border:1px solid black;
+}
+
+.main-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.bet-info {
+    flex-direction: row;
+    display: flex;
+}
+
+.odds {
+    display: flex;
+}
+
+.border-div {
+    border: 0.0001em solid #313030;
+}

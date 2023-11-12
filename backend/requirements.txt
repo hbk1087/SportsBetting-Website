@@ -1,3 +1,4 @@
+APScheduler==3.10.4
 bcrypt==4.0.1
 blinker==1.6.3
 certifi==2023.7.22
@@ -31,6 +32,7 @@ scipy==1.10.1
 six==1.16.0
 threadpoolctl==3.2.0
 tzdata==2023.3
+tzlocal==5.2
 urllib3==2.0.6
 Werkzeug==3.0.0
 zipp==3.17.0

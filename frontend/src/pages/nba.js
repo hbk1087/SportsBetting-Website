@@ -12,7 +12,7 @@ import GameOddsHeader from '../components/GameOddsHeader'
 // CSS
 import '../css/Home.css'
 
-const NFLPage = () => {
+const NBAPage = () => {
     const [game, setGame] = useState([{}])
 
     // Loading symbol state
@@ -23,7 +23,7 @@ const NFLPage = () => {
 
               axios({
                 method: "GET",
-                url: "http://3.138.170.253:5000/api/nfl",
+                url: "http://3.138.170.253:5000/api/nba",
               })
               .then((response) => {
                 const res = response.data;
@@ -48,11 +48,11 @@ const NFLPage = () => {
         
             <div>
             {loading ? (
-                <LoadingIndicator text={'Loading NFL Games...'} margtop={'90px'} wid={'900px'}/>
+                <LoadingIndicator text={'Loading NBA Games...'} margtop={'90px'} wid={'900px'}/>
             ) :
             (<div className="page-content">
              <div className="game-odds-header">
-                <GameOddsHeader sportName="NFL"/>
+                <GameOddsHeader sportName="NBA"/>
                 <div className='nfl-game-container'>
                     {game.map((gameItem, index) => (
                         <div key={gameItem.game_id} className='game-details-container'>
@@ -66,4 +66,4 @@ const NFLPage = () => {
     )
 }
 
-export default NFLPage;
+export default NBAPage;

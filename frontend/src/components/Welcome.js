@@ -1,25 +1,20 @@
-import { Box } from '@mui/system';
+import { Box, Grid } from '@mui/material';
 
 import '../css/Welcome.css'
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
-const Welcome = ({ username }) => {
-    const isLoggedIn = useSelector(state => state.auth.loggedIn);
-
-    if (isLoggedIn) {
-        return (
-            <div className="welcome">
-                <h4>Welcome, {username}</h4>
-            </div>
-        )
-    }
+const Welcome = () => {
+    const username = useSelector(state => state.user.username);
 
     return (
-        <div className="welcome">
-            <h4>Welcome, Guest!</h4>
-        </div>
+        <Box className="welcome-container">
+            <Grid className="welcome">
+                <h4 className="welcome-text">Welcome, {username}</h4>
+            </Grid>
+        </Box>
     )
 }
 

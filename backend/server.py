@@ -1,10 +1,11 @@
 # Import flask and datetime module for showing date and time
-from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory
+from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory, make_response
 from pymongo import MongoClient, DESCENDING, ASCENDING
 from flask_cors import CORS, cross_origin
 import os
 from dotenv import load_dotenv
 from routes.showNFL import nfl_blueprint
+from routes.showNBA import nba_blueprint
 from routes.signUp import signup_blueprint
 from routes.userBets import user_bets_blueprint
 from db import connect
@@ -15,19 +16,20 @@ from datetime import datetime, timedelta, timezone
 import bcrypt
 from routes.responses import good_response, bad_response
 import pytz
+import requests
+from apscheduler.schedulers.background import BackgroundScheduler
 
  
 load_dotenv()
 
 # Initializing flask app
-app = Flask(__name__, static_folder="static")
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 
-
+scheduler = BackgroundScheduler()
+scheduler.start()
 
 ### Login Session/Authentication management
 secret_key = os.getenv('SECRET_KEY')
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 app.config["JWT_SECRET_KEY"] = secret_key
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
@@ -45,6 +47,7 @@ def refresh_expiring_jwts(response):
             if type(data) is dict:
                 data["access_token"] = access_token 
                 response.data = json.dumps(data)
+        print(response)
         return response
     except (RuntimeError, KeyError):
         # Case where there is not a valid JWT. Just return the original respone
@@ -56,8 +59,6 @@ def refresh_expiring_jwts(response):
 def create_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-
-    #password_check = bcrypt.checkpw(password.encode('utf-8'), duplicate_username[0]['password'])
 
     connection = connect('users')
     # Check if user exists
@@ -96,7 +97,6 @@ def my_account():
                 element['_id'] = str(element['_id'])
                 
             # Return account details
-            print(account[0])
             return good_response(account[0])
         
         except Exception as e:
@@ -112,6 +112,9 @@ def my_account():
             return good_response(f"User {username} was updated")
         except Exception as e:
             return bad_response(e)
+    
+    elif request.method == 'OPTIONS':
+        return jsonify('options'), 200
     else:
         pass
 
@@ -129,13 +132,19 @@ def logout():
 
 @app.route('/api/home')
 @cross_origin()
-def index():
+def home():
 
     connection = connect('games')
     # Set the time zone to EST
     est_tz = pytz.timezone('US/Eastern')
     current_time_est = datetime.now(est_tz)
+
+    # Calculate the time one week from now
+    one_week_later = current_time_est + timedelta(weeks=1)
+
     formatted_time = str(current_time_est.strftime("%Y-%m-%d %I:%M:%S %p"))
+
+    one_week_from_now = str(one_week_later.strftime("%Y-%m-%d %I:%M:%S %p"))
 
     # print games in future  
     games = list(connection.find())
@@ -143,7 +152,8 @@ def index():
     for element in games:
         element['_id'] = str(element['_id'])
         if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") > datetime.strptime(formatted_time, "%Y-%m-%d %I:%M:%S %p"):
-            data.append(element)
+            if datetime.strptime(element['date'], "%Y-%m-%d %I:%M:%S %p") < datetime.strptime(one_week_from_now, "%Y-%m-%d %I:%M:%S %p"):
+                data.append(element)
 
     def sortDates(dict):
         return datetime.strptime(dict['date'], "%Y-%m-%d %I:%M:%S %p")
@@ -156,17 +166,18 @@ def index():
     except Exception as e:
         return bad_response(e)
     
-
-
-@app.route('/api/static/<path:filename>')
-@cross_origin()
-def serve_static(filename):
-    return app.send_from_directory('static', filename)
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+    
 
 
 
 # Blueprint to see all nfl games
 app.register_blueprint(nfl_blueprint, url_prefix='/api/nfl')
+
+# Blueprint to see all nba games
+app.register_blueprint(nba_blueprint, url_prefix='/api/nba')
 
 # Blueprint for signup page
 app.register_blueprint(signup_blueprint, url_prefix='/api/signup')
@@ -175,10 +186,24 @@ app.register_blueprint(signup_blueprint, url_prefix='/api/signup')
 app.register_blueprint(user_bets_blueprint, url_prefix='/api/bets')
 
 
-@app.errorhandler(404)
-def not_found(e):
-    return app.send_static_file('index.html')
 
+def scheduled_task_job():
+    response = requests.get('http://0.0.0.0:5000/api/nfl/update_games')  # Replace with your Flask app's URL
+    if response.status_code == 200:
+        print("Scheduled task executed and called /api/nfl/update_games.")
+    else:
+        print(f"Scheduled task executed, but calling /api/nfl/update_games failed with status code {response.status_code}.")
+
+    response = requests.get('http://0.0.0.0:5000/api/nba/update_games')  # Replace with your Flask app's URL
+    if response.status_code == 200:
+        print("Scheduled task executed and called /api/nba/update_games.")
+    else:
+        print(f"Scheduled task executed, but calling /api/nba/update_games failed with status code {response.status_code}.")
+
+
+# Schedule the task to run daily at 3 AM
+scheduler.add_job(scheduled_task_job, 'cron', hour=3, minute=30)
+scheduler.add_job(scheduled_task_job, 'cron', hour=11, minute=30)
      
 # Running app
 if __name__ == '__main__':

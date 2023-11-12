@@ -1,0 +1,74 @@
+/* Style for the container that holds the sidebar and content */
+.page-content {
+    display: flex; /* Use flexbox to create a sidebar layout */
+    flex-direction: row; /* Make the sidebar and content side-by-side */
+    justify-content: center;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    /* Define your mobile-specific styles here */
+    /* For example, you can hide specific elements */
+    .hide-on-mobile {
+      display: none;
+    }
+  }
+
+@media (min-width: 0px) {
+    /* Define your mobile-specific styles here */
+    /* For example, you can hide specific elements */
+    .hide-on-website {
+      color: white;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-top: 50%;
+    }
+  }
+
+@media (min-width: 769px) {
+    .hide-on-website {
+      display: none;
+    }
+  }
+
+.under-navbar {
+    display: flex; /* Use flexbox to create a sidebar layout */
+    flex-direction: row; /* Make the sidebar and content side-by-side */
+    justify-content: center;
+    margin: 0;
+}
+
+.side-bar-wrapper {
+    display: flex;
+    position: relative;
+    height: 100%;
+    justify-content: flex-end;
+    min-width: 130px;
+}
+
+.side-bar {
+    position: fixed;
+    display: flex;
+    height: 100%;
+}
+
+.bet-slip-wrapper {
+    display: flex;
+    position: relative;
+    height: 100%;
+    justify-content: flex-start;
+    min-width: 360px;
+}
+
+.bet-slip {
+    display: flex;
+    position: fixed;
+    width: 380px;
+    height: 100%;
+}
+
+.middle {
+    display: flex;
+    position: relative;
+}
