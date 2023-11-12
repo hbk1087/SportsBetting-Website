@@ -28,11 +28,12 @@ const BetslipContainer = styled(Grid)({
 
 const BetslipHeaderContainer = styled(Grid)({
     backgroundColor: '#131314',
-    marginBottom: '50px',
     borderBottom: '1px solid #869d97',
-    width: "80%",
+    width: "100%",
     justifyContent: 'flex-start',
-    padding: '30px'
+    padding: '30px',
+    position: 'relative',
+
 })
 
 const BetslipsContainer = styled(Grid)({

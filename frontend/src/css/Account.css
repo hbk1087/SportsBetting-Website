@@ -1,4 +1,4 @@
-.page-content {
+.pagecontent {
     display: flex; /* Use flexbox to create a sidebar layout */
     flex-direction: row; /* Make the sidebar and content side-by-side */
     justify-content: space-between;

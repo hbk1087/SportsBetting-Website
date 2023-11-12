@@ -116,7 +116,7 @@ useEffect(() => {
 
   return (
     
-    <div className='page-content'>
+    <div className='pagecontent'>
       <div className="account">
         
       {loading ? (

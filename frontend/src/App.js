@@ -4,7 +4,7 @@ import { Routes, Route, useMatch } from 'react-router-dom'
 // Material UI imports
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-import './css/Home.css'
+import './css/App.css'
 
 // Pages
 import Home from './pages/Home'
@@ -62,7 +62,13 @@ function App() {
                     <div className='hide-on-mobile'>  
                     <div className="page-content">
                     <Navbar />
-                    {!loginmatch && !signupmatch && <Sidebar />}
+                    <div className='under-navbar'>
+                    <div className='side-bar-wrapper'>
+                        <div className='side-bar'>
+                            {!loginmatch && !signupmatch && <Sidebar />}
+                        </div>
+                    </div>
+                    <div className='middle'>
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path="/login" element={<Login />} />
@@ -73,7 +79,13 @@ function App() {
                             <Route path='/nba' element={<NBAPage />} />
                             <Route path='/*' element={<NotFound />}/>
                         </Routes>
-                        {!loginmatch && !signupmatch && <Betslip />}
+                        </div>
+                        <div className='bet-slip-wrapper'>
+                            <div className='bet-slip'>
+                                {!loginmatch && !signupmatch && <Betslip />}
+                            </div>
+                        </div>
+                    </div>
                     </div>
                     </div>
           </ThemeProvider>
