@@ -97,8 +97,6 @@ def my_account():
                 element['_id'] = str(element['_id'])
                 
             # Return account details
-            print(account[0])
-            print(good_response(account[0]))
             return good_response(account[0])
         
         except Exception as e:
