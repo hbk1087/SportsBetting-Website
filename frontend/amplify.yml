@@ -1,0 +1,9 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install --force
+    build:
+      commands:
+        - npm run build
