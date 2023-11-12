@@ -37,7 +37,7 @@ function Login() {
 
       axios({
         method: "POST",
-        url:"http://3.138.170.253:5000/api/token",
+        url:"http://0.0.0.0:5000/api/token",
         data:{
           username: formData.username,
           password: formData.password

@@ -92,7 +92,7 @@ useEffect(() => {
 
   axios({
     method: "GET",
-    url: "http://3.138.170.253:5000/api/account",
+    url: "http://0.0.0.0:5000/api/account",
     headers: {
       Authorization: 'Bearer ' + authToken,
     },

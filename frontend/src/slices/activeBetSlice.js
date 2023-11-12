@@ -170,7 +170,7 @@ export const submitBets = () => (dispatch, getState) => {
 
         const requestData = {
             method: "POST",
-            url:"/api/bets",
+            url:"http://0.0.0.0:5000//api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             },
