@@ -60,33 +60,37 @@ function App() {
           <ThemeProvider theme={theme}>
             <h2 className='hide-on-website'> Please View on Computer! </h2>
                     <div className='hide-on-mobile'>  
-                    <div className="page-content">
-                    <Navbar />
-                    <div className='under-navbar'>
-                    <div className='side-bar-wrapper'>
-                        <div className='side-bar'>
-                            {!loginmatch && !signupmatch && <Sidebar />}
-                        </div>
-                    </div>
-                    <div className='middle'>
-                        <Routes>
-                            <Route path='/' element={<Home />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/account" element={<PrivateRoute> <Account /> </PrivateRoute>} />
-                            <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
-                            <Route path='/signup' element={<SignUp />} />
-                            <Route path='/nfl' element={<NFLPage />} />
-                            <Route path='/nba' element={<NBAPage />} />
-                            <Route path='/*' element={<NotFound />}/>
-                        </Routes>
-                        </div>
-                        <div className='bet-slip-wrapper'>
-                            <div className='bet-slip'>
-                                {!loginmatch && !signupmatch && <Betslip />}
+                        <div className="page-content">
+                        <Navbar />
+
+                            <div className='under-navbar'>
+                                <div className='side-bar-wrapper'>
+                                    <div className='side-bar'>
+                                        {!loginmatch && !signupmatch && <Sidebar />}
+                                    </div>
+                                </div>
+
+                                <div className='middle'>
+                                    <Routes>
+                                        <Route path='/' element={<Home />} />
+                                        <Route path="/login" element={<Login />} />
+                                        <Route path="/account" element={<PrivateRoute> <Account /> </PrivateRoute>} />
+                                        <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
+                                        <Route path='/signup' element={<SignUp />} />
+                                        <Route path='/nfl' element={<NFLPage />} />
+                                        <Route path='/nba' element={<NBAPage />} />
+                                        <Route path='/*' element={<NotFound />}/>
+                                    </Routes>
+                                </div>
+
+                                <div className='bet-slip-wrapper'>
+                                    <div className='bet-slip'>
+                                        {!loginmatch && !signupmatch && <Betslip />}
+                                    </div>
+                                </div>
                             </div>
+                            
                         </div>
-                    </div>
-                    </div>
                     </div>
           </ThemeProvider>
     );
