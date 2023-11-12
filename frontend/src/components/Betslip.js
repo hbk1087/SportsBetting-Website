@@ -29,11 +29,12 @@ const BetslipContainer = styled(Grid)({
 
 const BetslipHeaderContainer = styled(Grid)({
     backgroundColor: '#131314',
-    borderBottom: '1px solid #869d97',
+    borderBottom: '1px solid #2d2f30',
     width: "100%",
     justifyContent: 'flex-start',
     padding: '30px',
     position: 'relative',
+    marginBottom: '10px'
 })
 
 const BetslipTitleCounter = styled(Grid)({
@@ -59,13 +60,6 @@ const LoginPromptContainer = styled(Grid)({
 
 const SubmitBetsButton = styled(Button)({
     display: 'flex',
-    // position: 'relative', 
-    // bottom: '20px',
-    // right: '200px', 
-    // zIndex: 1000,
-    // backgroundColor: 'green',
-    // width: '366px',
-    // height: '50px'
 });
 
 const SubmitAllBets = styled(Grid)({

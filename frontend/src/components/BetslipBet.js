@@ -32,11 +32,11 @@ const BetslipContainer = styled(Grid)({
     '&::after': { 
         content: '""', 
         position: 'absolute',
-        left: "5%", 
+        left: "0%", 
         right: 0, 
         bottom: '-1px', 
         height: '1px',  
-        backgroundColor: '#869d97',
+        backgroundColor: '#2d2f30',
     }
 });
 
@@ -344,7 +344,7 @@ const BetslipBet = ({bet}) => {
     return (
       <ThemeProvider>
 
-        <BetslipContainer className="betslipBetConatiner">
+        <BetslipContainer className="betslipBetContainer">
 
           {loggedIn === true ?
           (<RemoveBetContainer>
@@ -366,7 +366,7 @@ const BetslipBet = ({bet}) => {
           </RemoveBetContainer>)
             }
 
-          <BetslipBetInformationContainer className="betslipBetConatiner">
+          <BetslipBetInformationContainer className="betslipBetContainer">
             <TeamNameAndOddsContainer className="teamNameAndOddsContainer">
               <TeamNameContainer className="teamNameContainer">
                 <Typography className="betslip-selectedTeam" sx={{ fontWeight: 'bold', color: '#ffffff' }}>

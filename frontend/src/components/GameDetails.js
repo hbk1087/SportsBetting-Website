@@ -377,7 +377,7 @@ const GameDetails = ({ game }) => {
     const new_date = formatDate(date);
 
     return (
-      <StyledGridContainer container spacing={0} alignItems="center" justifyContent="center" style={{borderBottom: '1px solid #869d97'}}>
+      <StyledGridContainer container spacing={0} alignItems="center" justifyContent="center" style={{borderBottom: '1px solid #2f2d2f'}}>
         <TeamSeparator />
         <LogoContainer>
           <TeamComponent teamName={away_team} />

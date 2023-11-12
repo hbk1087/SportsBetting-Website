@@ -48,7 +48,7 @@ const Navbar = () => {
     const appBarStyles = {
         height: '76.6px',
         backgroundColor: "#000000",
-        borderBottom: "2px solid #ffffff"
+        borderBottom: "2px solid #2f2d2f"
     };
 
     return (
