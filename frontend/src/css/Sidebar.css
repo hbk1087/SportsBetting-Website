@@ -27,6 +27,7 @@
 .list-item {
   display: flex;
   flex-grow: 1;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
@@ -48,6 +49,8 @@
 }
 
 .list-item:hover {
-  background-color: rgb(94, 97, 98);
+  background-color: #1d1e1f;
+  border-radius: 1px;
+  width: 100%;
 }
 

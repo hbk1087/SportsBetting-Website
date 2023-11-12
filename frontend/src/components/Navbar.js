@@ -15,7 +15,7 @@ import LogoutButton from './buttons/LogoutButton';
 import Welcome from './Welcome';
 
 import '../css/Navbar.css';
-import logo from '../img/fanduel.png';
+import logo from '../img/full_sbw_logo.png';
 
 // Custom styled button for the login
 const LoginButton = styled(Button)(({ theme }) => ({
@@ -57,7 +57,7 @@ const Navbar = () => {
                 <Toolbar>
 
                     <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <img src={logo} alt="Logo" style={{ marginLeft: '10px', height: '60px', width: '150px', padding: '5px'}}></img>
+                        <img src={logo} alt="Logo" style={{ height: '140px', width: '196px', padding: '5px'}}></img>
                     </Link>
 
                     { 
@@ -65,7 +65,7 @@ const Navbar = () => {
                             (
                                 // When logged in
                                 <>
-                                    <Button color="inherit" component={Link} to='/bets'>My Bets</Button>
+                                    <Button className='my-bets-button' color="inherit" style={{ color: 'inherit' }} component={Link} to='/bets'>My Bets</Button>
                                     <div style={{ flexGrow: 1 }}></div>
                                     <Welcome />
                                     <LogoutButton />

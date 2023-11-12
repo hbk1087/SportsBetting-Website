@@ -13,3 +13,8 @@
 .navbar {
     top: 0;
 }
+
+.my-bets-button:hover {
+    z-index: 1300;
+    background-color: #1d1e1f;
+}
