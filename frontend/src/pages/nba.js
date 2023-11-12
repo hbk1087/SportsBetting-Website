@@ -3,48 +3,65 @@ import { useEffect, useState } from 'react'
 
 // components
 import GameDetails from '../components/GameDetails'
-import Sidebar from '../components/Sidebar'
-//import BetsBar from '../components/BetsBar'
-import GameOddsHeader from '../components/GameOddsHeader'
-import Betslip from '../components/Betslip'
+
+// MUI
+import { Typography, Container } from '@mui/material';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 // axios
 import axios from 'axios'
+import GameOddsHeader from '../components/GameOddsHeader'
+
+// CSS
+import '../css/Home.css'
 
 const NBAPage = () => {
     const [game, setGame] = useState([{}])
 
-    useEffect(() => {
-        document.title = "Home"
+    // Loading symbol state
+    const [loading, setLoading] = useState(true)
 
-        async function getNBAData() {
-            try {
-                const response = await axios({
-                  method: "GET",
-                  url: "/api/nba",
-                })
-            
+    useEffect(() => {
+        document.title = "AlgoSportsBets"
+
+              axios({
+                method: "GET",
+                url: "/api/home",
+              })
+              .then((response) => {
                 const res = response.data;
                 console.log(res);
-                setGame(res)
-              } catch (error) {
+                setGame(res);
+              })
+              .catch((error) => {
                 if (error.response) {
                   console.log(error.response);
                   console.log(error.response.status);
                   console.log(error.response.headers);
                 }
-              }
-            }
+              })
+              .finally(() => {
+                setLoading(false)
+              });
 
-        getNBAData()
-    }, []) // This should update periodically, setInterval?
+    }, [])
     
-
-    // TODO: Display "no games today" if there are no games today
+    
     return (
-        <div className="page-content">
-            {/* <Sidebar /> */}
-            <div className="game-odds-header">
+        
+            <div>
+            {loading ? (
+                <Container style={{ display: 'flex', width: '900px', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexWrap:'nowrap', gap: '30px', top: 0, marginTop: '90px' }} spacing={3} elevation={3}>
+                    <Typography variant="h3" align="center" color="primary">
+                        Loading NBA Games...
+                    </Typography>
+                    <LoadingSpinner />
+                </Container>
+            ) :
+            
+
+            (<div className="page-content">
+             <div className="game-odds-header">
                 <GameOddsHeader sportName="NBA"/>
                 <div className='nfl-game-container'>
                     {game.map((gameItem, index) => (
@@ -54,10 +71,9 @@ const NBAPage = () => {
                     ))}
                 </div>
             </div>
-
-            {/* <Betslip /> */}
+        </div>)}
         </div>
     )
 }
 
-export default NBAPage
+export default NBAPage;

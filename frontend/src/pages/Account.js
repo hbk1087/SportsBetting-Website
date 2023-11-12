@@ -5,18 +5,22 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setToken, setLoggedIn } from '../slices/authSlice'
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
+import { Typography, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // Redux
-import { initializeUser, setUsername, initializeBalance } from '../slices/userSlice';
 
 import DepositForm from '../components/DepositForm';
 import WithdrawForm from '../components/WithdrawForm';
-import Sidebar from '../components/Sidebar';
+
+
+import LoadingSpinner from '../components/LoadingSpinner';
 
 import '../css/Account.css';
 
 function Account() {
+
+  // Loading symbol state
+  const [loading, setLoading] = useState(true)
   // Custom styled button for the Deposit
 const DepositButton = styled(Button)(({ theme }) => ({
   marginRight: theme.spacing(2),
@@ -101,14 +105,24 @@ useEffect(() => {
       console.log(error.response.status);
       console.log(error.response.headers);
     }
-  });
+  }).finally(() => {
+    setLoading(false)
+  });  
 }, [authLoggedIn, authToken, balance]); 
 
   return (
     
     <div className='page-content'>
       <div className="account">
-        {accountData && 
+        
+      {loading ? (
+                <Container style={{ display: 'flex', maxWidth: '800px', margin: '0 auto', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexWrap:'nowrap', gap: '30px', marginTop: '10px' }} spacing={3} elevation={3}>
+                    <Typography variant="h3" align="center" color="primary">
+                        Loading Account Details...
+                    </Typography>
+                    <LoadingSpinner />
+                </Container>
+            ) : (accountData && <div>
               <div className='account-contents'>
                 <p>
                   <span className="before-curly">Username: </span> {accountData.username}
@@ -135,15 +149,16 @@ useEffect(() => {
                   <span className="before-curly">Current Balance: </span> $ {accountData.current_balance}
                 </p>
               </div>
-            }
+            
       
-        <div className='buttons'>
-        <DepositButton className='trans-buttons' color="white" onClick={togglePopup}>Deposit</DepositButton>
-        {isPopupOpen && <DepositForm currentBalance={accountData.current_balance} onClose={togglePopup} />}
-        
-        <WithdrawButton className='trans-buttons' color="white" onClick={togglePopup2}>Withdraw</WithdrawButton>
-        {isPopupOpen2 && <WithdrawForm currentBalance={accountData.current_balance} onClose={togglePopup2} />}
-        </div>
+          <div className='buttons'>
+          <DepositButton className='trans-buttons' color="white" onClick={togglePopup}>Deposit</DepositButton>
+          {isPopupOpen && <DepositForm currentBalance={accountData.current_balance} onClose={togglePopup} />}
+          
+          <WithdrawButton className='trans-buttons' color="white" onClick={togglePopup2}>Withdraw</WithdrawButton>
+          {isPopupOpen2 && <WithdrawForm currentBalance={accountData.current_balance} onClose={togglePopup2} />}
+          </div>
+        </div> )}
       </div>
     </div>
   );

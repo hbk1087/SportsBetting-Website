@@ -19,20 +19,6 @@ import Sidebar from '../components/Sidebar';
 import Betslip from '../components/Betslip';
 
 function Bets() {
-    // const bets = useSelector((state) => state.bets.bets);
-    const dispatch = useDispatch();
-
-    // const handleAddBet = (bet) => {
-    //     dispatch(addBet(bet));
-    // }
-
-    // const handleRemoveBet = (bet) => {
-    //     dispatch(removeBet(bet));
-    // }
-
-    // const handleUpdateBet = (bet) => {
-    //     dispatch(updateBet(bet));
-    // }
 
     const [bets, setBet] = useState([])
     const [loading, setLoading] = useState(true)
@@ -68,10 +54,12 @@ function Bets() {
         <div className='betsContainer'>
         <Container>
            {loading ? (
-                <Typography variant="h6" align="center" justify="center" color="primary">
-                    Loading bets...
-                    <LoadingSpinner align="center" justify="center"/>
-                </Typography>
+                <Container style={{ display: 'flex', maxWidth: '800px', margin: '0 auto', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexWrap:'nowrap', gap: '30px' }} spacing={3} elevation={3}>
+                    <Typography variant="h3" align="center" color="primary">
+                        Loading Bets...
+                    </Typography>
+                    <LoadingSpinner />
+                </Container>
             ) : bets.length === 0 ? (
                 <Typography variant="h3" align="center" color="#ffffff">
                     No Bets Placed
