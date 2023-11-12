@@ -58,15 +58,15 @@ const RemoveBetsContainer = styled(Grid)({
     display: 'flex',
     justifyContent: 'center',
     alignContent: "center",
-    ':hover': {
-        backgroundColor: 'red'
-      },
 });
 
 const RemoveButton = styled(Button)({
     display: 'flex',
-    backgroundColor: '#2f2d2f',
+    color: 'red',
+    backgroundColor: '#131314',
+    width: '100%',
     ':hover': {
+        backgroundColor: 'red',
         color: 'white'
       },
 });
@@ -134,7 +134,7 @@ const Betslip = () => {
                                 }
 
                                 <RemoveBetsContainer className="removeBetsContainer">
-                                    <RemoveButton className="clearButton" startIcon={<DeleteIcon/>} onClick={() => dispatch(clearActiveBets())}>Remove all selections</RemoveButton>
+                                    <RemoveButton startIcon={<DeleteIcon/>} onClick={() => dispatch(clearActiveBets())}>Remove all selections</RemoveButton>
                                 </RemoveBetsContainer>
                             </>
                         )
