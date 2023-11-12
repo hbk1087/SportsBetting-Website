@@ -29,6 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start-server": "cd .. && cd backend && venv/bin/flask run --no-debugger",
+    "install-force": "npm install --force",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
