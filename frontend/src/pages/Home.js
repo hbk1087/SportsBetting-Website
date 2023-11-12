@@ -33,9 +33,9 @@ const Home = () => {
               })
               .catch((error) => {
                 if (error.response) {
-                  console.log(error.response);
-                  console.log(error.response.status);
-                  console.log(error.response.headers);
+                  // console.log(error.response);
+                  // console.log(error.response.status);
+                  // console.log(error.response.headers);
                 }
               })
               .finally(() => {

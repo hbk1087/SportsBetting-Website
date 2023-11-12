@@ -126,9 +126,6 @@ const activeBetSlice = createSlice({
         },
         removeGameByIdAndType: (state, action) => {
             state.bets = state.bets.filter(bet => !(bet.game.game_id === action.payload.game_id && formalizeBetType(bet.bet_type) === formalizeBetType(action.payload.bet_type)));
-
-            console.log(action.payload.bet_type);
-
             state.finalizedBets = state.finalizedBets.filter(bet => !(bet.game_id === action.payload.game_id && formalizeBetType(bet.bet_type) === formalizeBetType(action.payload.bet_type)));
         },
         clearActiveBets: (state) => {
@@ -150,21 +147,12 @@ export const submitBets = () => (dispatch, getState) => {
         bet_ids: []
     }
 
-    const outputBets = (bets) => {
-        for (const bet of bets){
-            console.log(bet);
-        }
-    };
-
     // check wager total of all bets against balance
 
     const calculateTotalWager = (bets) => bets.reduce((total, bet) => total + bet.wager, 0);
 
-    console.log("total wager:", calculateTotalWager(bets));
-
-
     if (calculateTotalWager > balance) {
-        console.log("Not enough funds. Please deposit more money.");
+        // console.log("Not enough funds. Please deposit more money.");
         // alert("Not enough funds. Please deposit more money."); 
         return;
     }
@@ -189,7 +177,7 @@ export const submitBets = () => (dispatch, getState) => {
             }
         };
 
-        console.log("request data", requestData);
+        // console.log("request data", requestData);
 
         return axios(requestData)
         .then(response => {
@@ -215,9 +203,7 @@ export const submitBets = () => (dispatch, getState) => {
     }))
     .then(() => {
         if (submissionError.error === null){
-            console.log("balance", truncateToTwoDecimals(balance - calculateTotalWager));
-            const newBalance = truncateToTwoDecimals(balance - calculateTotalWager);
-            dispatch(initializeBalance(newBalance));
+            // console.log("balance", truncateToTwoDecimals(balance - calculateTotalWager));
             dispatch(clearActiveBets());
         }        
     })

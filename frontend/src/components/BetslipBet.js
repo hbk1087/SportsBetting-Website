@@ -275,16 +275,16 @@ const BetslipBet = ({bet}) => {
           if (error.response) {
             if (error.response.status === 400) {
               if (error.response.data.error === "Insufficient funds for wager") {
-                console.log("Not enough funds. Please deposit more money.");
+                // console.log("Not enough funds. Please deposit more money.");
                 alert("Not enough funds. Please deposit more money.");
               } else if (error.response.data.error === "Bet is not completely filled out") {
-                console.log("Not enough funds. Please deposit more money.");
+                // console.log("Not enough funds. Please deposit more money.");
                 alert("Invalid wager input. Please input a number to bet.");
             }
 
-            console.log(error.response)
-            console.log(error.response.status)
-            console.log(error.response.headers)
+            // console.log(error.response)
+            // console.log(error.response.status)
+            // console.log(error.response.headers)
             }
         }})
     };

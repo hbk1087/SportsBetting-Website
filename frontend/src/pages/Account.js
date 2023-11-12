@@ -76,7 +76,7 @@ useEffect(() => {
 
   if (!authLoggedIn) {
     // Not allowed to access page - output status message and redirect to login page.
-    console.log("You are not logged in");
+    // console.log("You are not logged in");
     dispatch(setLoggedIn(false));
     localStorage.removeItem("loggedIn");
 
@@ -103,9 +103,9 @@ useEffect(() => {
   })
   .catch((error) => {
     if (error.response) {
-      console.log(error.response);
-      console.log(error.response.status);
-      console.log(error.response.headers);
+      // console.log(error.response);
+      // console.log(error.response.status);
+      // console.log(error.response.headers);
     }
   }).finally(() => {
     setLoading(false)

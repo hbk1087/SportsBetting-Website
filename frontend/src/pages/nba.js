@@ -27,14 +27,14 @@ const NBAPage = () => {
               })
               .then((response) => {
                 const res = response.data;
-                console.log(res);
+                // console.log(res);
                 setGame(res);
               })
               .catch((error) => {
                 if (error.response) {
-                  console.log(error.response);
-                  console.log(error.response.status);
-                  console.log(error.response.headers);
+                  // console.log(error.response);
+                  // console.log(error.response.status);
+                  // console.log(error.response.headers);
                 }
               })
               .finally(() => {
