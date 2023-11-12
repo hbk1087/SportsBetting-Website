@@ -13,14 +13,14 @@ const Welcome = () => {
     if (isLoggedIn) {
         return (
             <div className="welcome">
-                <h4>Welcome {username}</h4>
+                <h4>Welcome: &nbsp; {username}</h4>
             </div>
         )
     }
 
     return (
         <div className="welcome">
-            <h4>Welcome Guest!</h4>
+            <h4>Welcome: Guest!</h4>
         </div>
     )
 }
