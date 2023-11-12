@@ -57,12 +57,20 @@ const BetslipsContainer = styled(Box)({
 const RemoveBetsContainer = styled(Grid)({
     display: 'flex',
     justifyContent: 'center',
-    alignContent: "center"
+    alignContent: "center",
+    ':hover': {
+        backgroundColor: 'red'
+      },
 });
 
-const LoginPromptContainer = styled(Grid)({
-
+const RemoveButton = styled(Button)({
+    display: 'flex',
+    backgroundColor: '#2f2d2f',
+    ':hover': {
+        color: 'white'
+      },
 });
+
 
 const SubmitBetsButton = styled(Button)({
     display: 'flex',
@@ -126,7 +134,7 @@ const Betslip = () => {
                                 }
 
                                 <RemoveBetsContainer className="removeBetsContainer">
-                                    <Button className="clearButton" startIcon={<DeleteIcon/>} onClick={() => dispatch(clearActiveBets())}>Remove all selections</Button>
+                                    <RemoveButton className="clearButton" startIcon={<DeleteIcon/>} onClick={() => dispatch(clearActiveBets())}>Remove all selections</RemoveButton>
                                 </RemoveBetsContainer>
                             </>
                         )

@@ -16,7 +16,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-
+    border-radius: 10px 10px 0 0 ;
     background-color: #131314;
 }
 
