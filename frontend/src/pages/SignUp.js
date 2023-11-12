@@ -85,10 +85,10 @@ function SignUp() {
       })
       .then((response) => {
         if (response.status === 201) {
-            console.log("ur logged in uwu")
+            // console.log("ur logged in uwu")
             routeChangeLogin()
         } else {
-            console.log("Error signing in wnw")
+            // console.log("Error signing in wnw")
         }
       }).catch((error) => {
         if (error.response) {
@@ -104,7 +104,7 @@ function SignUp() {
       setFormData(prevNote => ({
           ...prevNote, [name]: value})
       )
-      console.log(formData)
+      // console.log(formData)
     }
 
 

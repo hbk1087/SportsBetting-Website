@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { useSelector } from 'react-redux';
-
 import axios from 'axios';
 
 function truncateToTwoDecimals(num) {
@@ -43,9 +41,6 @@ const activeBetSlice = createSlice({
     initialState,
     reducers: {
         openActiveBet: (state, action) => {
-            // username, bet, wager, potential payout
-
-            const username = action.payload.username;
 
             var betTypeName = null;
             var odds = null;
@@ -75,25 +70,31 @@ const activeBetSlice = createSlice({
                 points = `${action.payload.game.total}`;
             }
 
-            // Process your form data here, maybe dispatch it somewhere, or send it to an API.
-            const formattedBet = {
-                account_username: username,
-                game_id: action.payload.game.game_id,
-                bet_type: betTypeName,
-                odds: odds,
-                points: points,
-                wager: action.payload.wager,
-                potential_payout: truncateToTwoDecimals(action.payload.potential_payout + action.payload.wager),
-                timestamp: formatTimestamp(Date.now())
-            }
-
-            console.log("WHEN ADDING TO FINALIZED", formattedBet);
-
-            state.finalizedBets.push(formattedBet);
             state.bets.push(action.payload);
             state.hasActiveBets = true;
+        },
+        addFinalizedBet: (state, action) => {
+            if (action.payload === null) {
+                console.error("Bet element is null. Please check your bet.");
+                return state;
+            }
 
-            console.log("Bet payload: ", action.payload)
+            const existingBetIndex = state.finalizedBets.findIndex(b => 
+                b.game_id === action.payload.formattedBet.game_id && b.bet_type === action.payload.formattedBet.bet_type
+            );
+
+            if (existingBetIndex !== -1){
+                state.finalizedBets[existingBetIndex] = action.payload.formattedBet;
+            } else {
+                state.finalizedBets = [...state.finalizedBets, action.payload.formattedBet];
+            }
+
+            console.log("Added a finalized bet: ", action.payload.formattedBet);
+        },
+        updateExistingFinalizedBet: (state, action) => {
+            console.log("index", action.payload.index);
+
+            state.finalizedBets[action.payload.index] = action.payload.formattedBet;
         },
         removeGameByIdAndType: (state, action) => {
             state.bets = state.bets.filter(bet => !(bet.game.game_id === action.payload.game_id && bet.bet_type === action.payload.bet_type));
@@ -101,7 +102,6 @@ const activeBetSlice = createSlice({
         clearActiveBets: (state) => {
             state.hasActiveBets = false;
             state.bets = [];
-            state.gameChoiceIds = [];
             state.finalizedBets = [];
         }, 
     }
@@ -111,7 +111,6 @@ export const submitBets = () => (dispatch, getState) => {
     const state = getState();
     const bets = state.activeBets.finalizedBets;
     const authToken = state.auth.token;
-    const username = state.user.username;
 
     Promise.all(bets.map(bet => {
 
@@ -124,12 +123,12 @@ export const submitBets = () => (dispatch, getState) => {
             data: bet
         };
 
-        console.log("request data", requestData);
+        // console.log("request data", requestData);
 
         return axios(requestData)
         .then(response => {
             if (response.status === 201) {
-                dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
+                dispatch(removeGameByIdAndType({game_id: bet.game_id, bet_type: bet.bet_type}));
             }
         })
         .catch(error => {
@@ -145,5 +144,5 @@ export const submitBets = () => (dispatch, getState) => {
 };
 
 
-export const { addGameChoiceId, removeGameChoiceId, clearGameChoiceIds, addActiveBet, clearActiveBets, openActiveBet, removeGameByIdAndType } = activeBetSlice.actions;
+export const { addActiveBet, addFinalizedBet, updateExistingFinalizedBet, clearActiveBets, openActiveBet, removeGameByIdAndType } = activeBetSlice.actions;
 export default activeBetSlice.reducer;

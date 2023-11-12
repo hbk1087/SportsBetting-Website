@@ -38,7 +38,7 @@ function Bets() {
             }
           })
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 setBet(response.data)
             })
             .catch(error => {

@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
 
 // MUI
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/system';
 
@@ -23,8 +23,9 @@ const BetslipContainer = styled(Grid)({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    maxWidth: '400px',
+    marginRight: 'auto'
 });
-
 
 const BetslipHeaderContainer = styled(Grid)({
     backgroundColor: '#131314',
@@ -36,26 +37,43 @@ const BetslipHeaderContainer = styled(Grid)({
 
 })
 
-const BetslipsContainer = styled(Grid)({
+const BetslipTitleCounter = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+});
 
-})
+const BetslipsContainer = styled(Box)({
+    maxHeight: '650px',
+    overflow: 'auto',
+});
 
 const RemoveBetsContainer = styled(Grid)({
     display: 'flex',
     justifyContent: 'center',
     alignContent: "center"
-
-})
+});
 
 const LoginPromptContainer = styled(Grid)({
 
-})
+});
+
+const SubmitBetsButton = styled(Button)({
+    display: 'flex',
+    // position: 'relative', 
+    // bottom: '20px',
+    // right: '200px', 
+    // zIndex: 1000,
+    // backgroundColor: 'green',
+    // width: '366px',
+    // height: '50px'
+});
 
 const SubmitAllBets = styled(Grid)({
     display: 'flex',
     justifyContent: 'center',
     alignContent: "center"
-})
+});
 
 const Betslip = () => {
     const dispatch = useDispatch();
@@ -68,8 +86,10 @@ const Betslip = () => {
         <BetslipContainer className="betslip-container">
 
             <BetslipHeaderContainer className="betslip-title-header">
-                <CircleCounter number={bets.length} />
-                <div className="betslip-title"><b>Betslip</b></div>
+                <BetslipTitleCounter className="betslip-title-counter">
+                    <CircleCounter className="betslipCounterCircle" number={bets.length} />
+                    <div className="betslip-title"><b>Betslip</b></div>
+                </BetslipTitleCounter>
             </BetslipHeaderContainer>
 
             <BetslipsContainer className="betslip">
@@ -93,11 +113,10 @@ const Betslip = () => {
             </BetslipsContainer>
 
             <SubmitAllBets>
-                <Button className="submitAllBetsButton" onClick={() => dispatch(submitBets())}>Submit all bets!</Button>
+                <SubmitBetsButton className="submitAllBetsButton" onClick={() => dispatch(submitBets())}>Submit all bets!</SubmitBetsButton>
             </SubmitAllBets>
         </BetslipContainer>
     );
-    
 }
 
 export default Betslip;

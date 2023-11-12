@@ -26,11 +26,14 @@ function BetBox({
   const dispatch = useDispatch();
   const bets = useSelector((state) => state.activeBets.bets);
   const hasActiveBets = useSelector((state) => state.activeBets.hasActiveBets)
+  const username = useSelector((state) => state.user.username);
+
+  // username, bet, wager, potential payout
 
   const handleBetBoxClick = ({bet_type, game}) => {
     const betExists = bets.find(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type) ? true : false;
 
-    console.log(betExists)
+    // console.log(betExists)
 
     if (betExists) {
       dispatch(removeGameByIdAndType({game_id: game.game_id, bet_type: bet_type}))

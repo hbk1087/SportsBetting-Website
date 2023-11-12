@@ -314,11 +314,11 @@ const GameDetails = ({ game }) => {
     const hasActiveBets = useSelector((state) => state.activeBets.hasActiveBets)
 
     const handleBestBetClick = ({bet_type, game}) => {
-      console.log("best bet type: ", bet_type, " and game: ", game);
+      // console.log("best bet type: ", bet_type, " and game: ", game);
 
       const betExists = bets.find(bet => bet.game.game_id === game.game_id && bet.bet_type === bet_type) ? true : false;
   
-      console.log(betExists)
+      // console.log(betExists)
   
       if (betExists) {
         dispatch(removeGameByIdAndType({game_id: game.game_id, bet_type: bet_type}))

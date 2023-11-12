@@ -15,7 +15,7 @@ import LogoutButton from './buttons/LogoutButton';
 import Welcome from './Welcome';
 
 import '../css/Navbar.css';
-import logo from '../img/textlogo.png';
+import logo from '../img/fanduel.png';
 
 // Custom styled button for the login
 const LoginButton = styled(Button)(({ theme }) => ({
@@ -39,14 +39,16 @@ const Navbar = () => {
     const authLoggedIn = useSelector((state) => state.auth.loggedIn);
     const username = useSelector((state) => state.user.username);
 
-    console.log("BRUHHH:" + authLoggedIn);
-    console.log("username: " + username);
+    // console.log("BRUHHH:" + authLoggedIn);
+    // console.log("username: " + username);
 
     useEffect(() => {
     }, [authLoggedIn])
 
     const appBarStyles = {
         height: '76.6px',
+        backgroundColor: "#000000",
+        borderBottom: "2px solid #ffffff"
     };
 
     return (

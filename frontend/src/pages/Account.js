@@ -99,7 +99,7 @@ useEffect(() => {
   })
   .then((response) => {
     const res = response.data;
-    console.log(res);
+    // console.log(res);
     setAccountData(res);
     // dispatch(initializeBalance(accountData.current_balance))
   })

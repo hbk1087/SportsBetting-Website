@@ -1,16 +1,16 @@
 // React
-import { React, useState, createContext, useContext } from 'react';
+import { React, useState, useEffect } from 'react';
 
 // MUI
 import {  TextField, Grid, Typography, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import InputAdornment from '@mui/material/InputAdornment';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addActiveBet, submitBets, removeGameByIdAndType } from '../slices/activeBetSlice';
-import { authToken } from '../slices/authSlice';
+import { removeGameByIdAndType, updateExistingFinalizedBet, addFinalizedBet } from '../slices/activeBetSlice';
 
 // CSS
 import "../css/BetslipBet.css"
@@ -187,70 +187,60 @@ function formatTimestamp(timestamp) {
 
 const BetslipBet = ({bet}) => {
     const loggedIn = useSelector((state) => state.auth.loggedIn);
-    const dispatch = useDispatch();
+    const username = useSelector((state) => state.user.username);
     const authToken = useSelector((state) => state.auth.token);
     const finalizedBets = useSelector((state) => state.activeBets.finalizedBets);
 
-    console.log(bet);
-
-    const username = useSelector((state) => state.user.username);
+    const dispatch = useDispatch();
 
     const [formState, setFormState] = useState({
-        wager: 0,
-        potential_payout: 0,
+      wager: 0,
+      potential_payout: 0,
     });
 
-    const onRemove = (event) => {
-      dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
-      console.log("Remove a bet.");
-      return;
+    var betTypeName = null;
+    var odds = null;
+    var points = "Money Line";
+
+    if (bet.bet_type === "moneyline_home") {
+      betTypeName = "Home";
+      odds = bet.game.home_odds;
+    } else if (bet.bet_type === "moneyline_away") {
+        betTypeName = "Away";
+        odds = bet.game.away_odds;
+    } else if (bet.bet_type === "home_spread") {
+        betTypeName = "Home Line";
+        odds = bet.game.home_spread_odds;
+        points = formattedOddsSpread(bet.game.home_spread);
+    } else if (bet.bet_type === "away_spread") {
+        betTypeName = "Away Line";
+        odds = bet.game.away_spread_odds;
+        points = formattedOddsSpread(bet.game.away_spread);
+    } else if (bet.bet_type === "total_over") {
+        betTypeName = "Over";
+        odds = bet.game.over_odds;
+        points = `${bet.game.total}`;
+    } else if (bet.bet_type === "total_under") {
+        betTypeName = "Under";
+        odds = bet.game.under_odds;
+        points = `${bet.game.total}`;
     }
+
+    const [formattedBet, setFormattedBet] = useState({
+      account_username: username,
+      game_id: bet.game.game_id,
+      bet_type: betTypeName, 
+      odds: odds,
+      points: "Money Line",
+      wager: formState.wager,
+      potential_payout: formState.potential_payout,
+      timestamp: formatTimestamp(Date.now())
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        var betTypeName = null;
-        var odds = null;
-        var points = "Money Line";
-
-        if (bet.bet_type === "moneyline_home") {
-          betTypeName = "Home";
-          odds = bet.game.home_odds;
-        } else if (bet.bet_type === "moneyline_away") {
-            betTypeName = "Away";
-            odds = bet.game.away_odds;
-        } else if (bet.bet_type === "home_spread") {
-            betTypeName = "Home Line";
-            odds = bet.game.home_spread_odds;
-            points = formattedOddsSpread(bet.game.home_spread);
-        } else if (bet.bet_type === "away_spread") {
-            betTypeName = "Away Line";
-            odds = bet.game.away_spread_odds;
-            points = formattedOddsSpread(bet.game.away_spread);
-        } else if (bet.bet_type === "total_over") {
-            betTypeName = "Over";
-            odds = bet.game.over_odds;
-            points = `${bet.game.total}`;
-        } else if (bet.bet_type === "total_under") {
-            betTypeName = "Under";
-            odds = bet.game.under_odds;
-            points = `${bet.game.total}`;
-        }
-
-        // Process your form data here, maybe dispatch it somewhere, or send it to an API.
-        const formattedBet = {
-            account_username: username,
-            game_id: bet.game.game_id,
-            bet_type: betTypeName,
-            odds: odds,
-            points: points,
-            wager: formState.wager,
-            potential_payout: truncateToTwoDecimals(formState.potential_payout + formState.wager),
-            timestamp: formatTimestamp(Date.now())
-        }
-
-        console.log(formattedBet)
-        
+        console.log(formattedBet);      
 
         // Send the bet to the backend.
         axios({
@@ -259,34 +249,26 @@ const BetslipBet = ({bet}) => {
           headers: {
             Authorization: 'Bearer ' + authToken
           },
-          data:{
-            account_username: username,
-            game_id: bet.game.game_id,
-            bet_type: betTypeName,
-            odds: odds,
-            points: points,
-            wager: formState.wager,
-            potential_payout: truncateToTwoDecimals(formState.potential_payout + formState.wager),
-            timestamp: formatTimestamp(Date.now())
-           }
+          data: formattedBet
         })
         .then((response) => {
           if (response.status === 201) {
             dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
             console.log("Submitted bet.");
           }
+
         }).catch((error) => {
           if (error.response) {
+            if (error.response.status === 400) {
+              alert("Invalid wager input. Please input a number to bet.");
+              console.log("Invalid wager input. Please input a number to bet.");
+            }
+
             console.log(error.response)
             console.log(error.response.status)
             console.log(error.response.headers)
             }
         })
-
-        // dispatch(submitBets(formattedBet))
-
-        // Clear bets after submission (if desired).
-        // dispatch(clearActiveBets());
     };
 
     const handleChange = (event) => {
@@ -321,7 +303,7 @@ const BetslipBet = ({bet}) => {
           }
   
           if (!isNaN(parsedValue) && !isNaN(odds)) {
-              console.log("odds: ", odds)
+              // console.log("odds: ", odds)
               setFormState(prevState => ({
                   ...prevState, 
                   [name]: parsedValue, 
@@ -336,6 +318,28 @@ const BetslipBet = ({bet}) => {
           }
         }
     };
+
+    // Separate useEffect for formState
+    useEffect(() => {
+      console.log("wager: ", formState.wager);
+
+      setFormattedBet(prevFormattedBet => ({
+        ...prevFormattedBet,
+        wager: formState.wager,
+        potential_payout: truncateToTwoDecimals(formState.potential_payout + formState.wager)
+      }));
+
+    }, [formState]);
+
+    useEffect(() => {
+      dispatch(addFinalizedBet({formattedBet: formattedBet}));
+    }, [formState]);
+
+    const onRemove = (event) => {
+      dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
+      console.log("Remove a bet.");
+      return;
+    }
 
     return (
       <ThemeProvider>
@@ -435,7 +439,7 @@ const BetslipBet = ({bet}) => {
                         label="Wager" 
                         variant="outlined" 
                         InputLabelProps={{ shrink: true }}
-                        InputProps={{ style: { color: 'white' } }}
+                        InputProps={{ startAdornment: <InputAdornment position="start" style={{ color: 'white' }}>$</InputAdornment>, style: { color: 'white' } }}
                         sx={{ input: { color: 'white' }, label: { color: 'gray' }, borderColor: 'gray', '& .MuiOutlinedInput-root': { '& fieldset': { borderColor: 'gray' }, '&:hover fieldset': { borderColor: 'white' }, '&.Mui-focused fieldset': { borderColor: 'blue' } } }}
                         onChange={handleChange}
                         value={formState.wager}

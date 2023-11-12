@@ -26,7 +26,7 @@ const dispatch = useDispatch();
     .then((response) => {
         dispatch(removeToken())
         dispatch(setLoggedIn(false))
-        console.log("ur logged out uwu")
+        // console.log("ur logged out uwu")
         navigate('/')
     }).catch((error) => {
       if (error.response) {

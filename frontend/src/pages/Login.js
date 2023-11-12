@@ -48,7 +48,7 @@ function Login() {
             dispatch(setToken(response.data.access_token))
             dispatch(setLoggedIn(true))
             dispatch(setUsername(formData.username))
-            console.log("ur logged in uwu")
+            // console.log("ur logged in uwu")
             routeChangeHome()
         }
       }).catch((error) => {

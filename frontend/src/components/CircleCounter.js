@@ -19,10 +19,11 @@ const CircleCounter = ({ number }) => {
             bgcolor="primary.main" 
             color="white" 
             marginLeft="10px"
+            marginRight="10px"
 >
             <Typography 
-                variant="body1" 
-                style={{ textAlign: "center", color: "black" }}>
+                variant="body3" 
+                style={{ fontWeight: "bold", textAlign: "center", color: "black", maxHeight: '100%' }}>
                 {number}
             </Typography>
         </Box>

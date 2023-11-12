@@ -12,7 +12,6 @@ export const userSlice = createSlice({
   reducers: {
     setUsername: (state, action) => {
       state.username = action.payload;
-      console.log("intially after storing from payload" + state.username);
     },
     placeBet: (state, action) => {
       state.balance -= action.payload.amount;

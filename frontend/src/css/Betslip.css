@@ -7,11 +7,9 @@
     justify-content: flex-start;
     padding: 16px;
     color: #5c5858;
-    border: 2px solid #ffffff;
-    border-radius: 10px;
+    border-left: 2px solid #ffffff;
     margin-top: 76.7px;
 }
-
 
 .betslip-title-header {
     display: flex;
@@ -19,7 +17,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
 
-    background-color: #faf8f8;
+    background-color: #131314;
 }
 
 .nobet {
@@ -56,10 +54,14 @@
 
 .removeBetsContainer {
     margin-top: 20px;
-    background-color: #131314
+    border: 1px solid red;
+    border-top: red;
+    border-bottom: red;
 }
 
 .clearButton {
-    background-color: #960d0d;
+    background-color: #131314;
+    border-top: red;
+    border-bottom: red;
     flex-grow: 1;
 }
