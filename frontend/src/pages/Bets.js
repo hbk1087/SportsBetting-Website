@@ -83,12 +83,6 @@ function Bets() {
                     </Typography>
                     <br></br>
                         {bets.map((betItem, index) => (
-                            // <ListItem key={betItem.game_id}>
-                            //     <ListItemText
-                            //         primary={`${betItem.away_team} vs. ${betItem.home_team}`}
-                            //         secondary={`Wager: ${betItem.wager}, Payout: ${betItem.actual_payout}`}
-                            //     />
-                            // </ListItem>
                             <MyBet bet={betItem}/>
                         ))}
                 </Container>

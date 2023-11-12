@@ -56,8 +56,10 @@ function App() {
     }, [isLoggedIn, hasToken, username])
 
     return (
+
           <ThemeProvider theme={theme}>
-              
+            <h2 className='hide-on-website'> Please View on Computer! </h2>
+                    <div className='hide-on-mobile'>  
                     <div className="page-content">
                     <Navbar />
                     {!loginmatch && !signupmatch && <Sidebar />}
@@ -73,7 +75,7 @@ function App() {
                         </Routes>
                         {!loginmatch && !signupmatch && <Betslip />}
                     </div>
-              
+                    </div>
           </ThemeProvider>
     );
   }

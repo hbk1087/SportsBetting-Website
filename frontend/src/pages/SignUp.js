@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 // API
 import axios from "axios";
+import useGoogleMapsApi from './useGoogleMapsApi'
 
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import '../css/Login.css';
+
 
 
 const SignupGrid = styled(Grid)(({ theme }) => ({
@@ -42,23 +44,38 @@ function SignUp() {
     }, [])
 
 
-    const autoCompleteRef = useRef();
+    const autocompleteRef = useRef();
     const inputRef = useRef();
+    const googleMapsApi = useGoogleMapsApi()
+
     const options = {
       componentRestrictions: { country: "us" }
     };
 
-    useEffect(() => {
-      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-      inputRef.current,
-      options
-      );
+    // useEffect(() => {
+    //   autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+    //   inputRef.current,
+    //   options
+    //   );
 
-      autoCompleteRef.current.addListener("place_changed", async function () {
-      const place = await autoCompleteRef.current.getPlace();
-      setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
-      });
-    }, [options]);
+    //   autoCompleteRef.current.addListener("place_changed", async function () {
+    //   const place = await autoCompleteRef.current.getPlace();
+    //   setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
+    //   });
+    // }, [options]);
+
+    useEffect(() => {
+      if (googleMapsApi) {
+        autocompleteRef.current = new googleMapsApi.places.Autocomplete(inputRef.current, options)
+        autocompleteRef.current.addListener('place_changed',  async () => {
+          const place = await autocompleteRef.current.getPlace()
+  
+          setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
+  
+    
+        })
+      }
+    }, [googleMapsApi])
 
     const signMeUp = (event) => {
         event.preventDefault()
