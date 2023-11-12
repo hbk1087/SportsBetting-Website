@@ -1,5 +1,5 @@
 # Import flask and datetime module for showing date and time
-from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory
+from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory, make_response
 from pymongo import MongoClient, DESCENDING, ASCENDING
 from flask_cors import CORS, cross_origin
 import os
@@ -23,15 +23,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 load_dotenv()
 
 # Initializing flask app
-app = Flask(__name__, static_folder="static")
+app = Flask(__name__)
 
 scheduler = BackgroundScheduler()
 scheduler.start()
 
 ### Login Session/Authentication management
 secret_key = os.getenv('SECRET_KEY')
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 app.config["JWT_SECRET_KEY"] = secret_key
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
@@ -49,6 +47,7 @@ def refresh_expiring_jwts(response):
             if type(data) is dict:
                 data["access_token"] = access_token 
                 response.data = json.dumps(data)
+        print(response)
         return response
     except (RuntimeError, KeyError):
         # Case where there is not a valid JWT. Just return the original respone
@@ -60,8 +59,6 @@ def refresh_expiring_jwts(response):
 def create_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-
-    #password_check = bcrypt.checkpw(password.encode('utf-8'), duplicate_username[0]['password'])
 
     connection = connect('users')
     # Check if user exists
@@ -101,6 +98,7 @@ def my_account():
                 
             # Return account details
             print(account[0])
+            print(good_response(account[0]))
             return good_response(account[0])
         
         except Exception as e:
@@ -116,6 +114,9 @@ def my_account():
             return good_response(f"User {username} was updated")
         except Exception as e:
             return bad_response(e)
+    
+    elif request.method == 'OPTIONS':
+        return jsonify('options'), 200
     else:
         pass
 
@@ -169,12 +170,6 @@ def index():
     
 
 
-@app.route('/api/static/<path:filename>')
-@cross_origin()
-def serve_static(filename):
-    return app.send_from_directory('static', filename)
-
-
 
 # Blueprint to see all nfl games
 app.register_blueprint(nfl_blueprint, url_prefix='/api/nfl')
@@ -188,10 +183,6 @@ app.register_blueprint(signup_blueprint, url_prefix='/api/signup')
 # Blueprint to see user bets and insert new ones
 app.register_blueprint(user_bets_blueprint, url_prefix='/api/bets')
 
-
-@app.errorhandler(404)
-def not_found(e):
-    return app.send_static_file('index.html')
 
 
 def scheduled_task_job():

@@ -32,13 +32,13 @@ function Bets() {
 
         axios({
             method: "GET",
-            url:"/api/bets",
+            url:"http://127.0.0.1:5000/api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             }
           })
             .then(response => {
-                // console.log(response.data)
+                console.log(response.data)
                 setBet(response.data)
             })
             .catch(error => {

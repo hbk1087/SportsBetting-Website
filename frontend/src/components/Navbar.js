@@ -34,7 +34,7 @@ const SignupButton = styled(Button)(({ theme }) => ({
     }
 }));
 
-// Custom styled button for the signup/join
+// Custom styled button for My Bets
 const MyBetsButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#000000',
     '&:hover': {
@@ -62,8 +62,8 @@ const Navbar = () => {
             <AppBar position="fixed" style={appBarStyles}>
                 <Toolbar>
 
-                    <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <img src={logo} alt="Logo" style={{ height: '140px', width: '196px', padding: '5px'}}></img>
+                    <Link to='/' >
+                        <img src={logo} alt="Logo" style={{ height: '140px', width: '196px' }}></img>
                     </Link>
 
                     { 

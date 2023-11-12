@@ -40,8 +40,6 @@ def get_bets():
             return bad_response(error)
 
         if error is None:
-            print("Its a post")
-            print('Good to go')
             bet = UserBet(account_username, game_id, bet_type, odds, points, wager, potential_payout, timestamp)
             try:
                 connection = connect('bets')
@@ -79,14 +77,11 @@ def get_bets():
 
             account_bets = list(connection_to_bets.find({'account_username': account_username}))
 
-
-            print(account_bets)
-
             all_bets_ready_for_post = []
 
             for element in account_bets:
                 the_bet = element
-                print(the_bet)
+
                 the_game_id = the_bet['game_id']
                 the_game = list(connection_to_games.find({'game_id': the_game_id}))[0]
 
@@ -123,7 +118,6 @@ def get_bets():
                 all_bets_ready_for_post.append({"sport": the_game['sport'], "away_team" : away_team, "home_team" : home_team, "away_score" : away_score, "home_score" : home_score, "bet_type": bet_type, "odds": odds, "points": the_bet['points'], "wager": the_bet['wager'], "potential_payout": pp, "actual_payout": the_bet['actual_payout'], "timestamp": the_bet['timestamp'], "game_date": the_game['date']})
 
 
-            print(all_bets_ready_for_post)
             sorted_data_descending = sorted(all_bets_ready_for_post, key=lambda x: x['timestamp'], reverse=True)
 
             return good_response(sorted_data_descending)

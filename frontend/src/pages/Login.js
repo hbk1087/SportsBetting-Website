@@ -37,7 +37,7 @@ function Login() {
 
       axios({
         method: "POST",
-        url:"/api/token",
+        url:"http://127.0.0.1:5000/api/token",
         data:{
           username: formData.username,
           password: formData.password
@@ -48,7 +48,7 @@ function Login() {
             dispatch(setToken(response.data.access_token))
             dispatch(setLoggedIn(true))
             dispatch(setUsername(formData.username))
-            // console.log("ur logged in uwu")
+            console.log(response.data)
             routeChangeHome()
         }
       }).catch((error) => {

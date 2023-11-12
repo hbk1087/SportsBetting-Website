@@ -75,8 +75,8 @@ function App() {
                                     <Routes>
                                         <Route path='/' element={<Home />} />
                                         <Route path="/login" element={<Login />} />
-                                        <Route path="/account" element={<PrivateRoute> <Account /> </PrivateRoute>} />
-                                        <Route path='/bets' element={<PrivateRoute> <Bets /> </PrivateRoute>} />
+                                        <Route path="/account" element={<PrivateRoute auth={{ isLoggedIn: isLoggedIn }}> <Account /> </PrivateRoute>} />
+                                        <Route path='/bets' element={<PrivateRoute auth={{ isLoggedIn: isLoggedIn }}> <Bets /> </PrivateRoute>} />
                                         <Route path='/signup' element={<SignUp />} />
                                         <Route path='/nfl' element={<NFLPage />} />
                                         <Route path='/nba' element={<NBAPage />} />

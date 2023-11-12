@@ -23,7 +23,7 @@ const NFLPage = () => {
 
               axios({
                 method: "GET",
-                url: "/api/home",
+                url: "http://127.0.0.1:5000/api/nfl",
               })
               .then((response) => {
                 const res = response.data;
