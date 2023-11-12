@@ -26,7 +26,6 @@ function BetBox({
   const dispatch = useDispatch();
   const bets = useSelector((state) => state.activeBets.bets);
   const hasActiveBets = useSelector((state) => state.activeBets.hasActiveBets)
-  const username = useSelector((state) => state.user.username);
 
   // username, bet, wager, potential payout
 

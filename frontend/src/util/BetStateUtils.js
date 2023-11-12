@@ -1,16 +1,10 @@
 import { useSelector } from 'react-redux';
 
-export const formalizeBet = (bet) => {
-    
-
-
-}
 
 export const printFinalizedBets = () => {
-    const finalizedBetArray = useSelector((state) => state.bets.finalizedBetArray);
+    const finalizedBetArray = useSelector((state) => state.bets.finalizedBets);
 
-    for (bet in finalizedBetArray){
+    for (const bet of finalizedBetArray){
         console.log(bet);
     }
-
 } 

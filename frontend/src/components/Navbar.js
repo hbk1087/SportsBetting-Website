@@ -46,10 +46,11 @@ const MyBetsButton = styled(Button)(({ theme }) => ({
 const Navbar = () => {
     const authLoggedIn = useSelector((state) => state.auth.loggedIn);
     const username = useSelector((state) => state.user.username);
+    const balance = useSelector((state) => state.user.balance);
 
 
     useEffect(() => {
-    }, [authLoggedIn])
+    }, [authLoggedIn, balance])
 
     const appBarStyles = {
         height: '76.6px',
@@ -73,7 +74,7 @@ const Navbar = () => {
                                 <>
                                     <MyBetsButton color="inherit" component={Link} to='/bets'>My Bets</MyBetsButton>
                                     <div style={{ flexGrow: 1 }}></div>
-                                    <Welcome />
+                                    <Welcome/>
                                     <LogoutButton />
                                     <MyBetsButton color="inherit" component={Link} to='/account'><AccountCircleIcon fontSize="large"></AccountCircleIcon></MyBetsButton>
                                 </>
