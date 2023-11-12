@@ -34,7 +34,6 @@ const BetslipHeaderContainer = styled(Grid)({
     justifyContent: 'flex-start',
     padding: '30px',
     position: 'relative',
-
 })
 
 const BetslipTitleCounter = styled(Grid)({
