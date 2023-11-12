@@ -23,7 +23,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 load_dotenv()
 
 # Initializing flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 
 scheduler = BackgroundScheduler()
 scheduler.start()
@@ -132,7 +132,7 @@ def logout():
 
 @app.route('/api/home')
 @cross_origin()
-def index():
+def home():
 
     connection = connect('games')
     # Set the time zone to EST
@@ -165,6 +165,10 @@ def index():
 
     except Exception as e:
         return bad_response(e)
+    
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
     
 
 
