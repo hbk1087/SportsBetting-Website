@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import { initializeBalance } from './userSlice';
 
 function truncateToTwoDecimals(num) {
@@ -141,6 +143,7 @@ export const submitBets = () => (dispatch, getState) => {
     const state = getState();
     const bets = state.activeBets.finalizedBets;
     const authToken = state.auth.token;
+    const balance = ((state) => state.auth.balance);
 
     const submissionError = {
         error: null,
@@ -158,11 +161,11 @@ export const submitBets = () => (dispatch, getState) => {
     const calculateTotalWager = (bets) => bets.reduce((total, bet) => total + bet.wager, 0);
 
     console.log("total wager:", calculateTotalWager(bets));
-    const balance = state.auth.balance;
+
 
     if (calculateTotalWager > balance) {
         console.log("Not enough funds. Please deposit more money.");
-        alert("Not enough funds. Please deposit more money."); 
+        // alert("Not enough funds. Please deposit more money."); 
         return;
     }
 
@@ -212,16 +215,16 @@ export const submitBets = () => (dispatch, getState) => {
     }))
     .then(() => {
         if (submissionError.error === null){
-            dispatch(initializeBalance(balance - calculateTotalWager));
+            console.log("balance", truncateToTwoDecimals(balance - calculateTotalWager));
+            const newBalance = truncateToTwoDecimals(balance - calculateTotalWager);
+            dispatch(initializeBalance(newBalance));
             dispatch(clearActiveBets());
-
-            outputBets(bets);
-        }
-        
+        }        
     })
     .catch(error => {
         if (submissionError.error !== null) {
-            alert(submissionError.error);
+            // alert(submissionError.error);
+            return Promise.reject(submissionError);
         }
     }
     );

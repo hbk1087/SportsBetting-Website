@@ -51,9 +51,6 @@ function App() {
     let signupmatch = useMatch("/signup");
 
     useEffect(() => {
-        // console.log("App.js: isLoggedIn: " + isLoggedIn)
-        // console.log("App.js: hasToken: " + hasToken)
-        // console.log("App.js: username: " + username)
     }, [isLoggedIn, hasToken, username])
 
     return (

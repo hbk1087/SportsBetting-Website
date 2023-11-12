@@ -62,3 +62,17 @@
     border-bottom: red;
     flex-grow: 1;
 }
+
+@keyframes shake {
+    0% { transform: translateX(0); color: red; background-color: #2f2d2f;}
+    25% { transform: translateX(-5px); color: red; background-color: #2f2d2f;}
+    50% { transform: translateX(5px); color: red; background-color: #2f2d2f;}
+    75% { transform: translateX(-5px); color: red; background-color: #2f2d2f;}
+    100% { transform: translateX(0); color: red; background-color: #2f2d2f;}
+}
+  
+.shake-animation {
+    animation: shake 0.5s linear;
+}
+
+  
