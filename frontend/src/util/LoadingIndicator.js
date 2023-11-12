@@ -1,11 +1,19 @@
 // LoadingIndicator.js
 import React from 'react';
 
-function LoadingIndicator() {
+// MUI
+import { Typography, Container } from '@mui/material';
+import LoadingSpinner from '../components/LoadingSpinner';
+
+
+function LoadingIndicator({text, margtop, wid}) {
   return (
-    <div className="loading-indicator">
-      Loading... {/* You can customize this message or use a spinner */}
-    </div>
+    <Container style={{ display: 'flex', width: wid, margin: '0 auto', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexWrap:'nowrap', gap: '30px', marginTop: margtop }} spacing={3} elevation={3}>
+        <Typography variant="h3" align="center" color="primary">
+            {text}
+        </Typography>
+        <LoadingSpinner />
+    </Container>
   );
 }
 

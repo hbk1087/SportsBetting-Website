@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 // API
 import axios from "axios";
-import useGoogleMapsApi from './useGoogleMapsApi'
+
+// Hooks
+import useGoogleMapsApi from '../hooks/useGoogleMapsApi';
 
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
@@ -51,18 +53,6 @@ function SignUp() {
     const options = {
       componentRestrictions: { country: "us" }
     };
-
-    // useEffect(() => {
-    //   autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-    //   inputRef.current,
-    //   options
-    //   );
-
-    //   autoCompleteRef.current.addListener("place_changed", async function () {
-    //   const place = await autoCompleteRef.current.getPlace();
-    //   setFormData(prevNote => ({...prevNote, address: place['formatted_address']}));
-    //   });
-    // }, [options]);
 
     useEffect(() => {
       if (googleMapsApi) {

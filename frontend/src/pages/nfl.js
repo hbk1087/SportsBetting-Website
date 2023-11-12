@@ -3,10 +3,7 @@ import { useEffect, useState } from 'react'
 
 // components
 import GameDetails from '../components/GameDetails'
-
-// MUI
-import { Typography, Container } from '@mui/material';
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingIndicator from '../util/LoadingIndicator';
 
 // axios
 import axios from 'axios'
@@ -51,15 +48,8 @@ const NFLPage = () => {
         
             <div>
             {loading ? (
-                <Container style={{ display: 'flex', width: '900px', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexWrap:'nowrap', gap: '30px', top: 0, marginTop: '90px' }} spacing={3} elevation={3}>
-                    <Typography variant="h3" align="center" color="primary">
-                        Loading NFL Games...
-                    </Typography>
-                    <LoadingSpinner />
-                </Container>
+                <LoadingIndicator text={'Loading NFL Games...'} margtop={'90px'} wid={'900px'}/>
             ) :
-            
-
             (<div className="page-content">
              <div className="game-odds-header">
                 <GameOddsHeader sportName="NFL"/>

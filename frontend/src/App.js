@@ -1,5 +1,5 @@
 // Router DOM imports
-import { BrowserRouter as Router, Routes, Route, useMatch } from 'react-router-dom'
+import { Routes, Route, useMatch } from 'react-router-dom'
 
 // Material UI imports
 import { createTheme, ThemeProvider } from '@mui/material/styles'

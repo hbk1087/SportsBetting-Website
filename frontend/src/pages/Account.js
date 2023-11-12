@@ -1,20 +1,24 @@
+// React
 import { useState, useEffect } from 'react'
 import axios from "axios";
 
+// Router
 import { useNavigate } from 'react-router-dom';
 
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setToken, setLoggedIn } from '../slices/authSlice'
-import { Typography, Button, Container } from '@mui/material';
-import { styled } from '@mui/material/styles';
-// Redux
 
+// MUI
+import { Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+// Components
 import DepositForm from '../components/DepositForm';
 import WithdrawForm from '../components/WithdrawForm';
+import LoadingIndicator from '../util/LoadingIndicator';
 
-
-import LoadingSpinner from '../components/LoadingSpinner';
-
+// CSS
 import '../css/Account.css';
 
 function Account() {
@@ -116,12 +120,7 @@ useEffect(() => {
       <div className="account">
         
       {loading ? (
-                <Container style={{ display: 'flex', maxWidth: '800px', margin: '0 auto', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexWrap:'nowrap', gap: '30px', marginTop: '10px' }} spacing={3} elevation={3}>
-                    <Typography variant="h3" align="center" color="primary">
-                        Loading Account Details...
-                    </Typography>
-                    <LoadingSpinner />
-                </Container>
+                <LoadingIndicator text={'Loading Account Details...'} margtop={'10px'} wid={'900px'}/>
             ) : (accountData && <div>
               <div className='account-contents'>
                 <p>

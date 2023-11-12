@@ -1,19 +1,23 @@
+// React
 import React from 'react';
+import { useEffect, useState } from 'react'
 
 // Components
-import LoadingSpinner from '../components/LoadingSpinner';
+import MyBet from '../components/MyBet';
+import LoadingIndicator from '../util/LoadingIndicator';
 
 // Redux
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react'
 
 // MUI
 import { Typography, Container } from '@mui/material';
 
 // Axios
 import axios from 'axios';
+
+// CSS
 import '../css/MyBets.css';
-import MyBet from '../components/MyBet';
+
 
 function Bets() {
 
@@ -51,12 +55,7 @@ function Bets() {
         <div className='betsContainer'>
         <Container>
            {loading ? (
-                <Container style={{ display: 'flex', maxWidth: '800px', margin: '0 auto', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexWrap:'nowrap', gap: '30px' }} spacing={3} elevation={3}>
-                    <Typography variant="h3" align="center" color="primary">
-                        Loading Bets...
-                    </Typography>
-                    <LoadingSpinner />
-                </Container>
+                <LoadingIndicator text={'Loading Bets...'} margtop={'90px'} wid={'800px'}/>
             ) : bets.length === 0 ? (
                 <Typography variant="h3" align="center" color="#ffffff">
                     No Bets Placed
