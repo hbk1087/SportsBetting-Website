@@ -1,20 +1,20 @@
-import { Box } from '@mui/system';
+import { Box, Grid } from '@mui/material';
 
 import '../css/Welcome.css'
 
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 const Welcome = () => {
     const username = useSelector(state => state.user.username);
-    const balance = useSelector((state) => state.user.balance);
-
 
     return (
-        <div className="welcome">
-            <h4>Welcome: &nbsp; {username}</h4>
-            <h5>Balance: ${balance}</h5>
-        </div>
+        <Box className="welcome-container">
+            <Grid className="welcome">
+                <h4 className="welcome-text">Welcome, {username}</h4>
+            </Grid>
+        </Box>
     )
 }
 

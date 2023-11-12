@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import BetslipBet from './BetslipBet';
+import SubmitBetsButton from './buttons/SubmitBetsButton';
 import CircleCounter from "./CircleCounter";
 import EmptyBetslip from "./EmptyBetslip";
 
@@ -71,15 +72,6 @@ const RemoveButton = styled(Button)({
       },
 });
 
-
-const SubmitBetsButton = styled(Button)({
-    display: 'flex',
-    backgroundColor: '#2f2d2f',
-    ':hover': {
-        backgroundColor: '#2b90ff',
-        color: 'white'
-      },
-});
 
 const LoginOrSignupButton = styled(Button)({
     display: 'flex',
@@ -143,11 +135,7 @@ const Betslip = () => {
             </BetslipsContainer>
 
             <SubmitAllBets className='submitAllContainer'>
-                { isLoggedIn ? 
-                (<SubmitBetsButton className="submitAllBetsButton" onClick={() => dispatch(submitBets())}>Submit all bets!</SubmitBetsButton>)
-                :
-                (<LoginOrSignupButton onClick={() => navigate('/login')}>Login or Signup to Bet</LoginOrSignupButton>)
-                }
+                <SubmitBetsButton className="submitBetsButton"/>
             </SubmitAllBets>
         </BetslipContainer>
     );

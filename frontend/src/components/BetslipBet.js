@@ -189,7 +189,6 @@ function formatTimestamp(timestamp) {
 const BetslipBet = ({bet}) => {
     const loggedIn = useSelector((state) => state.auth.loggedIn);
     const username = useSelector((state) => state.user.username);
-    // const balance = useSelector((state) => state.user.balance);
     const authToken = useSelector((state) => state.auth.token);
 
     const dispatch = useDispatch();
@@ -265,9 +264,11 @@ const BetslipBet = ({bet}) => {
         })
         .then((response) => {
           if (response.status === 201) {
-            // balance = balance - formattedBet.wager;
+            // console.log("balance", truncateToTwoDecimals(balance - formattedBet.wager));
+            // const balance = truncateToTwoDecimals(balance - formattedBet.wager);
+            // dispatch(initializeBalance(balance));
             dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
-            console.log("Submitted bet.");
+            // console.log("Submitted bet.");
           }
 
         }).catch((error) => {
@@ -292,7 +293,7 @@ const BetslipBet = ({bet}) => {
       event.preventDefault();
 
       dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
-      console.log("Remove a bet.");
+      // console.log("Remove a bet.");
       return;
     }
 
