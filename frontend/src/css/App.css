@@ -64,12 +64,11 @@
 .bet-slip {
     position: fixed;
     display: flex;
-    width: 360px;
+    width: 380px;
     height: 100%;
 }
 
 .middle {
     display: flex;
     position: relative;
-
 }
