@@ -72,7 +72,7 @@ const Sidebar = () => {
             <h2 className="sidebar-title">Sports</h2>
             <ul className="custom-list">
                 {sportsItems.map((item, index) => (
-                   <a href={item.link} className="no-underline">
+                   <a key={item.link} href={item.link} className="no-underline">
                     <li key={index} className="list-item">
                             <img
                                 src={item.imageUrl}

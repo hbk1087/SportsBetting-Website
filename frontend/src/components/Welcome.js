@@ -6,21 +6,14 @@ import { useSelector } from 'react-redux';
 
 
 const Welcome = () => {
-    const isLoggedIn = useSelector(state => state.auth.loggedIn);
     const username = useSelector(state => state.user.username);
-    const usernameLocal = localStorage.getItem("username");
+    const balance = useSelector((state) => state.user.balance);
 
-    if (isLoggedIn) {
-        return (
-            <div className="welcome">
-                <h4>Welcome: &nbsp; {username}</h4>
-            </div>
-        )
-    }
 
     return (
         <div className="welcome">
-            <h4>Welcome: Guest!</h4>
+            <h4>Welcome: &nbsp; {username}</h4>
+            <h5>Balance: ${balance}</h5>
         </div>
     )
 }

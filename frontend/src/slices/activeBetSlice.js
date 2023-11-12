@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
+import { initializeBalance } from './userSlice';
+
 function truncateToTwoDecimals(num) {
     return Math.floor(num * 100) / 100;
 }
@@ -30,6 +32,37 @@ const formattedOddsSpread = (number) => {
     return number > 0 ? `+${number}` : (number === 0 ? "0" : `${number}`)
 }
 
+const formalizeBetType = (bet_type) => {
+    switch (bet_type) {
+        case "away_spread":
+            return "Away Line";
+        case "home_spread":
+            return "Home Line";
+        case "total_over":
+            return "Over";
+        case "total_under":
+            return "Under";
+        case "moneyline_home":
+            return "Home";
+        case "moneyline_away":
+            return "Away";
+        case "Away Line":
+            return "Away Line";
+        case "Home Line":
+            return "Home Line";
+        case "Over":
+            return "Over";
+        case "Under":
+            return "Under";
+        case "Home":
+            return "Home";
+        case "Away":
+            return "Away";
+        default:
+            return "Unknown Bet Type";
+    }
+}
+
 const initialState = {
     bets: [],
     finalizedBets: [],
@@ -47,8 +80,8 @@ const activeBetSlice = createSlice({
             var points = "Money Line";
 
             if (action.payload.bet_type === "moneyline_home") {
-            betTypeName = "Home";
-            odds = action.payload.game.home_odds;
+                betTypeName = "Home";
+                odds = action.payload.game.home_odds;
             } else if (action.payload.bet_type === "moneyline_away") {
                 betTypeName = "Away";
                 odds = action.payload.game.away_odds;
@@ -86,18 +119,15 @@ const activeBetSlice = createSlice({
             if (existingBetIndex !== -1){
                 state.finalizedBets[existingBetIndex] = action.payload.formattedBet;
             } else {
-                state.finalizedBets = [...state.finalizedBets, action.payload.formattedBet];
+                state.finalizedBets.push(action.payload.formattedBet);
             }
-
-            console.log("Added a finalized bet: ", action.payload.formattedBet);
-        },
-        updateExistingFinalizedBet: (state, action) => {
-            console.log("index", action.payload.index);
-
-            state.finalizedBets[action.payload.index] = action.payload.formattedBet;
         },
         removeGameByIdAndType: (state, action) => {
-            state.bets = state.bets.filter(bet => !(bet.game.game_id === action.payload.game_id && bet.bet_type === action.payload.bet_type));
+            state.bets = state.bets.filter(bet => !(bet.game.game_id === action.payload.game_id && formalizeBetType(bet.bet_type) === formalizeBetType(action.payload.bet_type)));
+
+            console.log(action.payload.bet_type);
+
+            state.finalizedBets = state.finalizedBets.filter(bet => !(bet.game_id === action.payload.game_id && formalizeBetType(bet.bet_type) === formalizeBetType(action.payload.bet_type)));
         },
         clearActiveBets: (state) => {
             state.hasActiveBets = false;
@@ -112,7 +142,31 @@ export const submitBets = () => (dispatch, getState) => {
     const bets = state.activeBets.finalizedBets;
     const authToken = state.auth.token;
 
-    Promise.all(bets.map(bet => {
+    const submissionError = {
+        error: null,
+        bet_ids: []
+    }
+
+    const outputBets = (bets) => {
+        for (const bet of bets){
+            console.log(bet);
+        }
+    };
+
+    // check wager total of all bets against balance
+
+    const calculateTotalWager = (bets) => bets.reduce((total, bet) => total + bet.wager, 0);
+
+    console.log("total wager:", calculateTotalWager(bets));
+    const balance = state.auth.balance;
+
+    if (calculateTotalWager > balance) {
+        console.log("Not enough funds. Please deposit more money.");
+        alert("Not enough funds. Please deposit more money."); 
+        return;
+    }
+
+    return Promise.all(bets.map(bet => {
 
         const requestData = {
             method: "POST",
@@ -120,27 +174,57 @@ export const submitBets = () => (dispatch, getState) => {
             headers: {
               Authorization: 'Bearer ' + authToken
             },
-            data: bet
+            data: {
+                "account_username": bet.account_username,
+                "game_id": bet.game_id,
+                "bet_type": bet.bet_type,
+                "wager": bet.wager,
+                "potential_payout": bet.potential_payout,
+                "odds": bet.odds,
+                "points": bet.points,
+                "timestamp": bet.timestamp,
+            }
         };
 
-        // console.log("request data", requestData);
+        console.log("request data", requestData);
 
         return axios(requestData)
         .then(response => {
             if (response.status === 201) {
-                dispatch(removeGameByIdAndType({game_id: bet.game_id, bet_type: bet.bet_type}));
+                // dispatch(removeGameByIdAndType({game_id: bet.game_id, bet_type: bet.bet_type}));
             }
+            
         })
         .catch(error => {
-            console.error("Could not submit bet:", bet, "; Error:", error);
+            if (error.response.status === 400) {
+                if (error.response.data.error === "Insufficient funds for wager") {
+                    submissionError.error = "Not enough funds. Please deposit more money.";
+                    submissionError.bet_ids.push(bet.id);
+                    throw(error);
+                } else if (error.response.data.error === "Bet is not completely filled out") {
+                    submissionError.error = "Invalid bet. Please check your bet.";
+                    submissionError.bet_ids.push(bet.id);
+                    throw(error);
+              }
+        }
+
         });
     }))
     .then(() => {
-        console.log("Submitted all bets.");
+        if (submissionError.error === null){
+            dispatch(initializeBalance(balance - calculateTotalWager));
+            dispatch(clearActiveBets());
+
+            outputBets(bets);
+        }
+        
     })
     .catch(error => {
-        console.error("An error occurred in submitting bets:", error);
-    });
+        if (submissionError.error !== null) {
+            alert(submissionError.error);
+        }
+    }
+    );
 };
 
 

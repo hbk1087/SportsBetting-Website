@@ -10,7 +10,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { removeGameByIdAndType, updateExistingFinalizedBet, addFinalizedBet } from '../slices/activeBetSlice';
+import { removeGameByIdAndType, addFinalizedBet } from '../slices/activeBetSlice';
+import { initializeBalance } from '../slices/userSlice';
 
 // CSS
 import "../css/BetslipBet.css"
@@ -188,42 +189,37 @@ function formatTimestamp(timestamp) {
 const BetslipBet = ({bet}) => {
     const loggedIn = useSelector((state) => state.auth.loggedIn);
     const username = useSelector((state) => state.user.username);
+    // const balance = useSelector((state) => state.user.balance);
     const authToken = useSelector((state) => state.auth.token);
-    const finalizedBets = useSelector((state) => state.activeBets.finalizedBets);
 
     const dispatch = useDispatch();
-
-    const [formState, setFormState] = useState({
-      wager: 0,
-      potential_payout: 0,
-    });
 
     var betTypeName = null;
     var odds = null;
     var points = "Money Line";
 
     if (bet.bet_type === "moneyline_home") {
-      betTypeName = "Home";
-      odds = bet.game.home_odds;
+    betTypeName = "Home";
+    odds = bet.game.home_odds;
     } else if (bet.bet_type === "moneyline_away") {
-        betTypeName = "Away";
-        odds = bet.game.away_odds;
+      betTypeName = "Away";
+      odds = bet.game.away_odds;
     } else if (bet.bet_type === "home_spread") {
-        betTypeName = "Home Line";
-        odds = bet.game.home_spread_odds;
-        points = formattedOddsSpread(bet.game.home_spread);
+      betTypeName = "Home Line";
+      odds = bet.game.home_spread_odds;
+      points = formattedOddsSpread(bet.game.home_spread);
     } else if (bet.bet_type === "away_spread") {
-        betTypeName = "Away Line";
-        odds = bet.game.away_spread_odds;
-        points = formattedOddsSpread(bet.game.away_spread);
+      betTypeName = "Away Line";
+      odds = bet.game.away_spread_odds;
+      points = formattedOddsSpread(bet.game.away_spread);
     } else if (bet.bet_type === "total_over") {
-        betTypeName = "Over";
-        odds = bet.game.over_odds;
-        points = `${bet.game.total}`;
+      betTypeName = "Over";
+      odds = bet.game.over_odds;
+      points = `${bet.game.total}`;
     } else if (bet.bet_type === "total_under") {
-        betTypeName = "Under";
-        odds = bet.game.under_odds;
-        points = `${bet.game.total}`;
+      betTypeName = "Under";
+      odds = bet.game.under_odds;
+      points = `${bet.game.total}`;
     }
 
     const [formattedBet, setFormattedBet] = useState({
@@ -231,14 +227,21 @@ const BetslipBet = ({bet}) => {
       game_id: bet.game.game_id,
       bet_type: betTypeName, 
       odds: odds,
-      points: "Money Line",
-      wager: formState.wager,
-      potential_payout: formState.potential_payout,
+      points: points,
+      wager: 0,
+      potential_payout: 0,
       timestamp: formatTimestamp(Date.now())
     });
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        // check balance to see if user has enough money to place bet
+        // if (balance < formattedBet.wager) {
+        //   console.log("Not enough funds. Please deposit more money.");
+        //   alert("Not enough funds. Please deposit more money.");
+        //   return;
+        // }
 
         console.log(formattedBet);      
 
@@ -249,10 +252,20 @@ const BetslipBet = ({bet}) => {
           headers: {
             Authorization: 'Bearer ' + authToken
           },
-          data: formattedBet
+          data: {
+            "account_username": formattedBet.account_username,
+            "game_id": formattedBet.game_id,
+            "bet_type": formattedBet.bet_type,
+            "odds": formattedBet.odds,
+            "points": formattedBet.points,
+            "wager": formattedBet.wager,
+            "potential_payout": formattedBet.potential_payout,
+            "timestamp": formattedBet.timestamp
+          }
         })
         .then((response) => {
           if (response.status === 201) {
+            // balance = balance - formattedBet.wager;
             dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
             console.log("Submitted bet.");
           }
@@ -260,16 +273,28 @@ const BetslipBet = ({bet}) => {
         }).catch((error) => {
           if (error.response) {
             if (error.response.status === 400) {
-              alert("Invalid wager input. Please input a number to bet.");
-              console.log("Invalid wager input. Please input a number to bet.");
+              if (error.response.data.error === "Insufficient funds for wager") {
+                console.log("Not enough funds. Please deposit more money.");
+                alert("Not enough funds. Please deposit more money.");
+              } else if (error.response.data.error === "Bet is not completely filled out") {
+                console.log("Not enough funds. Please deposit more money.");
+                alert("Invalid wager input. Please input a number to bet.");
             }
 
             console.log(error.response)
             console.log(error.response.status)
             console.log(error.response.headers)
             }
-        })
+        }})
     };
+
+    const onRemove = (event) => {
+      event.preventDefault();
+
+      dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
+      console.log("Remove a bet.");
+      return;
+    }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -303,14 +328,13 @@ const BetslipBet = ({bet}) => {
           }
   
           if (!isNaN(parsedValue) && !isNaN(odds)) {
-              // console.log("odds: ", odds)
-              setFormState(prevState => ({
+              setFormattedBet(prevState => ({
                   ...prevState, 
                   [name]: parsedValue, 
                   potential_payout: truncateToTwoDecimals((parsedValue * odds) - parsedValue)
               }));
           } else {
-              setFormState(prevState => ({
+              setFormattedBet(prevState => ({
                 ...prevState, 
                 [name]: "", 
                 potential_payout: ""
@@ -319,27 +343,9 @@ const BetslipBet = ({bet}) => {
         }
     };
 
-    // Separate useEffect for formState
-    useEffect(() => {
-      console.log("wager: ", formState.wager);
-
-      setFormattedBet(prevFormattedBet => ({
-        ...prevFormattedBet,
-        wager: formState.wager,
-        potential_payout: truncateToTwoDecimals(formState.potential_payout + formState.wager)
-      }));
-
-    }, [formState]);
-
     useEffect(() => {
       dispatch(addFinalizedBet({formattedBet: formattedBet}));
-    }, [formState]);
-
-    const onRemove = (event) => {
-      dispatch(removeGameByIdAndType({game_id: bet.game.game_id, bet_type: bet.bet_type}));
-      console.log("Remove a bet.");
-      return;
-    }
+    }, [formattedBet]);
 
     return (
       <ThemeProvider>
@@ -435,27 +441,29 @@ const BetslipBet = ({bet}) => {
             <WagerAndWinContainer>
               <WagerContainer className="wagerContainer">
                 <TextField
+                        key={`${formattedBet.game_id}-${bet.bet_type}`}
                         name="wager" 
                         label="Wager" 
                         variant="outlined" 
-                        InputLabelProps={{ shrink: true }}
-                        InputProps={{ startAdornment: <InputAdornment position="start" style={{ color: 'white' }}>$</InputAdornment>, style: { color: 'white' } }}
+                        InputLabelProps={{ style: { color: 'white' }, shrink: true }}
+                        InputProps={{ startAdornment: <InputAdornment className="dollarSignWager" position="start" style={{color: '#008001'}}><Typography style={{ color: '#008001' }}>$</Typography></InputAdornment>, style: { color: 'white' } }}
                         sx={{ input: { color: 'white' }, label: { color: 'gray' }, borderColor: 'gray', '& .MuiOutlinedInput-root': { '& fieldset': { borderColor: 'gray' }, '&:hover fieldset': { borderColor: 'white' }, '&.Mui-focused fieldset': { borderColor: 'blue' } } }}
                         onChange={handleChange}
-                        value={formState.wager}
+                        value={formattedBet.wager}
                 />
               </WagerContainer>
 
               <ToWinContainer className="toWinContainer">
-                <TextField 
+                <TextField
+                        key={`${formattedBet.game_id}-${bet.bet_type}`}
                         name="potential_payout"
                         label="To Win"
                         variant="outlined" 
-                        InputLabelProps={{ shrink: true }}
-                        InputProps={{ style: { color: 'white' } }}
+                        InputLabelProps={{ style: { color: 'white' }, shrink: true }}
+                        InputProps={{ startAdornment: <InputAdornment position="start"><Typography style={{ color: '#008001' }}>$</Typography></InputAdornment>, style: { color: '#ffffff' } }}
                         sx={{ input: { color: 'white' }, label: { color: 'gray' }, borderColor: 'gray', '& .MuiOutlinedInput-root': { '& fieldset': { borderColor: 'gray' }, '&:hover fieldset': { borderColor: 'white' }, '&.Mui-focused fieldset': { borderColor: 'blue' } } }}
                         onChange={handleChange}
-                        value={formState.potential_payout}
+                        value={formattedBet.potential_payout}
                 />
               </ToWinContainer>
             </WagerAndWinContainer>

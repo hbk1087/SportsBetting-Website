@@ -20,7 +20,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        document.title = "AlgoSportsBets"
+        document.title = "Algo | ML Sports Betting"
 
               axios({
                 method: "GET",
@@ -28,7 +28,7 @@ const Home = () => {
               })
               .then((response) => {
                 const res = response.data;
-                console.log(res);
+                // console.log(res);
                 setGame(res);
               })
               .catch((error) => {

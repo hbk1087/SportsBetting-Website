@@ -105,11 +105,12 @@ const SubmitAllBets = styled(Grid)({
 const Betslip = () => {
     const dispatch = useDispatch();
     const bets = useSelector((state) => state.activeBets.bets);
+    const finalizedBets = useSelector((state) => state.activeBets.finalizedBets);
     const isLoggedIn = useSelector(state => state.auth.loggedIn);
     const navigate = useNavigate();
 
     useEffect(() => {
-    }, [bets])
+    }, [bets, finalizedBets])
 
     return (
         <BetslipContainer className="betslip-container">
@@ -129,7 +130,7 @@ const Betslip = () => {
                             <>
                                 {
                                     bets.map((bet) => (
-                                        <BetslipBet key={bet.id} bet={bet} />
+                                        <BetslipBet key={`${bet.game.game_id}-${bet.bet_type}`} bet={bet}/>
                                     ))
                                 }
 

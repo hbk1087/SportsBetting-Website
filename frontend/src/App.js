@@ -22,11 +22,14 @@ import NotFound from "./components/NotFound"
 import Sidebar from './components/Sidebar'
 import Betslip from './components/Betslip'
 
-
+// React
 import { useEffect } from 'react'
 
 // Redux
 import { useSelector } from 'react-redux'
+
+// MapSet
+import { enableMapSet } from 'immer';
 
 const theme = createTheme({
     palette: {
@@ -48,6 +51,8 @@ function App() {
     const username = useSelector(state => state.user.username);
     let loginmatch = useMatch("/login");
     let signupmatch = useMatch("/signup");
+
+    enableMapSet();
 
     useEffect(() => {
         // console.log("App.js: isLoggedIn: " + isLoggedIn)
