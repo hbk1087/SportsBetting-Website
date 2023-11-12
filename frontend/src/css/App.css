@@ -63,6 +63,7 @@
 
 .bet-slip {
     position: fixed;
+    display: flex;
     width: 360px;
     height: 100%;
 }
