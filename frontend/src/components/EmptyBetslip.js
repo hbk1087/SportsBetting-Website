@@ -1,5 +1,5 @@
 import { Grid, Typography, Paper } from '@mui/material';
-
+import React from 'react';
 // empty betslip icon
 import noBetsIcon from "../img/nobet.png"
 

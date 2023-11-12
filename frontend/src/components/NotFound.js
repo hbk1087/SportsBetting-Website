@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Redux
 import { useSelector } from 'react-redux';
-import { setToken, setLoggedIn } from '../slices/authSlice'
+import React from 'react';
 
 import LoadingIndicator from '../util/LoadingIndicator';
 

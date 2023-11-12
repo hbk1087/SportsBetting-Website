@@ -1,5 +1,6 @@
 // Router DOM imports
 import { Routes, Route, useMatch } from 'react-router-dom'
+import React from 'react';
 
 // Material UI imports
 import { createTheme, ThemeProvider } from '@mui/material/styles'

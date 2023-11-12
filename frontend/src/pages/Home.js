@@ -1,5 +1,6 @@
 // React
 import { useEffect, useState } from 'react'
+import React from 'react';
 
 // components
 import GameDetails from '../components/GameDetails'

@@ -1,5 +1,6 @@
 import atSymbol from '../img/at.png'
 import '../css/TeamSeparator.css'
+import React from 'react';
 
 const TeamSeparator = () => {
 

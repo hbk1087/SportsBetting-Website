@@ -1,4 +1,5 @@
 import "../css/GameDetails.css"
+import React from 'react';
 
 const GameOddsHeader = ({sportName}) => {
 

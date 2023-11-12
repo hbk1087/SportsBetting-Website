@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 // components
 import GameDetails from '../components/GameDetails'
 import LoadingIndicator from '../util/LoadingIndicator';
+import React from 'react';
 
 // axios
 import axios from 'axios'
