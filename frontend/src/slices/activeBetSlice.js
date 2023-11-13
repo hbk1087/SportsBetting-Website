@@ -201,7 +201,7 @@ export const submitBets = () => (dispatch, getState) => {
 
         });
     }))
-    .then(() => {
+    .then(response => {
         if (submissionError.error === null){
             // console.log("balance", truncateToTwoDecimals(balance - calculateTotalWager));
             dispatch(clearActiveBets());
