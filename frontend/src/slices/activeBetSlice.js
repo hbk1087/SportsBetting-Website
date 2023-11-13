@@ -157,7 +157,7 @@ export const submitBets = () => (dispatch, getState) => {
         return;
     }
 
-    Promise.all(bets.map(bet => {
+    return Promise.all(bets.map(bet => {
 
         const requestData = {
             method: "POST",
@@ -201,15 +201,19 @@ export const submitBets = () => (dispatch, getState) => {
 
         });
     }))
-
+    .then(() => {
         if (submissionError.error === null){
             // console.log("balance", truncateToTwoDecimals(balance - calculateTotalWager));
             dispatch(clearActiveBets());
         }        
+    })
+    .catch(error => {
         if (submissionError.error !== null) {
             // alert(submissionError.error);
             return Promise.reject(submissionError);
         }
+    }
+    );
 };
 
 
