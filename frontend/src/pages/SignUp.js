@@ -72,7 +72,7 @@ function SignUp() {
 
       axios({
         method: "POST",
-        url:"http://3.138.170.253:5000/api/signup",
+        url:"/api/signup",
         data:{
             username: formData.username,
             first_name: formData.first_name,

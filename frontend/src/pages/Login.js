@@ -41,7 +41,7 @@ function Login() {
 
       axios({
         method: "POST",
-        url:"http://3.138.170.253:5000/api/token",
+        url:"/api/token",
         data:{
           username: formData.username,
           password: formData.password
@@ -57,7 +57,7 @@ function Login() {
 
             axios({
               method: "GET",
-              url: "http://127.0.0.1:5000/api/account",
+              url: "/api/account",
               headers: {
                 Authorization: 'Bearer ' + token,
               },

@@ -23,7 +23,7 @@ const NBAPage = () => {
 
               axios({
                 method: "GET",
-                url: "http://3.138.170.253:5000/api/nba",
+                url: "/api/nba",
               })
               .then((response) => {
                 const res = response.data;

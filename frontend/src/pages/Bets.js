@@ -32,7 +32,7 @@ function Bets() {
 
         axios({
             method: "GET",
-            url:"http://3.138.170.253:5000/api/bets",
+            url:"/api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             }
