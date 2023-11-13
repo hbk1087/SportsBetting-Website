@@ -23,7 +23,7 @@ const NFLPage = () => {
 
               axios({
                 method: "GET",
-                url: "http://3.138.170.253:5000/api/nfl",
+                url: "https://sb-backend-6409fb97857a.herokuapp.com/api/nfl",
               })
               .then((response) => {
                 const res = response.data;

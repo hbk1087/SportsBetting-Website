@@ -92,7 +92,7 @@ useEffect(() => {
 
   axios({
     method: "GET",
-    url: "http://3.138.170.253:5000/api/account",
+    url: "https://sb-backend-6409fb97857a.herokuapp.com//api/account",
     headers: {
       Authorization: 'Bearer ' + authToken,
     },

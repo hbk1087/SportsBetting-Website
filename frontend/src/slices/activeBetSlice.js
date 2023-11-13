@@ -161,7 +161,7 @@ export const submitBets = () => (dispatch, getState) => {
 
         const requestData = {
             method: "POST",
-            url:"/api/bets",
+            url:"https://sb-backend-6409fb97857a.herokuapp.com/api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             },

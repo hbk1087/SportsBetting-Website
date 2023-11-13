@@ -24,7 +24,7 @@ const Home = () => {
 
               axios({
                 method: "GET",
-                url: "http://3.138.170.253:5000/api/home",
+                url: "https://sb-backend-6409fb97857a.herokuapp.com/api/home",
               })
               .then((response) => {
                 const res = response.data;
