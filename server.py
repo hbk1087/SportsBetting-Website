@@ -185,13 +185,13 @@ app.register_blueprint(user_bets_blueprint, url_prefix='/api/bets')
 
 
 def scheduled_task_job():
-    response = requests.get('http://0.0.0.0:5000/api/nfl/update_games')  # Replace with your Flask app's URL
+    response = requests.get('https://sb-backend-6409fb97857a.herokuapp.com/api/nfl/update_games')  # Replace with your Flask app's URL
     if response.status_code == 200:
         print("Scheduled task executed and called /api/nfl/update_games.")
     else:
         print(f"Scheduled task executed, but calling /api/nfl/update_games failed with status code {response.status_code}.")
 
-    response = requests.get('http://0.0.0.0:5000/api/nba/update_games')  # Replace with your Flask app's URL
+    response = requests.get('https://sb-backend-6409fb97857a.herokuapp.com/api/nba/update_games')  # Replace with your Flask app's URL
     if response.status_code == 200:
         print("Scheduled task executed and called /api/nba/update_games.")
     else:
