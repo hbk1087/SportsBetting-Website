@@ -75,4 +75,12 @@
     animation: shake 0.5s linear;
 }
 
-  
+.suBetsButton {
+    display: 'flex';
+    background: #2f2d2f;
+}
+
+.suBetsButton:hover {
+    background: #2b90ff;
+    color: #ffffff;
+}

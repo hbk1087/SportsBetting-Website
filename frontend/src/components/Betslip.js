@@ -83,6 +83,16 @@ const LoginOrSignupButton = styled(Button)({
       },
 });
 
+const SubButton = styled(Button)({
+    display: 'flex',
+    color: 'green',
+    backgroundColor: '#2f2d2f',
+    ':hover': {
+        backgroundColor: '#2b90ff',
+        color: 'white'
+      },
+});
+
 const SubmitAllBets = styled(Grid)({
     display: 'flex',
     justifyContent: 'flex-end',
@@ -134,8 +144,12 @@ const Betslip = () => {
                 }
             </BetslipsContainer>
 
-            <SubmitAllBets className='submitAllContainer'>
-                <SubmitBetsButton className="submitBetsButton"/>
+            <SubmitAllBets>
+                {isLoggedIn ? 
+                (<SubmitBetsButton/>) 
+                :
+                (<LoginOrSignupButton onClick={() => navigate('/login')}>Login To Submit Bets</LoginOrSignupButton>)
+                }
             </SubmitAllBets>
         </BetslipContainer>
     );

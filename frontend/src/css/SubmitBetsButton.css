@@ -5,11 +5,11 @@
 
 .submitBetsButton:hover {
     background-color: #2b90ff;
-    color: #ffffff;
+    color: #aaaaaa;
 }
 
 
-@keyframes shake {
+/* @keyframes shake {
     0% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     50% { transform: translateX(5px); }
@@ -19,4 +19,4 @@
   
 .shake-animation {
     animation: shake 0.5s linear;
-}
+} */
