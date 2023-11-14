@@ -83,9 +83,9 @@ const LoginOrSignupButton = styled(Button)({
       },
 });
 
-const SubButton = styled(Button)({
+const SubButton = styled(SubmitBetsButton)({
     display: 'flex',
-    color: 'green',
+    color: '#2b90ff',
     backgroundColor: '#2f2d2f',
     ':hover': {
         backgroundColor: '#2b90ff',
