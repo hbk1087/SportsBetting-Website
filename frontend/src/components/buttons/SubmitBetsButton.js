@@ -42,7 +42,7 @@ const SubmitBetsButton = () => {
 
     return (
         <Button
-        className={isLoggedIn? (hasError ? 'shake-animation' : 'suBetsButton') : 'disabled'}
+        className={isLoggedIn? (hasError ? 'shake-animation' : 'submitBetsButton') : 'submitBetsButton'}
         onClick={handleClick}
         >
         { isLoggedIn ? 'Submit Bets' : 'Login to Submit Bets' }

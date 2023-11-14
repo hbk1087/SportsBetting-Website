@@ -146,7 +146,7 @@ const Betslip = () => {
 
             <SubmitAllBets>
                 {isLoggedIn ? 
-                (<SubmitBetsButton/>) 
+                (<SubmitBetsButton className='submitBetsButton'/>) 
                 :
                 (<LoginOrSignupButton onClick={() => navigate('/login')}>Login To Submit Bets</LoginOrSignupButton>)
                 }
