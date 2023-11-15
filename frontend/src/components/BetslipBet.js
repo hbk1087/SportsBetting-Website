@@ -247,7 +247,7 @@ const BetslipBet = ({bet}) => {
         // Send the bet to the backend.
         axios({
           method: "POST",
-          url:"/api/bets",
+          url:"http://127.0.0.1:5000/api/bets",
           headers: {
             Authorization: 'Bearer ' + authToken
           },

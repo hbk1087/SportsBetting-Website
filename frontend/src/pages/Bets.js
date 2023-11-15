@@ -32,7 +32,7 @@ function Bets() {
 
         axios({
             method: "GET",
-            url:"/api/bets",
+            url:"http://127.0.0.1:5000/api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             }
@@ -67,7 +67,7 @@ function Bets() {
                     </Typography>
                     <br></br>
                         {bets.map((betItem, index) => (
-                            <MyBet bet={betItem}/>
+                            <MyBet key={`${betItem.game_id}-${betItem.bet_type}`} bet={betItem}/>
                         ))}
                 </Container>
             )}

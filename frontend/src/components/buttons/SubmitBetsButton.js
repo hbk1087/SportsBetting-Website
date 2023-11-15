@@ -35,8 +35,10 @@ const SubmitBetsButton = () => {
         dispatch(submitBets())
         .then(response => {
             setHasError(false);
+            console.log(response);
         }).catch(error => {
             setHasError(true);
+            console.log(error);
         })
     };
 

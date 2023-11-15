@@ -65,7 +65,7 @@ const WithdrawForm = ({ onClose, currentBalance }) => {
     // console.log(`Expected Balance after withdraw: ${expectedBalance}`);
     axios({
         method: "PATCH",
-        url:"/api/account",
+        url:"http://127.0.0.1:5000/api/account",
         headers: {
             Authorization: 'Bearer ' + authToken,
           },

@@ -2,33 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { initializeBalance } from './userSlice';
-
-function truncateToTwoDecimals(num) {
-    return Math.floor(num * 100) / 100;
-}
-  
-function formatTimestamp(timestamp) {
-    const date = new Date(timestamp);
-
-    const year = date.getFullYear();
-    // getMonth() returns 0-11, adding 1 to make it 1-12
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    let hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-
-    // Converting 24hr format to 12hr format
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
-}
-
 const formattedOddsSpread = (number) => {
     if (typeof number !== 'number') return "Not a number";
     return number > 0 ? `+${number}` : (number === 0 ? "0" : `${number}`)
@@ -140,28 +113,22 @@ export const submitBets = () => (dispatch, getState) => {
     const state = getState();
     const bets = state.activeBets.finalizedBets;
     const authToken = state.auth.token;
-    const balance = ((state) => state.auth.balance);
-
-    const submissionError = {
-        error: null,
-        bet_ids: []
-    }
+    const balance = state.user.balance;
 
     // check wager total of all bets against balance
 
     const calculateTotalWager = (bets) => bets.reduce((total, bet) => total + bet.wager, 0);
 
-    if (calculateTotalWager > balance) {
+    if (calculateTotalWager(bets) > balance) {
         // console.log("Not enough funds. Please deposit more money.");
-        // alert("Not enough funds. Please deposit more money."); 
+        alert("Not enough funds. Please deposit more money."); 
         return;
     }
 
-    return Promise.all(bets.map(bet => {
-
+    const promiseBets = bets.map(bet => {
         const requestData = {
             method: "POST",
-            url:"/api/bets",
+            url:"http://127.0.0.1:5000/api/bets",
             headers: {
               Authorization: 'Bearer ' + authToken
             },
@@ -177,43 +144,40 @@ export const submitBets = () => (dispatch, getState) => {
             }
         };
 
-        // console.log("request data", requestData);
-
-        return axios(requestData)
-        .then(response => {
-            if (response.status === 201) {
-                // dispatch(removeGameByIdAndType({game_id: bet.game_id, bet_type: bet.bet_type}));
+        return axios(requestData).catch(error => {
+            if (error.response) {
+                if (error.response.status === 400) {
+                    if (error.response.data.error === "Insufficient funds for wager") {
+                        return Promise.reject("Insufficient funds for wager");
+                    } else if (error.response.data.error === "Bet is not completely filled out") {
+                        return Promise.reject("Bet is not completely filled out");
+                    }
+                } else if (error.response.status === 401) {
+                    alert("There was an issue authenticating your details. Please sign in again.");
+                }
             }
-            
+
+            return Promise.reject("Error submitting bet");
+        });
+    });
+
+    return Promise.allSettled(promiseBets)
+        .then(results => {
+            const failedBets = results.filter(result => result.status === 'rejected');
+
+            if (failedBets.length > 0) {
+                throw new Error('Failed to submit all bets.');
+            }
+
+            if (bets.length === 0){
+                throw new Error('No bets.');
+            }
+
+            dispatch(clearActiveBets());
         })
         .catch(error => {
-            if (error.response.status === 400) {
-                if (error.response.data.error === "Insufficient funds for wager") {
-                    submissionError.error = "Not enough funds. Please deposit more money.";
-                    submissionError.bet_ids.push(bet.id);
-                    throw(error);
-                } else if (error.response.data.error === "Bet is not completely filled out") {
-                    submissionError.error = "Invalid bet. Please check your bet.";
-                    submissionError.bet_ids.push(bet.id);
-                    throw(error);
-              }
-        }
-
+            throw error;
         });
-    }))
-    .then(() => {
-        if (submissionError.error === null){
-            // console.log("balance", truncateToTwoDecimals(balance - calculateTotalWager));
-            dispatch(clearActiveBets());
-        }        
-    })
-    .catch(error => {
-        if (submissionError.error !== null) {
-            // alert(submissionError.error);
-            return Promise.reject(submissionError);
-        }
-    }
-    );
 };
 
 
