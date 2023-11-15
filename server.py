@@ -201,6 +201,7 @@ def scheduled_task_job():
 # Schedule the task to run daily at 3 AM
 scheduler.add_job(scheduled_task_job, 'cron', hour=3, minute=30)
 scheduler.add_job(scheduled_task_job, 'cron', hour=11, minute=30)
+scheduler.add_job(scheduled_task_job, 'cron', hour=22, minute=30)
      
 # Running app
 if __name__ == '__main__':
