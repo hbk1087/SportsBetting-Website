@@ -2,33 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { initializeBalance } from './userSlice';
-
-function truncateToTwoDecimals(num) {
-    return Math.floor(num * 100) / 100;
-}
-  
-function formatTimestamp(timestamp) {
-    const date = new Date(timestamp);
-
-    const year = date.getFullYear();
-    // getMonth() returns 0-11, adding 1 to make it 1-12
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    let hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-
-    // Converting 24hr format to 12hr format
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
-}
-
 const formattedOddsSpread = (number) => {
     if (typeof number !== 'number') return "Not a number";
     return number > 0 ? `+${number}` : (number === 0 ? "0" : `${number}`)

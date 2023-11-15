@@ -6,23 +6,9 @@ import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux';
 
 // Redux
-import { setToken, setLoggedIn } from '../slices/authSlice'
-import { initializeUser, setUsername, initializeBalance } from '../slices/userSlice';
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
+import { initializeBalance } from '../slices/userSlice';
+import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-// const DepositForm = ({ onClose }) => {
-//   return (
-//     <div className="popup-container">
-//       <div className="popup">
-//         {/* Your form content */}
-//         <button onClick={onClose}>Close</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DepositForm;
 
 const DepositForm = ({ onClose, currentBalance }) => {
       // Custom styled button for the Deposit
@@ -39,10 +25,6 @@ const DepositForm = ({ onClose, currentBalance }) => {
   const balance = useSelector((state) => state.user.balance);
 
   const dispatch = useDispatch()
-
-  const submitDeposit = () => {
-    
-  }
 
   const handleDeposit = (e) => {
     e.preventDefault();

@@ -21,26 +21,29 @@ import LoadingIndicator from '../util/LoadingIndicator';
 // CSS
 import '../css/Account.css';
 
+function truncateToTwoDecimals(num) {
+  return Math.floor(num * 100) / 100;
+}
+
 function Account() {
 
-  // Loading symbol state
-  const [loading, setLoading] = useState(true)
-  // Custom styled button for the Deposit
-const DepositButton = styled(Button)(({ theme }) => ({
-  marginRight: theme.spacing(2),
-  backgroundColor: '#007BFF',
-  '&:hover': {
-    backgroundColor: '#0056b3', // a bit darker on hover
-  }
-}));
 
-// Custom styled button for the Withdraw Button
-const WithdrawButton = styled(Button)(({ theme }) => ({
-  backgroundColor: '#28A745',
-  '&:hover': {
-  backgroundColor: '#1f7a33', // a bit darker on hover
-  }
-}));
+  const [loading, setLoading] = useState(true)
+
+  const DepositButton = styled(Button)(({ theme }) => ({
+    marginRight: theme.spacing(2),
+    backgroundColor: '#007BFF',
+    '&:hover': {
+      backgroundColor: '#0056b3', 
+    }
+  }));
+
+  const WithdrawButton = styled(Button)(({ theme }) => ({
+    backgroundColor: '#28A745',
+    '&:hover': {
+    backgroundColor: '#1f7a33', 
+    }
+  }));
 
   // Deposit popup
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -66,29 +69,28 @@ const WithdrawButton = styled(Button)(({ theme }) => ({
   const authLoggedIn = useSelector((state) => state.auth.loggedIn);
 
   // user data selectors
-  const username = useSelector((state) => state.user.username);
   const balance = useSelector((state) => state.user.balance);
 
   const navigate = useNavigate();
 
-useEffect(() => {
-  document.title = "Account"
+  useEffect(() => {
+    document.title = "Account"
 
-  if (!authLoggedIn) {
-    // Not allowed to access page - output status message and redirect to login page.
-    // console.log("You are not logged in");
-    dispatch(setLoggedIn(false));
-    localStorage.removeItem("loggedIn");
+    if (!authLoggedIn) {
+      // Not allowed to access page - output status message and redirect to login page.
+      // console.log("You are not logged in");
+      dispatch(setLoggedIn(false));
+      localStorage.removeItem("loggedIn");
 
-    // ...same with token
-    dispatch(setToken(null));
-    localStorage.removeItem("token");
+      // ...same with token
+      dispatch(setToken(null));
+      localStorage.removeItem("token");
 
-    // actually redirect
-    navigate("/login");
+      // actually redirect
+      navigate("/login");
 
-    return; // stop the execution of the effect here - important!
-  }
+      return;
+    }
 
   axios({
     method: "GET",
@@ -140,10 +142,10 @@ useEffect(() => {
                   <span className="before-curly">Phone Number: </span> {accountData.phone_number}
                 </p>
                 <p>
-                  <span className="before-curly">Lifetime Winnings: </span> $&nbsp;<span style={{ color: accountData.lifetime_winnings >= 0 ? 'green' : 'red' }}> { accountData.lifetime_winnings}</span>
+                  <span className="before-curly">Lifetime Winnings: </span> $&nbsp;<span style={{ color: accountData.lifetime_winnings >= 0 ? 'green' : 'red' }}> { truncateToTwoDecimals(parseFloat(accountData.lifetime_winnings))}</span>
                 </p>
                 <p>
-                  <span className="before-curly">Current Balance: </span> $ {accountData.current_balance}
+                  <span className="before-curly">Current Balance: </span> $ {truncateToTwoDecimals(parseFloat(accountData.current_balance))}
                 </p>
               </div>
             
