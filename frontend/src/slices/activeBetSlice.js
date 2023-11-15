@@ -140,25 +140,19 @@ export const submitBets = () => (dispatch, getState) => {
     const state = getState();
     const bets = state.activeBets.finalizedBets;
     const authToken = state.auth.token;
-    const balance = ((state) => state.auth.balance);
-
-    const submissionError = {
-        error: null,
-        bet_ids: []
-    }
+    const balance = state.user.balance;
 
     // check wager total of all bets against balance
 
     const calculateTotalWager = (bets) => bets.reduce((total, bet) => total + bet.wager, 0);
 
-    if (calculateTotalWager > balance) {
+    if (calculateTotalWager(bets) > balance) {
         // console.log("Not enough funds. Please deposit more money.");
-        // alert("Not enough funds. Please deposit more money."); 
+        alert("Not enough funds. Please deposit more money."); 
         return;
     }
 
-    return Promise.all(bets.map(bet => {
-
+    const promiseBets = bets.map(bet => {
         const requestData = {
             method: "POST",
             url:"https://sb-backend-6409fb97857a.herokuapp.com/api/bets",
@@ -177,43 +171,40 @@ export const submitBets = () => (dispatch, getState) => {
             }
         };
 
-        // console.log("request data", requestData);
-
-        return axios(requestData)
-        .then(response => {
-            if (response.status === 201) {
-                // dispatch(removeGameByIdAndType({game_id: bet.game_id, bet_type: bet.bet_type}));
+        return axios(requestData).catch(error => {
+            if (error.response) {
+                if (error.response.status === 400) {
+                    if (error.response.data.error === "Insufficient funds for wager") {
+                        return Promise.reject("Insufficient funds for wager");
+                    } else if (error.response.data.error === "Bet is not completely filled out") {
+                        return Promise.reject("Bet is not completely filled out");
+                    }
+                } else if (error.response.status === 401) {
+                    alert("There was an issue authenticating your details. Please sign in again.");
+                }
             }
-            
+
+            return Promise.reject("Error submitting bet");
+        });
+    });
+
+    return Promise.allSettled(promiseBets)
+        .then(results => {
+            const failedBets = results.filter(result => result.status === 'rejected');
+
+            if (failedBets.length > 0) {
+                throw new Error('Failed to submit all bets.');
+            }
+
+            if (bets.length === 0){
+                throw new Error('No bets.');
+            }
+
+            dispatch(clearActiveBets());
         })
         .catch(error => {
-            if (error.response.status === 400) {
-                if (error.response.data.error === "Insufficient funds for wager") {
-                    submissionError.error = "Not enough funds. Please deposit more money.";
-                    submissionError.bet_ids.push(bet.id);
-                    throw(error);
-                } else if (error.response.data.error === "Bet is not completely filled out") {
-                    submissionError.error = "Invalid bet. Please check your bet.";
-                    submissionError.bet_ids.push(bet.id);
-                    throw(error);
-              }
-        }
-
+            throw error;
         });
-    }))
-    .then(() => {
-        if (submissionError.error === null){
-            // console.log("balance", truncateToTwoDecimals(balance - calculateTotalWager));
-            dispatch(clearActiveBets());
-        }        
-    })
-    .catch(error => {
-        if (submissionError.error !== null) {
-            // alert(submissionError.error);
-            return Promise.reject(submissionError);
-        }
-    }
-    );
 };
 
 

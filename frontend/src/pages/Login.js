@@ -53,27 +53,6 @@ function Login() {
             dispatch(setLoggedIn(true))
             dispatch(setUsername(formData.username))
 
-            const token = response.data.access_token;
-
-            axios({
-              method: "GET",
-              url: "http://127.0.0.1:5000/api/account",
-              headers: {
-                Authorization: 'Bearer ' + token,
-              },
-            })
-            .then((response) => {
-              const res = response.data;
-              dispatch(initializeBalance(truncateToTwoDecimals(res.current_balance)));
-            })
-            .catch((error) => {
-              if (error.response) {
-                // console.log(error.response);
-                // console.log(error.response.status);
-                // console.log(error.response.headers);
-              }
-            });
-
             routeChangeHome()
         }
       }).catch((error) => {
