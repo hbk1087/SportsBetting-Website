@@ -5,17 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setToken, setLoggedIn } from '../slices/authSlice'
-import { initializeBalance, setUsername } from '../slices/userSlice';
+import { setUsername } from '../slices/userSlice';
 
 // MUI
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import '../css/Login.css';
-
-function truncateToTwoDecimals(num) {
-  return Math.floor(num * 100) / 100;
-}
 
 function Login() {
 

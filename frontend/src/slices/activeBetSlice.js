@@ -2,11 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
-const formattedOddsSpread = (number) => {
-    if (typeof number !== 'number') return "Not a number";
-    return number > 0 ? `+${number}` : (number === 0 ? "0" : `${number}`)
-}
-
 const formalizeBetType = (bet_type) => {
     switch (bet_type) {
         case "away_spread":
@@ -49,35 +44,6 @@ const activeBetSlice = createSlice({
     initialState,
     reducers: {
         openActiveBet: (state, action) => {
-
-            var betTypeName = null;
-            var odds = null;
-            var points = "Money Line";
-
-            if (action.payload.bet_type === "moneyline_home") {
-                betTypeName = "Home";
-                odds = action.payload.game.home_odds;
-            } else if (action.payload.bet_type === "moneyline_away") {
-                betTypeName = "Away";
-                odds = action.payload.game.away_odds;
-            } else if (action.payload.bet_type === "home_spread") {
-                betTypeName = "Home Line";
-                odds = action.payload.game.home_spread_odds;
-                points = formattedOddsSpread(action.payload.game.home_spread);
-            } else if (action.payload.bet_type === "away_spread") {
-                betTypeName = "Away Line";
-                odds = action.payload.game.away_spread_odds;
-                points = formattedOddsSpread(action.payload.game.away_spread);
-            } else if (action.payload.bet_type === "total_over") {
-                betTypeName = "Over";
-                odds = action.payload.game.over_odds;
-                points = `${action.payload.game.total}`;
-            } else if (action.payload.bet_type === "total_under") {
-                betTypeName = "Under";
-                odds = action.payload.game.under_odds;
-                points = `${action.payload.game.total}`;
-            }
-
             state.bets.push(action.payload);
             state.hasActiveBets = true;
         },

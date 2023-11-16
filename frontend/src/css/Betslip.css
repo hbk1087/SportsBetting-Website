@@ -101,8 +101,10 @@
     animation: shake .5s linear;
 }
 
+
 .submitBetsButton {
-    color: #008000 !important;
+    /* background-color: #2b90ff; */
+    background-color: #2f2d2f !important;
 }
 
 .submitBetsButton:hover {

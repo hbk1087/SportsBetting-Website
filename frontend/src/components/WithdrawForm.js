@@ -1,38 +1,15 @@
 import React, { useState } from 'react';
 import '../css/WithdrawForm.css';
+
 // Axios
 import axios from "axios";
 
 import { useSelector, useDispatch } from 'react-redux';
 
 // Redux
-import { setToken, setLoggedIn } from '../slices/authSlice'
-import { initializeUser, setUsername, initializeBalance } from '../slices/userSlice';
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { initializeBalance } from '../slices/userSlice';
 
-// const WithdrawForm = ({ onClose }) => {
-//   return (
-//     <div className="popup-container">
-//       <div className="popup">
-//         {/* Your form content */}
-//         <button onClick={onClose}>Close</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default WithdrawForm;
-
-const WithdrawForm = ({ onClose, currentBalance }) => {
-      // Custom styled button for the Withdraw
-    const InvalidButton = styled(Button)(({ theme }) => ({
-        marginRight: theme.spacing(2),
-        backgroundColor: '#fc0202',
-        '&:hover': {
-        backgroundColor: '#0056b3', // a bit darker on hover
-        }
-    }));
+const WithdrawForm = ({ onClose, currentBalance }) => {    
   const [withdrawAmount, setWithdrawAmount] = useState(0);
   // user authentication selectors
   const authToken = useSelector((state) => state.auth.token);
@@ -40,9 +17,6 @@ const WithdrawForm = ({ onClose, currentBalance }) => {
 
   const dispatch = useDispatch()
 
-  const submitWithdraw = () => {
-    
-  }
 
   const handleWithdraw = (e) => {
     e.preventDefault();

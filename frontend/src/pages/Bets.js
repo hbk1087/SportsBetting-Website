@@ -48,7 +48,7 @@ function Bets() {
             .finally(() => {
                 setLoading(false)
             })
-    }, [])
+    }, [authToken])
 
     return (
         <div>
