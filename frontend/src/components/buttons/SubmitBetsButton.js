@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 // Slices
 import { submitBets } from '../../slices/activeBetSlice';
 
-import '../../css/SubmitBetsButton.css';
-
 const SubmitBetsButton = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,7 +20,7 @@ const SubmitBetsButton = () => {
         if (hasError) {
             setTimeout(() => {
                 setHasError(false);
-            }, 250);
+            }, 500);
         }
     }, [hasError, isLoggedIn]);
 
@@ -42,7 +40,7 @@ const SubmitBetsButton = () => {
 
     return (
         <Button
-        className={isLoggedIn? (hasError ? 'shake-animation' : 'submitBetsButton') : 'submitBetsButton'}
+        className={isLoggedIn ? (hasError ? 'shake-animation' : 'submitBetsButton') : 'submitBetsButton'}
         onClick={handleClick}
         >
         { isLoggedIn ? 'Submit Bets' : 'Login to Submit Bets' }

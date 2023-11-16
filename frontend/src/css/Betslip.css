@@ -64,23 +64,49 @@
 }
 
 @keyframes shake {
-    0% { transform: translateX(0); color: red; background-color: #2f2d2f;}
-    25% { transform: translateX(-5px); color: red; background-color: #2f2d2f;}
-    50% { transform: translateX(5px); color: red; background-color: #2f2d2f;}
-    75% { transform: translateX(-5px); color: red; background-color: #2f2d2f;}
-    100% { transform: translateX(0); color: red; background-color: #2f2d2f;}
+    0%, 100% { 
+        transform: translateX(0); 
+        color: red; 
+        background-color: #2f2d2f;
+    }
+    10%, 90% { 
+        transform: translateX(-3px); 
+        color: red; 
+        background-color: #2f2d2f;
+    }
+    20%, 80% { 
+        transform: translateX(-5px); 
+        color: red; 
+        background-color: #2f2d2f;
+    }
+    30%, 70% { 
+        transform: translateX(-3px); 
+        color: red; 
+        background-color: #2f2d2f;
+    }
+    40%, 60% { 
+        transform: translateX(0); 
+        color: red; 
+        background-color: #2f2d2f;
+    }
+    50% { 
+        transform: translateX(5px); 
+        color: red; 
+        background-color: #2f2d2f;
+    }
 }
+
   
 .shake-animation {
-    animation: shake 0.5s linear;
+    animation: shake .5s linear;
 }
 
 .submitBetsButton {
-    display: 'flex';
-    background: #2f2d2f;
+    color: #008000 !important;
 }
 
 .submitBetsButton:hover {
-    background: #2b90ff;
-    color: #ffffff;
+    /* background-color: #2b90ff; */
+    background-color: #008000 !important;
+    color: #ffffff !important;
 }
