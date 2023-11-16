@@ -19,7 +19,7 @@ const NBAPage = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        document.title = "AlgoSportsBets"
+        document.title = "Algo | NBA"
 
               axios({
                 method: "GET",

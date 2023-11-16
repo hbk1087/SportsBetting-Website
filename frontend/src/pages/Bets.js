@@ -27,7 +27,7 @@ function Bets() {
     const authToken = useSelector((state) => state.auth.token);
 
     useEffect(() => {
-        document.title = "Bets"
+        document.title = "Algo | My Bets"
         setLoading(true)
 
         axios({

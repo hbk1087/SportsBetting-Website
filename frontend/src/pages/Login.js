@@ -33,7 +33,7 @@ function Login() {
     })
 
     useEffect(() => {
-        document.title = "Login"
+        document.title = "Algo | Login"
     }, [])
 
     const logMeIn = (event) => {

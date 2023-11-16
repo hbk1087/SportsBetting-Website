@@ -42,7 +42,7 @@ function SignUp() {
     })
 
     useEffect(() => {
-        document.title = "Signup"
+        document.title = "Algo | Signup"
     }, [])
 
 

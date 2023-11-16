@@ -74,7 +74,7 @@ function Account() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Account"
+    document.title = "Algo | My Account"
 
     if (!authLoggedIn) {
       // Not allowed to access page - output status message and redirect to login page.
