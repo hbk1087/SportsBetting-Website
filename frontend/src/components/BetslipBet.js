@@ -332,7 +332,7 @@ const BetslipBet = ({bet}) => {
               setFormattedBet(prevState => ({
                   ...prevState, 
                   [name]: parsedValue, 
-                  potential_payout: truncateToTwoDecimals((parsedValue * odds) - parsedValue)
+                  potential_payout: truncateToTwoDecimals((parsedValue * odds))
               }));
           } else {
               setFormattedBet(prevState => ({
